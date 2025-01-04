@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
+import { dateConvert, emailConvert } from "@/utils/dateAndEmail";
 type QuestionCardPropsType = {
   email: string;
   id: string;
@@ -14,11 +15,6 @@ const QuestionCard = ({
   date,
   title,
 }: QuestionCardPropsType) => {
-  const dateFixed = date
-    .toString()
-    .replace(/[TZ]/g, " ")
-    .slice(0, date.toString().length - 5);
-  const emailfixed = email.replace("gmail.com", "");
   return (
     <div className={styles.main}>
       <Link href={`/question/${id}`}>
@@ -26,8 +22,8 @@ const QuestionCard = ({
       </Link>
       <p>{question}</p>
       <h4>
-        Posted by: <span>{emailfixed}</span> <br />
-        At UTC+00: {dateFixed}
+        Posted by: <span>{emailConvert(email)}</span> <br />
+        At: {dateConvert(date)}, UTC+00
       </h4>
     </div>
   );
