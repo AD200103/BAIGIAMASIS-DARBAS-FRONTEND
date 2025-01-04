@@ -8,7 +8,14 @@ const Questions = ({ questions }: QuestionPropsType) => {
   return (
     <div className={styles.main}>
       {questions.map((q) => (
-        <QuestionCard key={q.id} />
+        <QuestionCard
+          key={q.id}
+          email={q.email}
+          date={q.date}
+          id={q.id}
+          title={q.title}
+          question={q.question_text}
+        />
       ))}
     </div>
   );

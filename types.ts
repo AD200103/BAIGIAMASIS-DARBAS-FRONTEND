@@ -4,4 +4,5 @@ export type QuestionType = {
   date: Date;
   user_id: string;
   email: string;
+  title: string;
 };

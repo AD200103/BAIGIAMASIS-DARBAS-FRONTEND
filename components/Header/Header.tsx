@@ -9,7 +9,7 @@ const Header = () => {
           <Link href="/">
             <li>Home</li>
           </Link>
-          <Link href="/question">
+          <Link href="/ask_question">
             <li>Ask a question!</li>
           </Link>
           <Link href="/signin">

@@ -1,0 +1,38 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  border: black solid 4px;
+  width: 70%;
+  height: 130px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  gap: 5px;
+}
+.main h4 {
+  align-self: flex-end;
+  justify-self: flex-end;
+  font-weight: 200;
+  font-size: 0.8rem;
+}
+.main h4 span {
+  color: blue;
+}
+.main a,
+.main p {
+  align-self: flex-start;
+}
+.main a h2 {
+  font-weight: 300;
+  font-size: 1.3rem;
+  color: rgb(74, 74, 233);
+}
+.main a h2:hover {
+  color: rgb(38, 38, 155);
+}
+.main p {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
