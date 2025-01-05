@@ -1,0 +1,44 @@
+.signinForm {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  border: rgb(150, 147, 147) solid 2px;
+  border-radius: 5px;
+  width: 250px;
+  height: 280px;
+  gap: 10px;
+  margin-top: 50px;
+}
+.signinForm h1 {
+  text-align: center;
+  color: rgb(119, 117, 117);
+  font-weight: lighter;
+}
+.signinForm input,
+.signinForm button {
+  all: unset;
+  border: rgb(184, 182, 182) 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+}
+.signinForm input:focus {
+  border-color: rgb(0, 102, 255);
+}
+.signinForm button {
+  background-color: rgb(0, 102, 255);
+  border: none;
+  color: white;
+  padding: 7px;
+  cursor: pointer;
+}
+.signinForm button:hover {
+  scale: 1.07;
+}
+.signinForm button:active {
+  scale: 1;
+}
+.signinForm p {
+  text-align: center;
+}

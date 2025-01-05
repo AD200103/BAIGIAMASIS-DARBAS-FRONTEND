@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 type PageTemplateType = {
   children: ReactNode;
 };
+
 const PageTemplate = ({ children }: PageTemplateType) => {
   return (
     <div className={styles.main}>
