@@ -3,15 +3,15 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import cookie from "js-cookie";
 import PageTemplate from "@/components/PageTemplate/PageTemplate";
-import { QuestionType } from "@/types";
+import { QuestionType, AnswerType } from "@/types";
 import { dateConvert, emailConvert } from "@/utils/dateAndEmail";
 import Answers from "@/components/Answers/Answers";
 import styles from "./styles.module.css";
+
 const MainQuestionPage = () => {
   const [question, setQuestion] = useState<null | QuestionType>(null);
-  const [answer, setAnswer] = useState<string>("");
-  const [likes, setLikes] = useState<number>(0);
-  const [dislikes, setDislikes] = useState<number>(0);
+  const [answerText, setAnswerText] = useState<string>("");
+  const [newAnswer, setNewAnswer] = useState<null | AnswerType>(null);
 
   const router = useRouter();
   const id = router.query.id;
@@ -20,11 +20,8 @@ const MainQuestionPage = () => {
     const response = await axios.get(`http://localhost:3002/questions/${id}`);
     setQuestion(response.data.question);
   };
-
   const body = {
-    answer_text: answer,
-    gained_likes_number: likes,
-    gained_dislikes_number: dislikes,
+    answer_text: answerText,
   };
   const headers = {
     authorization: cookieG,
@@ -36,7 +33,10 @@ const MainQuestionPage = () => {
         body,
         { headers }
       );
-      console.log(response);
+      if (response.status == 201) {
+        setNewAnswer(response.data.answer);
+        setAnswerText("");
+      }
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.status == 403) {
@@ -44,7 +44,6 @@ const MainQuestionPage = () => {
       }
     }
   };
-
   useEffect(() => {
     if (id) {
       getQuestion();
@@ -65,13 +64,13 @@ const MainQuestionPage = () => {
           </div>
         )}
         <h2>Answers</h2>
-        <Answers />
+        <Answers answer={newAnswer} />
         <div className={styles.answerForm}>
           <textarea
-            value={answer}
+            value={answerText}
             maxLength={900}
             placeholder="Your answer..."
-            onChange={(e) => setAnswer(e.target.value)}
+            onChange={(e) => setAnswerText(e.target.value)}
           ></textarea>
           <button onClick={addAnswer}>Add answer</button>
         </div>

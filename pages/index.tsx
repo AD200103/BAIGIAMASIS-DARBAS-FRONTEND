@@ -10,7 +10,6 @@ const MainPage = () => {
     const response = await axios.get("http://localhost:3002/questions");
     setQuestions(response.data.questions);
   };
-  console.log(questions);
   useEffect(() => {
     getQuestions();
   }, []);
