@@ -21,9 +21,9 @@ const MainSigninPage = () => {
   const signIn = async () => {
     try {
       const response = await axios.post("http://localhost:3002/register", body);
-      console.log(response);
       if (response.status == 200) {
         cookie.set("jwt-token", response.data.token);
+        cookie.set("user-email", email);
         setName("");
         setEmail("");
         setPassword("");
