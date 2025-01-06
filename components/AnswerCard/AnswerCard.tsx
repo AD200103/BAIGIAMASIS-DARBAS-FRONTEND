@@ -24,8 +24,7 @@ const AnswerCard = ({
 }: AnswerCardPropsType) => {
   const token = cookie.get("jwt-token");
   const userIdFromToken = decodeToken(token!);
-  console.log("userIdFromToken", userIdFromToken);
-  console.log("userId", userId);
+
   const headers = { authorization: cookie.get("jwt-token") };
 
   const deleteAnswer = async () => {
@@ -47,7 +46,7 @@ const AnswerCard = ({
       <p>{answer}</p>
       <div>
         <p>{dateConvert(date)}, UTC+00</p>
-        <p>{name}</p>
+        {userIdFromToken == userId ? <p>You</p> : <p>{name}</p>}
       </div>
       {userIdFromToken == userId ? (
         <button onClick={deleteAnswer}>Delete</button>
