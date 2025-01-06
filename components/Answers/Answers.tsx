@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import AnswerCard from "../AnswerCard/AnswerCard";
 import { AnswerType } from "@/types";
+
 type NewAnswerType = {
   answer: AnswerType | null;
 };
@@ -42,8 +43,8 @@ const Answers = ({ answer }: NewAnswerType) => {
             id={a.id}
             answer={a.answer_text}
             date={a.date}
-            email={a.email}
             name={a.name}
+            userId={a.userId}
             setAnswers={setAnswers}
           />
         ))}

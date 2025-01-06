@@ -14,6 +14,11 @@ export type AnswerType = {
   gained_likes_number: number;
   gained_dislikes_number: number;
   question_id: string;
+  name: string;
+  userId: string;
+};
+export type TokenType = {
+  id: string;
   email: string;
   name: string;
 };

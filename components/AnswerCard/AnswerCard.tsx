@@ -2,24 +2,30 @@ import cookie from "js-cookie";
 import axios from "axios";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateAndEmail";
+import { decodeToken } from "@/utils/jwtTokenDecoded";
 import { AnswerType } from "@/types";
+
 type AnswerCardPropsType = {
   answer: string;
   date: Date;
-  email: string;
   id: string;
   name: string;
+  userId: string;
   setAnswers: React.Dispatch<React.SetStateAction<AnswerType[]>>;
 };
 
 const AnswerCard = ({
   answer,
   date,
-  email,
   name,
   id,
+  userId,
   setAnswers,
 }: AnswerCardPropsType) => {
+  const token = cookie.get("jwt-token");
+  const userIdFromToken = decodeToken(token!);
+  console.log("userIdFromToken", userIdFromToken);
+  console.log("userId", userId);
   const headers = { authorization: cookie.get("jwt-token") };
 
   const deleteAnswer = async () => {
@@ -35,7 +41,6 @@ const AnswerCard = ({
       console.log(err);
     }
   };
-  const userEmail = cookie.get("user-email");
 
   return (
     <div className={styles.main}>
@@ -44,7 +49,7 @@ const AnswerCard = ({
         <p>{dateConvert(date)}, UTC+00</p>
         <p>{name}</p>
       </div>
-      {userEmail == email ? (
+      {userIdFromToken == userId ? (
         <button onClick={deleteAnswer}>Delete</button>
       ) : (
         <></>
