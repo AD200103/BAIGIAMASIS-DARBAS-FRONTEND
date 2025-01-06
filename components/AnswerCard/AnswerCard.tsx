@@ -10,6 +10,7 @@ type AnswerCardPropsType = {
   id: string;
   setAnswers: React.Dispatch<React.SetStateAction<AnswerType[]>>;
 };
+
 const AnswerCard = ({
   answer,
   date,
@@ -26,14 +27,14 @@ const AnswerCard = ({
         { headers }
       );
       if (response.status == 200) {
-        setAnswers((prev: AnswerType[]) => prev.filter((a) => a.id !== id));
+        setAnswers((prev) => prev.filter((a) => a.id !== id));
       }
     } catch (err) {
       console.log(err);
     }
   };
-
   const userEmail = cookie.get("user-email");
+
   return (
     <div className={styles.main}>
       <p>{answer}</p>
