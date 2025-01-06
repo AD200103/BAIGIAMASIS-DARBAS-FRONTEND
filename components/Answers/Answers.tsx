@@ -39,9 +39,11 @@ const Answers = ({ answer }: NewAnswerType) => {
         answers.map((a) => (
           <AnswerCard
             key={a.id}
+            id={a.id}
             answer={a.answer_text}
             date={a.date}
             email={a.email}
+            setAnswers={setAnswers}
           />
         ))}
     </div>

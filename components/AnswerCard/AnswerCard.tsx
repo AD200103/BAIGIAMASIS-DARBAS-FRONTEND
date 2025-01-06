@@ -1,13 +1,38 @@
-import styles from "./styles.module.css";
 import cookie from "js-cookie";
+import axios from "axios";
+import styles from "./styles.module.css";
 import { emailConvert, dateConvert } from "@/utils/dateAndEmail";
+import { AnswerType } from "@/types";
 type AnswerCardPropsType = {
   answer: string;
   date: Date;
   email: string;
+  id: string;
+  setAnswers: React.Dispatch<React.SetStateAction<AnswerType[]>>;
 };
+const AnswerCard = ({
+  answer,
+  date,
+  email,
+  id,
+  setAnswers,
+}: AnswerCardPropsType) => {
+  const headers = { authorization: cookie.get("jwt-token") };
 
-const AnswerCard = ({ answer, date, email }: AnswerCardPropsType) => {
+  const deleteAnswer = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3002/answer/${id}`,
+        { headers }
+      );
+      if (response.status == 200) {
+        setAnswers((prev: AnswerType[]) => prev.filter((a) => a.id !== id));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const userEmail = cookie.get("user-email");
   return (
     <div className={styles.main}>
@@ -16,7 +41,11 @@ const AnswerCard = ({ answer, date, email }: AnswerCardPropsType) => {
         <p>{dateConvert(date)}, UTC+00</p>
         <p>{emailConvert(email)}</p>
       </div>
-      {userEmail == email ? <button>Delete</button> : <></>}
+      {userEmail == email ? (
+        <button onClick={deleteAnswer}>Delete</button>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
