@@ -1,0 +1,19 @@
+import jwt from "jsonwebtoken";
+export const tokenG = (token: string) => {
+  try {
+    const getToken = token;
+
+    jwt.verify(
+      getToken,
+      "kweofkweofkweoifewifmewiofmewmfokwemckemokc",
+      (err, decoded) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log(decoded);
+      }
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};

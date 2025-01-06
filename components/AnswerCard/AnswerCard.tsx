@@ -1,13 +1,14 @@
 import cookie from "js-cookie";
 import axios from "axios";
 import styles from "./styles.module.css";
-import { emailConvert, dateConvert } from "@/utils/dateAndEmail";
+import { dateConvert } from "@/utils/dateAndEmail";
 import { AnswerType } from "@/types";
 type AnswerCardPropsType = {
   answer: string;
   date: Date;
   email: string;
   id: string;
+  name: string;
   setAnswers: React.Dispatch<React.SetStateAction<AnswerType[]>>;
 };
 
@@ -15,6 +16,7 @@ const AnswerCard = ({
   answer,
   date,
   email,
+  name,
   id,
   setAnswers,
 }: AnswerCardPropsType) => {
@@ -40,7 +42,7 @@ const AnswerCard = ({
       <p>{answer}</p>
       <div>
         <p>{dateConvert(date)}, UTC+00</p>
-        <p>{emailConvert(email)}</p>
+        <p>{name}</p>
       </div>
       {userEmail == email ? (
         <button onClick={deleteAnswer}>Delete</button>

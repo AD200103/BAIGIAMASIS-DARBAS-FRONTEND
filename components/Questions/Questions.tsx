@@ -14,6 +14,7 @@ const Questions = ({ questions }: QuestionPropsType) => {
           date={q.date}
           id={q.id}
           title={q.title}
+          name={q.name}
           question={q.question_text}
         />
       ))}

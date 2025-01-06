@@ -43,6 +43,7 @@ const Answers = ({ answer }: NewAnswerType) => {
             answer={a.answer_text}
             date={a.date}
             email={a.email}
+            name={a.name}
             setAnswers={setAnswers}
           />
         ))}

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import cookie from "js-cookie";
 import PageTemplate from "@/components/PageTemplate/PageTemplate";
 import { QuestionType, AnswerType } from "@/types";
-import { dateConvert, emailConvert } from "@/utils/dateAndEmail";
+import { dateConvert } from "@/utils/dateAndEmail";
 import Answers from "@/components/Answers/Answers";
 import styles from "./styles.module.css";
 
@@ -58,7 +58,7 @@ const MainQuestionPage = () => {
             <h1>{question.title}</h1>
             <p>{question.question_text}</p>
             <div className={styles.dateEmailBox}>
-              <p>Asked by: {emailConvert(question?.email)}</p>
+              <p>Asked by: {question?.name}</p>
               <p>At: {dateConvert(question?.date)}, UTC+00</p>
             </div>
           </div>

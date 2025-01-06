@@ -5,6 +5,7 @@ export type QuestionType = {
   user_id: string;
   email: string;
   title: string;
+  name: string;
 };
 export type AnswerType = {
   id: string;
@@ -14,4 +15,5 @@ export type AnswerType = {
   gained_dislikes_number: number;
   question_id: string;
   email: string;
+  name: string;
 };
