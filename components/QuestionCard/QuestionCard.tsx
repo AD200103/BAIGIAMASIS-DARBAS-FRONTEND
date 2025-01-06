@@ -2,12 +2,12 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateAndEmail";
 type QuestionCardPropsType = {
-  email: string;
   id: string;
   question: string;
   date: Date;
   title: string;
   name: string;
+  answerNumber: number;
 };
 const QuestionCard = ({
   id,
@@ -15,6 +15,7 @@ const QuestionCard = ({
   date,
   title,
   name,
+  answerNumber,
 }: QuestionCardPropsType) => {
   return (
     <div className={styles.main}>
@@ -26,6 +27,7 @@ const QuestionCard = ({
         Posted by: <span>{name}</span> <br />
         At: {dateConvert(date)}, UTC+00
       </h4>
+      <p>Answers: {answerNumber}</p>
     </div>
   );
 };

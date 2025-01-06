@@ -17,7 +17,9 @@ const Answers = ({ answer }: NewAnswerType) => {
       const response = await axios.get(
         `http://localhost:3002/question/${id}/answers`
       );
-      setAnswers(response.data.answers);
+      if (response.status == 200) {
+        setAnswers(response.data.answers);
+      }
     } catch (err) {
       console.log(err);
     }

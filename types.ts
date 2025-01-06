@@ -6,6 +6,7 @@ export type QuestionType = {
   email: string;
   title: string;
   name: string;
+  answers: number;
 };
 export type AnswerType = {
   id: string;

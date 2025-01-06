@@ -26,6 +26,24 @@ const MainQuestionPage = () => {
   const headers = {
     authorization: cookieG,
   };
+
+  // const updateAnswersNumberToQuestion = async () => {
+  //   const body = {
+  //     answers: answersNum,
+  //   };
+  //   try {
+  //     const response = await axios.put(
+  //       `http://localhost:3002/question/${id}`,
+  //       body
+  //     );
+  //     if (response.status == 200) {
+  //       console.log(response.data.updatedQuestion.answers);
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
   const addAnswer = async () => {
     try {
       const response = await axios.post(
@@ -44,6 +62,7 @@ const MainQuestionPage = () => {
       }
     }
   };
+
   useEffect(() => {
     if (id) {
       getQuestion();
@@ -72,7 +91,13 @@ const MainQuestionPage = () => {
             placeholder="Your answer..."
             onChange={(e) => setAnswerText(e.target.value)}
           ></textarea>
-          <button onClick={addAnswer}>Add answer</button>
+          <button
+            onClick={() => {
+              addAnswer();
+            }}
+          >
+            Add answer
+          </button>
         </div>
       </PageTemplate>
     </>

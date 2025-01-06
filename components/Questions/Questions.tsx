@@ -10,12 +10,12 @@ const Questions = ({ questions }: QuestionPropsType) => {
       {questions.map((q) => (
         <QuestionCard
           key={q.id}
-          email={q.email}
           date={q.date}
           id={q.id}
           title={q.title}
           name={q.name}
           question={q.question_text}
+          answerNumber={q.answers}
         />
       ))}
     </div>

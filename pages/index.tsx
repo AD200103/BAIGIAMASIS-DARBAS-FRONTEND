@@ -13,7 +13,6 @@ const MainPage = () => {
   useEffect(() => {
     getQuestions();
   }, []);
-
   return (
     <>
       <PageTemplate>
