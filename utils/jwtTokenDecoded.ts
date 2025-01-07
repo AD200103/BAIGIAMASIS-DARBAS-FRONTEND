@@ -7,6 +7,6 @@ export const decodeToken = (token: string) => {
       return decoded!.id;
     }
   } catch (error) {
-    console.error("Error decoding token:", error);
+    console.error(error);
   }
 };

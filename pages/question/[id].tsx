@@ -24,9 +24,6 @@ const MainQuestionPage = () => {
   const body = {
     answer_text: answerText,
   };
-  const headers = {
-    authorization: cookieG,
-  };
 
   const updateAnswersNumberToQuestion = async (answerAmmount: number) => {
     const body = {
@@ -47,6 +44,9 @@ const MainQuestionPage = () => {
 
   const addAnswer = async () => {
     try {
+      const headers = {
+        authorization: cookieG,
+      };
       const response = await axios.post(
         `http://localhost:3002/question/${id}/answers`,
         body,
