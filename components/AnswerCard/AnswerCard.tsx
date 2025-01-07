@@ -25,11 +25,13 @@ const AnswerCard = ({
   userId,
   likes,
   dislikes,
+  likeStatus,
+  dislikeStatus,
   setAnswers,
 }: AnswerCardPropsType) => {
   const token = cookie.get("jwt-token");
   const userIdFromToken = decodeToken(token!);
-  const [liked, setLiked] = useState(false);
+  const [likesAmmount, setLikesAmmount] = useState(likes);
   // const [disliked, setDisliked] = useState(false);
 
   const deleteAnswer = async () => {
@@ -48,12 +50,18 @@ const AnswerCard = ({
   };
 
   const updateAnswerLikeStatus = async () => {
-    const headers = { authorization: cookie.get("jwt-token") };
     try {
-      setLiked(!liked);
+      const headers = { authorization: cookie.get("jwt-token") };
+      setAnswers((prev) =>
+        prev!.map((a) =>
+          a.id == id ? { ...a, like_status: !a.like_status } : a
+        )
+      );
       const body = {
-        gained_likes_number: !liked ? likes + 1 : likes,
+        like_status: !likeStatus,
+        gained_likes_number: !likeStatus ? likes + 1 : likes - 1,
       };
+      setLikesAmmount(body.gained_likes_number);
       const response = await axios.put(
         `http://localhost:3002/answer/${id}`,
         body,
@@ -92,7 +100,8 @@ const AnswerCard = ({
           ) : (
             <button>Like</button>
           )}
-          <p>Likes:{likes}</p>
+          <p>Likes:{likesAmmount}</p>
+          {likeStatus ? <p>true</p> : <p>false</p>}
         </div>
         <div className={styles.dislikes}>
           <button>Dislike</button>

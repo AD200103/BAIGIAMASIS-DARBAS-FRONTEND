@@ -17,6 +17,7 @@ export type AnswerType = {
   question_id: string;
   name: string;
   userId: string;
+  like_status: boolean;
 };
 export type TokenType = {
   id: string;

@@ -56,6 +56,8 @@ const Answers = ({ answer, updateAnswersNumberToQuestion }: NewAnswerType) => {
             name={a.name}
             userId={a.userId}
             likes={a.gained_likes_number}
+            likeStatus={a.like_status}
+            dislikeStatus={a.dislike_status}
             dislikes={a.gained_dislikes_number}
             setAnswers={setAnswers}
           />
