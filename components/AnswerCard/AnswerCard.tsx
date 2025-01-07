@@ -11,7 +11,7 @@ type AnswerCardPropsType = {
   id: string;
   name: string;
   userId: string;
-  setAnswers: React.Dispatch<React.SetStateAction<AnswerType[]>>;
+  setAnswers: React.Dispatch<React.SetStateAction<AnswerType[] | null>>;
 };
 
 const AnswerCard = ({
@@ -34,7 +34,7 @@ const AnswerCard = ({
         { headers }
       );
       if (response.status == 200) {
-        setAnswers((prev) => prev.filter((a) => a.id !== id));
+        setAnswers((prev) => prev!.filter((a) => a.id !== id));
       }
     } catch (err) {
       console.log(err);

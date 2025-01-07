@@ -12,14 +12,15 @@ const MainQuestionPage = () => {
   const [question, setQuestion] = useState<null | QuestionType>(null);
   const [answerText, setAnswerText] = useState<string>("");
   const [newAnswer, setNewAnswer] = useState<null | AnswerType>(null);
-
   const router = useRouter();
   const id = router.query.id;
   const cookieG = cookie.get("jwt-token");
+
   const getQuestion = async () => {
     const response = await axios.get(`http://localhost:3002/questions/${id}`);
     setQuestion(response.data.question);
   };
+
   const body = {
     answer_text: answerText,
   };
@@ -27,22 +28,22 @@ const MainQuestionPage = () => {
     authorization: cookieG,
   };
 
-  // const updateAnswersNumberToQuestion = async () => {
-  //   const body = {
-  //     answers: answersNum,
-  //   };
-  //   try {
-  //     const response = await axios.put(
-  //       `http://localhost:3002/question/${id}`,
-  //       body
-  //     );
-  //     if (response.status == 200) {
-  //       console.log(response.data.updatedQuestion.answers);
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const updateAnswersNumberToQuestion = async (answerAmmount: number) => {
+    const body = {
+      answers: answerAmmount,
+    };
+    try {
+      const response = await axios.put(
+        `http://localhost:3002/question/${id}`,
+        body
+      );
+      if (response.status == 200) {
+        console.log("Success!");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const addAnswer = async () => {
     try {
@@ -83,7 +84,10 @@ const MainQuestionPage = () => {
           </div>
         )}
         <h2>Answers</h2>
-        <Answers answer={newAnswer} />
+        <Answers
+          answer={newAnswer}
+          updateAnswersNumberToQuestion={updateAnswersNumberToQuestion}
+        />
         <div className={styles.answerForm}>
           <textarea
             value={answerText}
