@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import cookie from "js-cookie";
 import axios, { AxiosError } from "axios";
 import styles from "./styles.module.css";
@@ -5,6 +6,8 @@ import { dateConvert } from "@/utils/dateAndEmail";
 import { decodeToken } from "@/utils/jwtTokenDecoded";
 import { AnswerType } from "@/types";
 import { useState } from "react";
+import like from "../../assets/img/like.svg";
+import activeLike from "../../assets/img/likeActive.svg";
 
 type AnswerCardPropsType = {
   answer: string;
@@ -14,6 +17,8 @@ type AnswerCardPropsType = {
   userId: string;
   likes: number;
   dislikes: number;
+  likeStatus: boolean;
+  usersWhoLikedTheAnswer: string[];
   setAnswers: React.Dispatch<React.SetStateAction<AnswerType[] | null>>;
 };
 
@@ -25,14 +30,14 @@ const AnswerCard = ({
   userId,
   likes,
   dislikes,
+  usersWhoLikedTheAnswer,
   likeStatus,
-  dislikeStatus,
   setAnswers,
 }: AnswerCardPropsType) => {
   const token = cookie.get("jwt-token");
   const userIdFromToken = decodeToken(token!);
   const [likesAmmount, setLikesAmmount] = useState(likes);
-  // const [disliked, setDisliked] = useState(false);
+  const [userIdArr, setUserIdArr] = useState(usersWhoLikedTheAnswer);
 
   const deleteAnswer = async () => {
     const headers = { authorization: cookie.get("jwt-token") };
@@ -52,16 +57,11 @@ const AnswerCard = ({
   const updateAnswerLikeStatus = async () => {
     try {
       const headers = { authorization: cookie.get("jwt-token") };
-      setAnswers((prev) =>
-        prev!.map((a) =>
-          a.id == id ? { ...a, like_status: !a.like_status } : a
-        )
-      );
       const body = {
-        like_status: !likeStatus,
-        gained_likes_number: !likeStatus ? likes + 1 : likes - 1,
+        // usersWhoLikedTheAnswer: userIdArr,
+        // like_status: !likeStatus,
+        // gained_likes_number: likeStatus == true ? likes : likes + 1,
       };
-      setLikesAmmount(body.gained_likes_number);
       const response = await axios.put(
         `http://localhost:3002/answer/${id}`,
         body,
@@ -70,7 +70,20 @@ const AnswerCard = ({
         }
       );
       if (response.status == 200) {
-        return;
+        setAnswers((prev) =>
+          prev!.map((a) =>
+            a.id == id ? { ...a, like_status: !a.like_status } : a
+          )
+        );
+        // setLikesAmmount(body.gained_likes_number);
+        // if (!userIdArr.includes(userIdFromToken!) && likeStatus == true) {
+        //   setUserIdArr((prev) => [...prev, userIdFromToken!]);
+        // }
+        // if (userIdArr.includes(userIdFromToken!) && likeStatus == false) {
+        //   setUserIdArr((prev) =>
+        //     prev.filter((userid) => userid !== userIdFromToken)
+        //   );
+        // }
       }
     } catch (err: unknown) {
       const error = err as AxiosError;
@@ -95,13 +108,16 @@ const AnswerCard = ({
                 updateAnswerLikeStatus();
               }}
             >
-              Like
+              {userIdArr.includes(userIdFromToken!) ? (
+                <img src={activeLike.src} alt="active-like" />
+              ) : (
+                <img src={like.src} alt="like" />
+              )}
             </button>
           ) : (
             <button>Like</button>
           )}
           <p>Likes:{likesAmmount}</p>
-          {likeStatus ? <p>true</p> : <p>false</p>}
         </div>
         <div className={styles.dislikes}>
           <button>Dislike</button>

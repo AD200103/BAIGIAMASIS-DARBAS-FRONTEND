@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import styles from "./styles.module.css";
 import { useEffect, useState } from "react";
@@ -36,13 +37,12 @@ const Answers = ({ answer, updateAnswersNumberToQuestion }: NewAnswerType) => {
     if (id) {
       getAnswers();
     }
-    console.log("o");
   }, [id]);
   useEffect(() => {
     if (answers) {
       updateAnswersNumberToQuestion(answers.length);
     }
-  }, [answers]);
+  }, [answers && answers!.length]);
 
   return (
     <div className={styles.main}>
@@ -57,8 +57,8 @@ const Answers = ({ answer, updateAnswersNumberToQuestion }: NewAnswerType) => {
             userId={a.userId}
             likes={a.gained_likes_number}
             likeStatus={a.like_status}
-            dislikeStatus={a.dislike_status}
             dislikes={a.gained_dislikes_number}
+            usersWhoLikedTheAnswer={a.usersWhoLikedTheAnswer}
             setAnswers={setAnswers}
           />
         ))}

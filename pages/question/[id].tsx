@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
