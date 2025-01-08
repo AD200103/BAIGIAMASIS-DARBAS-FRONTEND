@@ -57,9 +57,18 @@ const AnswerCard = ({
   const updateAnswerLikeStatus = async () => {
     try {
       const headers = { authorization: cookie.get("jwt-token") };
+      if (!userIdArr.includes(userIdFromToken!)) {
+        setUserIdArr((prev) => [...prev, userIdFromToken!]);
+      }
+
+      if (userIdArr.includes(userIdFromToken!)) {
+        setUserIdArr((prev) =>
+          prev.filter((userid) => userid !== userIdFromToken)
+        );
+      }
+      console.log(userIdArr);
       const body = {
-        // usersWhoLikedTheAnswer: userIdArr,
-        // like_status: !likeStatus,
+        usersWhoLikedTheAnswer: userIdArr,
         // gained_likes_number: likeStatus == true ? likes : likes + 1,
       };
       const response = await axios.put(
@@ -70,20 +79,12 @@ const AnswerCard = ({
         }
       );
       if (response.status == 200) {
-        setAnswers((prev) =>
-          prev!.map((a) =>
-            a.id == id ? { ...a, like_status: !a.like_status } : a
-          )
-        );
+        // setAnswers((prev) =>
+        //   prev!.map((a) =>
+        //     a.id == id ? { ...a, like_status: !a.like_status } : a
+        //   )
+        // );
         // setLikesAmmount(body.gained_likes_number);
-        // if (!userIdArr.includes(userIdFromToken!) && likeStatus == true) {
-        //   setUserIdArr((prev) => [...prev, userIdFromToken!]);
-        // }
-        // if (userIdArr.includes(userIdFromToken!) && likeStatus == false) {
-        //   setUserIdArr((prev) =>
-        //     prev.filter((userid) => userid !== userIdFromToken)
-        //   );
-        // }
       }
     } catch (err: unknown) {
       const error = err as AxiosError;
@@ -92,6 +93,7 @@ const AnswerCard = ({
       }
     }
   };
+  console.log(userIdArr);
 
   return (
     <div className={styles.main}>
@@ -119,10 +121,10 @@ const AnswerCard = ({
           )}
           <p>Likes:{likesAmmount}</p>
         </div>
-        <div className={styles.dislikes}>
+        {/* <div className={styles.dislikes}>
           <button>Dislike</button>
           <p>Dislikes:{dislikes}</p>
-        </div>
+        </div> */}
       </div>
       {userIdFromToken == userId ? (
         <button onClick={deleteAnswer}>Delete</button>

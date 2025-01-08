@@ -35,9 +35,6 @@ const MainQuestionPage = () => {
         `http://localhost:3002/question/${id}`,
         body
       );
-      if (response.status == 200) {
-        console.log("Success!");
-      }
     } catch (err) {
       console.log(err);
     }
