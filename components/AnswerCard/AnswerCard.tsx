@@ -36,9 +36,9 @@ const AnswerCard = ({
   const [likesAmmount, setLikesAmmount] = useState(
     usersWhoLikedTheAnswer.length
   );
-  const [userIdArr, setUserIdArr] = useState(usersWhoLikedTheAnswer);
+  const [userLikeIdArr, setUserLikeIdArr] = useState(usersWhoLikedTheAnswer);
   const [likeState, setLikeState] = useState(
-    userIdArr.includes(userIdFromToken!)
+    userLikeIdArr.includes(userIdFromToken!)
   );
 
   const deleteAnswer = async () => {
@@ -56,14 +56,19 @@ const AnswerCard = ({
     }
   };
 
-  const updateAnswerLikeStatus = async () => {
+  const updateAnswerLikeStatus = async (
+    userLikeIdArr: string[],
+    setUserLikeIdArr: React.Dispatch<React.SetStateAction<string[]>>,
+    setLikesAmmount: React.Dispatch<React.SetStateAction<number>>,
+    setLikeState: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     try {
       const headers = { authorization: cookie.get("jwt-token") };
 
       const body = {
-        usersWhoLikedTheAnswer: userIdArr.includes(userIdFromToken!)
-          ? userIdArr.filter((userid) => userid !== userIdFromToken!)
-          : [...userIdArr, userIdFromToken!],
+        usersWhoLikedTheAnswer: userLikeIdArr.includes(userIdFromToken!)
+          ? userLikeIdArr.filter((userid) => userid !== userIdFromToken!)
+          : [...userLikeIdArr, userIdFromToken!],
       };
 
       const response = await axios.put(
@@ -76,8 +81,9 @@ const AnswerCard = ({
 
       if (response.status == 200) {
         const usersArray = response.data.answer.usersWhoLikedTheAnswer;
-        setUserIdArr(usersArray);
+        setUserLikeIdArr(usersArray);
         setLikesAmmount(usersArray.length);
+
         if (usersArray.includes(userIdFromToken!)) {
           setLikeState(true);
         }
@@ -105,7 +111,12 @@ const AnswerCard = ({
           {userIdFromToken !== userId ? (
             <button
               onClick={() => {
-                updateAnswerLikeStatus();
+                updateAnswerLikeStatus(
+                  userLikeIdArr,
+                  setUserLikeIdArr,
+                  setLikesAmmount,
+                  setLikeState
+                );
               }}
             >
               {likeState ? (
