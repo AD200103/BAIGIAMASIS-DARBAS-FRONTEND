@@ -38,8 +38,9 @@ const AnswerCard = ({
   );
   const [userIdArr, setUserIdArr] = useState(usersWhoLikedTheAnswer);
   const [likeState, setLikeState] = useState(
-    usersWhoLikedTheAnswer.includes(userIdFromToken!)
+    userIdArr.includes(userIdFromToken!)
   );
+
   const deleteAnswer = async () => {
     const headers = { authorization: cookie.get("jwt-token") };
     try {
@@ -60,7 +61,9 @@ const AnswerCard = ({
       const headers = { authorization: cookie.get("jwt-token") };
 
       const body = {
-        usersWhoLikedTheAnswer: userIdArr,
+        usersWhoLikedTheAnswer: userIdArr.includes(userIdFromToken!)
+          ? userIdArr.filter((userid) => userid !== userIdFromToken!)
+          : [...userIdArr, userIdFromToken!],
       };
 
       const response = await axios.put(
@@ -72,26 +75,13 @@ const AnswerCard = ({
       );
 
       if (response.status == 200) {
-        console.log(response.data.answer.usersWhoLikedTheAnswer);
-        if (!userIdArr.includes(userIdFromToken!)) {
-          setUserIdArr((prev) => [...prev, userIdFromToken!]);
-        }
-        if (userIdArr.includes(userIdFromToken!)) {
-          setUserIdArr((prev) =>
-            prev.filter((userid) => userid !== userIdFromToken)
-          );
-        }
-        setLikesAmmount(userIdArr.length);
-        if (
-          response.data.answer.usersWhoLikedTheAnswer.includes(userIdFromToken!)
-        ) {
+        const usersArray = response.data.answer.usersWhoLikedTheAnswer;
+        setUserIdArr(usersArray);
+        setLikesAmmount(usersArray.length);
+        if (usersArray.includes(userIdFromToken!)) {
           setLikeState(true);
         }
-        if (
-          !response.data.answer.usersWhoLikedTheAnswer.includes(
-            userIdFromToken!
-          )
-        ) {
+        if (!usersArray.includes(userIdFromToken!)) {
           setLikeState(false);
         }
       }

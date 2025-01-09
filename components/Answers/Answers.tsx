@@ -6,16 +6,6 @@ import { useRouter } from "next/router";
 import AnswerCard from "../AnswerCard/AnswerCard";
 import { AnswerType } from "@/types";
 
-// const body = {
-//   usersWhoLikedTheAnswer: usersWhoLikedTheAnswer.includes(
-//     userIdFromToken!
-//   )
-//     ? usersWhoLikedTheAnswer.filter(
-//         (userid) => userid !== userIdFromToken!
-//       )
-//     : [...usersWhoLikedTheAnswer, userIdFromToken!],
-// };
-
 type NewAnswerType = {
   answer: AnswerType | null;
   updateAnswersNumberToQuestion: (answers: number) => void;
@@ -32,7 +22,6 @@ const Answers = ({ answer, updateAnswersNumberToQuestion }: NewAnswerType) => {
       );
       if (response.status == 200) {
         setAnswers(response.data.answers);
-        console.log("success");
       }
     } catch (err) {
       console.log(err);
