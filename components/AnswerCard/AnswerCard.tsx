@@ -28,17 +28,18 @@ const AnswerCard = ({
   name,
   id,
   userId,
-  likes,
-  dislikes,
   usersWhoLikedTheAnswer,
-  likeStatus,
   setAnswers,
 }: AnswerCardPropsType) => {
   const token = cookie.get("jwt-token");
   const userIdFromToken = decodeToken(token!);
-  const [likesAmmount, setLikesAmmount] = useState(likes);
+  const [likesAmmount, setLikesAmmount] = useState(
+    usersWhoLikedTheAnswer.length
+  );
   const [userIdArr, setUserIdArr] = useState(usersWhoLikedTheAnswer);
-
+  const [likeState, setLikeState] = useState(
+    usersWhoLikedTheAnswer.includes(userIdFromToken!)
+  );
   const deleteAnswer = async () => {
     const headers = { authorization: cookie.get("jwt-token") };
     try {
@@ -57,20 +58,11 @@ const AnswerCard = ({
   const updateAnswerLikeStatus = async () => {
     try {
       const headers = { authorization: cookie.get("jwt-token") };
-      if (!userIdArr.includes(userIdFromToken!)) {
-        setUserIdArr((prev) => [...prev, userIdFromToken!]);
-      }
 
-      if (userIdArr.includes(userIdFromToken!)) {
-        setUserIdArr((prev) =>
-          prev.filter((userid) => userid !== userIdFromToken)
-        );
-      }
-      console.log(userIdArr);
       const body = {
         usersWhoLikedTheAnswer: userIdArr,
-        // gained_likes_number: likeStatus == true ? likes : likes + 1,
       };
+
       const response = await axios.put(
         `http://localhost:3002/answer/${id}`,
         body,
@@ -78,13 +70,30 @@ const AnswerCard = ({
           headers,
         }
       );
+
       if (response.status == 200) {
-        // setAnswers((prev) =>
-        //   prev!.map((a) =>
-        //     a.id == id ? { ...a, like_status: !a.like_status } : a
-        //   )
-        // );
-        // setLikesAmmount(body.gained_likes_number);
+        console.log(response.data.answer.usersWhoLikedTheAnswer);
+        if (!userIdArr.includes(userIdFromToken!)) {
+          setUserIdArr((prev) => [...prev, userIdFromToken!]);
+        }
+        if (userIdArr.includes(userIdFromToken!)) {
+          setUserIdArr((prev) =>
+            prev.filter((userid) => userid !== userIdFromToken)
+          );
+        }
+        setLikesAmmount(userIdArr.length);
+        if (
+          response.data.answer.usersWhoLikedTheAnswer.includes(userIdFromToken!)
+        ) {
+          setLikeState(true);
+        }
+        if (
+          !response.data.answer.usersWhoLikedTheAnswer.includes(
+            userIdFromToken!
+          )
+        ) {
+          setLikeState(false);
+        }
       }
     } catch (err: unknown) {
       const error = err as AxiosError;
@@ -93,7 +102,6 @@ const AnswerCard = ({
       }
     }
   };
-  console.log(userIdArr);
 
   return (
     <div className={styles.main}>
@@ -110,7 +118,7 @@ const AnswerCard = ({
                 updateAnswerLikeStatus();
               }}
             >
-              {userIdArr.includes(userIdFromToken!) ? (
+              {likeState ? (
                 <img src={activeLike.src} alt="active-like" />
               ) : (
                 <img src={like.src} alt="like" />
@@ -121,10 +129,6 @@ const AnswerCard = ({
           )}
           <p>Likes:{likesAmmount}</p>
         </div>
-        {/* <div className={styles.dislikes}>
-          <button>Dislike</button>
-          <p>Dislikes:{dislikes}</p>
-        </div> */}
       </div>
       {userIdFromToken == userId ? (
         <button onClick={deleteAnswer}>Delete</button>
