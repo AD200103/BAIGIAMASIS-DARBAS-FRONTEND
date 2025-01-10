@@ -1,4 +1,7 @@
 import jwt from "jsonwebtoken";
+import cookie from "js-cookie";
+import axios, { AxiosError } from "axios";
+
 import { TokenType } from "@/types";
 export const decodeToken = (token: string) => {
   try {
@@ -8,5 +11,26 @@ export const decodeToken = (token: string) => {
     }
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const checkingAuth = async (token, setToken) => {
+  try {
+    const headers = { authorization: token };
+    const response = await axios.get("http://localhost:3002/token_check", {
+      headers,
+    });
+    if (response.status == 200) {
+      console.log("Everything works fine!");
+    }
+  } catch (err: unknown) {
+    const error = err as AxiosError;
+    if (error.status == 403) {
+      if (token) {
+        cookie.remove("jwt-token");
+        setToken(cookie.get("jwt-token"));
+        console.log("everything works fine!");
+      }
+    }
   }
 };

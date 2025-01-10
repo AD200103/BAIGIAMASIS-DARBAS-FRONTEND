@@ -3,11 +3,10 @@ import cookie from "js-cookie";
 import axios, { AxiosError } from "axios";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateAndEmail";
-import { decodeToken } from "@/utils/jwtTokenDecoded";
+import { decodeToken, checkingAuth } from "@/utils/jwtTokenDecoded";
 import { AnswerType } from "@/types";
-import { useState } from "react";
-import like from "../../assets/img/like.svg";
-import activeLike from "../../assets/img/likeActive.svg";
+import { useEffect, useState } from "react";
+import LikeButton from "../LikeButton/LikeButton";
 
 type AnswerCardPropsType = {
   answer: string;
@@ -31,8 +30,9 @@ const AnswerCard = ({
   usersWhoLikedTheAnswer,
   setAnswers,
 }: AnswerCardPropsType) => {
-  const token = cookie.get("jwt-token");
+  const [token, setToken] = useState(cookie.get("jwt-token"));
   const userIdFromToken = decodeToken(token!);
+
   const [likesAmmount, setLikesAmmount] = useState(
     usersWhoLikedTheAnswer.length
   );
@@ -40,6 +40,12 @@ const AnswerCard = ({
   const [likeState, setLikeState] = useState(
     userLikeIdArr.includes(userIdFromToken!)
   );
+
+  useEffect(() => {
+    if (token) {
+      checkingAuth(token, setToken);
+    }
+  }, [token]);
 
   const deleteAnswer = async () => {
     const headers = { authorization: cookie.get("jwt-token") };
@@ -109,22 +115,14 @@ const AnswerCard = ({
       <div>
         <div className={styles.likes}>
           {userIdFromToken !== userId ? (
-            <button
-              onClick={() => {
-                updateAnswerLikeStatus(
-                  userLikeIdArr,
-                  setUserLikeIdArr,
-                  setLikesAmmount,
-                  setLikeState
-                );
-              }}
-            >
-              {likeState ? (
-                <img src={activeLike.src} alt="active-like" />
-              ) : (
-                <img src={like.src} alt="like" />
-              )}
-            </button>
+            <LikeButton
+              likeState={likeState}
+              userLikeIdArr={userLikeIdArr}
+              setUserLikeIdArr={setUserLikeIdArr}
+              setLikesAmmount={setLikesAmmount}
+              setLikeState={setLikeState}
+              updateAnswerLikeStatus={updateAnswerLikeStatus}
+            />
           ) : (
             <button>Like</button>
           )}
