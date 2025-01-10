@@ -4,13 +4,9 @@ import styles from "./styles.module.css";
 import like from "../../assets/img/like.svg";
 import activeLike from "../../assets/img/likeActive.svg";
 import axios, { AxiosError } from "axios";
+import { LikeDislikeButtonPropsType } from "@/types";
 
-type LikeButtonPropsType = {
-  setLikesAmmount: React.Dispatch<React.SetStateAction<number>>;
-  userIdFromToken: string;
-  usersWhoLikedTheAnswer: string[];
-  id: string;
-};
+type LikePropsType = LikeDislikeButtonPropsType & { likeState: boolean };
 const LikeButton = ({
   setLikesAmmount,
   userIdFromToken,
@@ -23,7 +19,7 @@ const LikeButton = ({
   userLikeIdArr,
   likeState,
   setLikeState,
-}: LikeButtonPropsType) => {
+}: LikePropsType) => {
   const updateAnswerLikeStatus = async () => {
     try {
       const headers = { authorization: cookie.get("jwt-token") };

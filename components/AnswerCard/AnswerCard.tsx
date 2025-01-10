@@ -5,8 +5,7 @@ import { dateConvert } from "@/utils/dateAndEmail";
 import { decodeToken, checkingAuth } from "@/utils/jwtTokenDecoded";
 import { AnswerType } from "@/types";
 import { useEffect, useState } from "react";
-import LikeButton from "../LikeButton/LikeButton";
-import DislikeButton from "../DislikeButton/DislikeButton";
+import LikesDislikes from "../LikesDislikes/LikesDislikes";
 type AnswerCardPropsType = {
   answer: string;
   date: Date;
@@ -33,24 +32,6 @@ const AnswerCard = ({
 }: AnswerCardPropsType) => {
   const [token, setToken] = useState(cookie.get("jwt-token"));
   const userIdFromToken = decodeToken(token!);
-
-  const [userLikeIdArr, setUserLikeIdArr] = useState(usersWhoLikedTheAnswer);
-  const [likeState, setLikeState] = useState(
-    userLikeIdArr.includes(userIdFromToken!)
-  );
-  const [likesAmmount, setLikesAmmount] = useState(
-    usersWhoLikedTheAnswer.length
-  );
-
-  const [userDislikeIdArr, setUserDislikeIdArr] = useState(
-    usersWhoDislikedTheAnswer
-  );
-  const [dislikeState, setDislikeState] = useState(
-    userDislikeIdArr.includes(userIdFromToken!)
-  );
-  const [dislikesAmmount, setDislikesAmmount] = useState(
-    usersWhoDislikedTheAnswer.length
-  );
 
   useEffect(() => {
     if (token) {
@@ -80,52 +61,13 @@ const AnswerCard = ({
         <p>{dateConvert(date)}, UTC+00</p>
         {userIdFromToken == userId ? <p>You</p> : <p>{name}</p>}
       </div>
-      <div>
-        <div className={styles.likes}>
-          {userIdFromToken !== userId ? (
-            <LikeButton
-              setLikesAmmount={setLikesAmmount}
-              id={id}
-              userIdFromToken={userIdFromToken!}
-              usersWhoLikedTheAnswer={usersWhoLikedTheAnswer}
-              setUserDislikeIdArr={setUserDislikeIdArr}
-              userDislikeIdArr={userDislikeIdArr}
-              dislikeState={dislikeState}
-              setDislikeState={setDislikeState}
-              setUserLikeIdArr={setUserLikeIdArr}
-              userLikeIdArr={userLikeIdArr}
-              likeState={likeState}
-              setLikeState={setLikeState}
-              setDislikesAmmount={setDislikesAmmount}
-            />
-          ) : (
-            <button>Like</button>
-          )}
-          <p>Likes:{likesAmmount}</p>
-        </div>
-        <div className={styles.likes}>
-          {userIdFromToken !== userId ? (
-            <DislikeButton
-              setDislikesAmmount={setDislikesAmmount}
-              id={id}
-              userIdFromToken={userIdFromToken!}
-              usersWhoDislikedTheAnswer={usersWhoDislikedTheAnswer}
-              setUserDislikeIdArr={setUserDislikeIdArr}
-              userDislikeIdArr={userDislikeIdArr}
-              dislikeState={dislikeState}
-              setDislikeState={setDislikeState}
-              setUserLikeIdArr={setUserLikeIdArr}
-              userLikeIdArr={userLikeIdArr}
-              likeState={likeState}
-              setLikeState={setLikeState}
-              setLikesAmmount={setLikesAmmount}
-            />
-          ) : (
-            <button>Like</button>
-          )}
-          <p>Dislikes:{dislikesAmmount}</p>
-        </div>
-      </div>
+      <LikesDislikes
+        id={id}
+        usersWhoLikedTheAnswer={usersWhoLikedTheAnswer}
+        usersWhoDislikedTheAnswer={usersWhoDislikedTheAnswer}
+        userIdFromToken={userIdFromToken!}
+        userId={userId}
+      />
       {userIdFromToken == userId ? (
         <button onClick={deleteAnswer}>Delete</button>
       ) : (

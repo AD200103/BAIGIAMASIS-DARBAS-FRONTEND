@@ -4,13 +4,10 @@ import styles from "./styles.module.css";
 import dislike from "../../assets/img/dislike.svg";
 import activeDislike from "../../assets/img/dislikeActive.svg";
 import axios, { AxiosError } from "axios";
+import { LikeDislikeButtonPropsType } from "@/types";
 
-type LikeButtonPropsType = {
-  setDislikesAmmount: React.Dispatch<React.SetStateAction<number>>;
-  userIdFromToken: string;
-  usersWhoDislikedTheAnswer: string[];
-  id: string;
-};
+type DislikePropsType = LikeDislikeButtonPropsType & { dislikeState: boolean };
+
 const DislikeButton = ({
   setDislikesAmmount,
   id,
@@ -23,7 +20,7 @@ const DislikeButton = ({
   setUserLikeIdArr,
   setLikeState,
   setLikesAmmount,
-}: LikeButtonPropsType) => {
+}: DislikePropsType) => {
   const updateAnswerDislikeStatus = async () => {
     try {
       const headers = { authorization: cookie.get("jwt-token") };
