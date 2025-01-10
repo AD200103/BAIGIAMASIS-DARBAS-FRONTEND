@@ -14,7 +14,10 @@ export const decodeToken = (token: string) => {
   }
 };
 
-export const checkingAuth = async (token, setToken) => {
+export const checkingAuth = async (
+  token: string,
+  setToken: React.Dispatch<React.SetStateAction<string | undefined>>
+) => {
   try {
     const headers = { authorization: token };
     const response = await axios.get("http://localhost:3002/token_check", {
@@ -29,7 +32,6 @@ export const checkingAuth = async (token, setToken) => {
       if (token) {
         cookie.remove("jwt-token");
         setToken(cookie.get("jwt-token"));
-        console.log("everything works fine!");
       }
     }
   }

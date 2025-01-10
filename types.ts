@@ -26,9 +26,3 @@ export type TokenType = {
   email: string;
   name: string;
 };
-export type UpdateAnswerLikeStatusType = {
-  userLikeIdArr: string[];
-  setLikeState: React.Dispatch<React.SetStateAction<boolean>>;
-  setLikesAmmount: React.Dispatch<React.SetStateAction<number>>;
-  setUserLikeIdArr: React.Dispatch<React.SetStateAction<string[]>>;
-};

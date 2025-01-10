@@ -1,41 +1,41 @@
 /* eslint-disable @next/next/no-img-element */
 import cookie from "js-cookie";
 import styles from "./styles.module.css";
-import like from "../../assets/img/like.svg";
-import activeLike from "../../assets/img/likeActive.svg";
+import dislike from "../../assets/img/dislike.svg";
+import activeDislike from "../../assets/img/dislikeActive.svg";
 import axios, { AxiosError } from "axios";
 
 type LikeButtonPropsType = {
-  setLikesAmmount: React.Dispatch<React.SetStateAction<number>>;
+  setDislikesAmmount: React.Dispatch<React.SetStateAction<number>>;
   userIdFromToken: string;
-  usersWhoLikedTheAnswer: string[];
+  usersWhoDislikedTheAnswer: string[];
   id: string;
 };
-const LikeButton = ({
-  setLikesAmmount,
-  userIdFromToken,
-  id,
-  setUserDislikeIdArr,
-  userDislikeIdArr,
-  setDislikeState,
+const DislikeButton = ({
   setDislikesAmmount,
-  setUserLikeIdArr,
+  id,
+  userIdFromToken,
+  setUserDislikeIdArr,
+  dislikeState,
+  setDislikeState,
+  userDislikeIdArr,
   userLikeIdArr,
-  likeState,
+  setUserLikeIdArr,
   setLikeState,
+  setLikesAmmount,
 }: LikeButtonPropsType) => {
-  const updateAnswerLikeStatus = async () => {
+  const updateAnswerDislikeStatus = async () => {
     try {
       const headers = { authorization: cookie.get("jwt-token") };
 
       const body = {
-        usersWhoDislikedTheAnswer: userDislikeIdArr.includes(userIdFromToken!)
-          ? userDislikeIdArr.filter((userid) => userid !== userIdFromToken!)
-          : userDislikeIdArr,
-
         usersWhoLikedTheAnswer: userLikeIdArr.includes(userIdFromToken!)
           ? userLikeIdArr.filter((userid) => userid !== userIdFromToken!)
-          : [...userLikeIdArr, userIdFromToken!],
+          : userLikeIdArr,
+
+        usersWhoDislikedTheAnswer: userDislikeIdArr.includes(userIdFromToken!)
+          ? userDislikeIdArr.filter((userid) => userid !== userIdFromToken!)
+          : [...userDislikeIdArr, userIdFromToken!],
       };
 
       const response = await axios.put(
@@ -47,16 +47,16 @@ const LikeButton = ({
       );
 
       if (response.status == 200) {
-        const likedUsersArray = response.data.answer.usersWhoLikedTheAnswer;
         const dislikedUsersArray =
           response.data.answer.usersWhoDislikedTheAnswer;
-        setUserLikeIdArr(likedUsersArray);
-        setLikesAmmount(likedUsersArray.length);
-        setLikeState(likedUsersArray.includes(userIdFromToken!));
-
+        const likedUsersArray = response.data.answer.usersWhoLikedTheAnswer;
         setUserDislikeIdArr(dislikedUsersArray);
         setDislikesAmmount(dislikedUsersArray.length);
         setDislikeState(dislikedUsersArray.includes(userIdFromToken!));
+
+        setUserLikeIdArr(likedUsersArray);
+        setLikeState(likedUsersArray.includes(userIdFromToken!));
+        setLikesAmmount(likedUsersArray.length);
       }
     } catch (err: unknown) {
       const error = err as AxiosError;
@@ -70,15 +70,15 @@ const LikeButton = ({
     <button
       className={styles.main}
       onClick={() => {
-        updateAnswerLikeStatus();
+        updateAnswerDislikeStatus();
       }}
     >
-      {likeState ? (
-        <img src={activeLike.src} alt="active-like" />
+      {dislikeState ? (
+        <img src={activeDislike.src} alt="active-like" />
       ) : (
-        <img src={like.src} alt="like" />
+        <img src={dislike.src} alt="like" />
       )}
     </button>
   );
 };
-export default LikeButton;
+export default DislikeButton;
