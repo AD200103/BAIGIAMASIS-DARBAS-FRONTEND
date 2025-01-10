@@ -35,7 +35,7 @@ const LikesDislikes = ({
   return (
     <div>
       <div className={styles.likes}>
-        {userIdFromToken !== userId ? (
+        {userIdFromToken !== userId && (
           <LikeButton
             setLikesAmmount={setLikesAmmount}
             id={id}
@@ -49,13 +49,11 @@ const LikesDislikes = ({
             setLikeState={setLikeState}
             setDislikesAmmount={setDislikesAmmount}
           />
-        ) : (
-          <button>Like</button>
         )}
         <p>Likes:{likesAmmount}</p>
       </div>
       <div className={styles.likes}>
-        {userIdFromToken !== userId ? (
+        {userIdFromToken !== userId && (
           <DislikeButton
             setDislikesAmmount={setDislikesAmmount}
             id={id}
@@ -69,8 +67,6 @@ const LikesDislikes = ({
             setLikeState={setLikeState}
             setLikesAmmount={setLikesAmmount}
           />
-        ) : (
-          <button>Like</button>
         )}
         <p>Dislikes:{dislikesAmmount}</p>
       </div>

@@ -8,11 +8,18 @@ import { QuestionType, AnswerType } from "@/types";
 import { dateConvert } from "@/utils/dateAndEmail";
 import Answers from "@/components/Answers/Answers";
 import styles from "./styles.module.css";
-
+import { checkingAuth } from "@/utils/jwtTokenDecoded";
 const MainQuestionPage = () => {
   const [question, setQuestion] = useState<null | QuestionType>(null);
   const [answerText, setAnswerText] = useState<string>("");
   const [newAnswer, setNewAnswer] = useState<null | AnswerType>(null);
+  const [token, setToken] = useState(cookie.get("jwt-token"));
+  useEffect(() => {
+    if (token) {
+      checkingAuth(token, setToken);
+    }
+  }, [token]);
+
   const router = useRouter();
   const id = router.query.id;
   const cookieG = cookie.get("jwt-token");

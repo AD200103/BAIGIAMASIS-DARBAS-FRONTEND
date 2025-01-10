@@ -2,9 +2,8 @@ import cookie from "js-cookie";
 import axios from "axios";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateAndEmail";
-import { decodeToken, checkingAuth } from "@/utils/jwtTokenDecoded";
+import { decodeToken } from "@/utils/jwtTokenDecoded";
 import { AnswerType } from "@/types";
-import { useEffect, useState } from "react";
 import LikesDislikes from "../LikesDislikes/LikesDislikes";
 type AnswerCardPropsType = {
   answer: string;
@@ -30,14 +29,7 @@ const AnswerCard = ({
   usersWhoDislikedTheAnswer,
   setAnswers,
 }: AnswerCardPropsType) => {
-  const [token, setToken] = useState(cookie.get("jwt-token"));
-  const userIdFromToken = decodeToken(token!);
-
-  useEffect(() => {
-    if (token) {
-      checkingAuth(token, setToken);
-    }
-  }, [token]);
+  const userIdFromToken = decodeToken(cookie.get("jwt-token")!);
 
   const deleteAnswer = async () => {
     const headers = { authorization: cookie.get("jwt-token") };
@@ -68,10 +60,8 @@ const AnswerCard = ({
         userIdFromToken={userIdFromToken!}
         userId={userId}
       />
-      {userIdFromToken == userId ? (
+      {userIdFromToken == userId && (
         <button onClick={deleteAnswer}>Delete</button>
-      ) : (
-        <></>
       )}
     </div>
   );

@@ -29,10 +29,9 @@ export const checkingAuth = async (
   } catch (err: unknown) {
     const error = err as AxiosError;
     if (error.status == 403) {
-      if (token) {
-        cookie.remove("jwt-token");
-        setToken(cookie.get("jwt-token"));
-      }
+      cookie.remove("jwt-token");
+      setToken(cookie.get("jwt-token"));
+      console.log("token expired!");
     }
   }
 };
