@@ -1,9 +1,9 @@
 import cookie from "js-cookie";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateAndEmail";
 import { decodeToken, checkingAuth } from "@/utils/jwtTokenDecoded";
-import { AnswerType, UpdateAnswerLikeStatusType } from "@/types";
+import { AnswerType } from "@/types";
 import { useEffect, useState } from "react";
 import LikeButton from "../LikeButton/LikeButton";
 
@@ -17,6 +17,7 @@ type AnswerCardPropsType = {
   dislikes: number;
   likeStatus: boolean;
   usersWhoLikedTheAnswer: string[];
+  usersWhoDislikedTheAnswer: string[];
   setAnswers: React.Dispatch<React.SetStateAction<AnswerType[] | null>>;
 };
 
@@ -56,43 +57,6 @@ const AnswerCard = ({
     }
   };
 
-  const updateAnswerLikeStatus = async ({
-    userLikeIdArr,
-    setUserLikeIdArr,
-    setLikesAmmount,
-    setLikeState,
-  }: UpdateAnswerLikeStatusType) => {
-    try {
-      const headers = { authorization: cookie.get("jwt-token") };
-
-      const body = {
-        usersWhoLikedTheAnswer: userLikeIdArr.includes(userIdFromToken!)
-          ? userLikeIdArr.filter((userid) => userid !== userIdFromToken!)
-          : [...userLikeIdArr, userIdFromToken!],
-      };
-
-      const response = await axios.put(
-        `http://localhost:3002/answer/${id}`,
-        body,
-        {
-          headers,
-        }
-      );
-
-      if (response.status == 200) {
-        const usersArray = response.data.answer.usersWhoLikedTheAnswer;
-        setUserLikeIdArr(usersArray);
-        setLikesAmmount(usersArray.length);
-        setLikeState(usersArray.includes(userIdFromToken!));
-      }
-    } catch (err: unknown) {
-      const error = err as AxiosError;
-      if (error.status == 403) {
-        console.log(err);
-      }
-    }
-  };
-
   return (
     <div className={styles.main}>
       <p>{answer}</p>
@@ -104,10 +68,10 @@ const AnswerCard = ({
         <div className={styles.likes}>
           {userIdFromToken !== userId ? (
             <LikeButton
+              setLikesAmmount={setLikesAmmount}
+              id={id}
               userIdFromToken={userIdFromToken!}
               usersWhoLikedTheAnswer={usersWhoLikedTheAnswer}
-              setLikesAmmount={setLikesAmmount}
-              updateAnswerLikeStatus={updateAnswerLikeStatus}
             />
           ) : (
             <button>Like</button>

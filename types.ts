@@ -19,6 +19,7 @@ export type AnswerType = {
   userId: string;
   like_status: boolean;
   usersWhoLikedTheAnswer: string[];
+  usersWhoDislikedTheAnswer: string[];
 };
 export type TokenType = {
   id: string;
