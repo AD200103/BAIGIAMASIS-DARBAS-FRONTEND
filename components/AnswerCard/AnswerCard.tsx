@@ -1,10 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 import cookie from "js-cookie";
 import axios, { AxiosError } from "axios";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateAndEmail";
 import { decodeToken, checkingAuth } from "@/utils/jwtTokenDecoded";
-import { AnswerType } from "@/types";
+import { AnswerType, UpdateAnswerLikeStatusType } from "@/types";
 import { useEffect, useState } from "react";
 import LikeButton from "../LikeButton/LikeButton";
 
@@ -32,13 +31,8 @@ const AnswerCard = ({
 }: AnswerCardPropsType) => {
   const [token, setToken] = useState(cookie.get("jwt-token"));
   const userIdFromToken = decodeToken(token!);
-
   const [likesAmmount, setLikesAmmount] = useState(
     usersWhoLikedTheAnswer.length
-  );
-  const [userLikeIdArr, setUserLikeIdArr] = useState(usersWhoLikedTheAnswer);
-  const [likeState, setLikeState] = useState(
-    userLikeIdArr.includes(userIdFromToken!)
   );
 
   useEffect(() => {
@@ -62,12 +56,12 @@ const AnswerCard = ({
     }
   };
 
-  const updateAnswerLikeStatus = async (
-    userLikeIdArr: string[],
-    setUserLikeIdArr: React.Dispatch<React.SetStateAction<string[]>>,
-    setLikesAmmount: React.Dispatch<React.SetStateAction<number>>,
-    setLikeState: React.Dispatch<React.SetStateAction<boolean>>
-  ) => {
+  const updateAnswerLikeStatus = async ({
+    userLikeIdArr,
+    setUserLikeIdArr,
+    setLikesAmmount,
+    setLikeState,
+  }: UpdateAnswerLikeStatusType) => {
     try {
       const headers = { authorization: cookie.get("jwt-token") };
 
@@ -89,13 +83,7 @@ const AnswerCard = ({
         const usersArray = response.data.answer.usersWhoLikedTheAnswer;
         setUserLikeIdArr(usersArray);
         setLikesAmmount(usersArray.length);
-
-        if (usersArray.includes(userIdFromToken!)) {
-          setLikeState(true);
-        }
-        if (!usersArray.includes(userIdFromToken!)) {
-          setLikeState(false);
-        }
+        setLikeState(usersArray.includes(userIdFromToken!));
       }
     } catch (err: unknown) {
       const error = err as AxiosError;
@@ -116,11 +104,9 @@ const AnswerCard = ({
         <div className={styles.likes}>
           {userIdFromToken !== userId ? (
             <LikeButton
-              likeState={likeState}
-              userLikeIdArr={userLikeIdArr}
-              setUserLikeIdArr={setUserLikeIdArr}
+              userIdFromToken={userIdFromToken!}
+              usersWhoLikedTheAnswer={usersWhoLikedTheAnswer}
               setLikesAmmount={setLikesAmmount}
-              setLikeState={setLikeState}
               updateAnswerLikeStatus={updateAnswerLikeStatus}
             />
           ) : (

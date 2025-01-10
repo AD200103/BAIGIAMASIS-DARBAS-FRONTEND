@@ -3,3 +3,13 @@
   width: 30%;
   background-color: cadetblue;
 }
+.likes button {
+  all: unset;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.likes button img {
+  width: 100%;
+  height: 100%;
+}

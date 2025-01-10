@@ -2,24 +2,41 @@
 import styles from "./styles.module.css";
 import like from "../../assets/img/like.svg";
 import activeLike from "../../assets/img/likeActive.svg";
+import { useState } from "react";
+import { UpdateAnswerLikeStatusType } from "@/types";
+
+type LikeButtonPropsType = {
+  setLikesAmmount: React.Dispatch<React.SetStateAction<number>>;
+  updateAnswerLikeStatus: ({
+    userLikeIdArr,
+    setUserLikeIdArr,
+    setLikesAmmount,
+    setLikeState,
+  }: UpdateAnswerLikeStatusType) => void;
+  userIdFromToken: string;
+  usersWhoLikedTheAnswer: string[];
+};
 const LikeButton = ({
-  likeState,
-  userLikeIdArr,
-  setUserLikeIdArr,
   setLikesAmmount,
-  setLikeState,
   updateAnswerLikeStatus,
-}) => {
+  userIdFromToken,
+  usersWhoLikedTheAnswer,
+}: LikeButtonPropsType) => {
+  const [userLikeIdArr, setUserLikeIdArr] = useState(usersWhoLikedTheAnswer);
+  const [likeState, setLikeState] = useState(
+    userLikeIdArr.includes(userIdFromToken!)
+  );
+
   return (
     <button
       className={styles.main}
       onClick={() => {
-        updateAnswerLikeStatus(
+        updateAnswerLikeStatus({
           userLikeIdArr,
           setUserLikeIdArr,
           setLikesAmmount,
-          setLikeState
-        );
+          setLikeState,
+        });
       }}
     >
       {likeState ? (
