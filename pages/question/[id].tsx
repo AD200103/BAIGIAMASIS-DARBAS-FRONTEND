@@ -24,6 +24,14 @@ const MainQuestionPage = () => {
   const id = router.query.id;
   const cookieG = cookie.get("jwt-token");
 
+  const logOut = () => {
+    if (token) {
+      setToken(cookie.remove("jwt-token")!);
+      router.reload();
+    } else {
+      console.log("No token!");
+    }
+  };
   const getQuestion = async () => {
     const response = await axios.get(`http://localhost:3002/questions/${id}`);
     setQuestion(response.data.question);
@@ -77,7 +85,7 @@ const MainQuestionPage = () => {
 
   return (
     <>
-      <PageTemplate>
+      <PageTemplate getToken={token} logOut={logOut}>
         {question && (
           <div>
             <h1>{question.title}</h1>

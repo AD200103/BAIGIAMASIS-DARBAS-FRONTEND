@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
-const Header = () => {
+const Header = ({ getToken, logOut }) => {
   return (
     <div className={styles.main}>
       <h1>AskOverload</h1>
@@ -15,9 +15,7 @@ const Header = () => {
           <Link href="/signin">
             <li>Sign In</li>
           </Link>
-          <Link href="/login">
-            <li>Login</li>
-          </Link>
+          {!getToken ? <li>Login</li> : <li onClick={logOut}>Logout</li>}
         </ul>
       </nav>
     </div>
