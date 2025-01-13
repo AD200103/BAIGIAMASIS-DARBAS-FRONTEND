@@ -16,6 +16,7 @@ const Questions = ({ questions }: QuestionPropsType) => {
         <option value="Unanswered">Unanswered</option>
       </select>
       {questions
+        .sort((a, b) => b.date.localeCompare(a.date))
         .filter(
           (a) =>
             (sortVal == "All" && a.answers >= 0) ||

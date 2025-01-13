@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
@@ -8,6 +9,7 @@ import { QuestionType, AnswerType } from "@/types";
 import { dateConvert } from "@/utils/dateAndEmail";
 import Answers from "@/components/Answers/Answers";
 import styles from "./styles.module.css";
+
 const MainQuestionPage = () => {
   const [question, setQuestion] = useState<null | QuestionType>(null);
   const [answerText, setAnswerText] = useState<string>("");

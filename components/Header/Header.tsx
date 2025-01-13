@@ -31,7 +31,7 @@ const Header = ({ showLogModal, setShowLogModal }: HeaderPropsType) => {
           <Link href="/">
             <li>Home</li>
           </Link>
-          <Link href="/ask_question">
+          <Link href="/askquestion">
             <li>Ask a question!</li>
           </Link>
           <Link href="/signin">
