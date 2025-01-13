@@ -12,6 +12,7 @@ type HeaderPropsType = {
 const Header = ({ showLogModal, setShowLogModal }: HeaderPropsType) => {
   const router = useRouter();
   const [tokenExists, setTokenExists] = useState<string | undefined>(undefined);
+
   useEffect(() => {
     if (tokenExists) {
       checkingAuth(tokenExists, setTokenExists);
