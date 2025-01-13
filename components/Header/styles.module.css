@@ -12,6 +12,9 @@
   display: flex;
   gap: 20px;
 }
+.main nav ul li:last-child {
+  cursor: pointer;
+}
 .main nav ul a {
   color: black;
 }

@@ -1,19 +1,21 @@
 import styles from "./styles.module.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
+import LoginModal from "../LoginModal/LoginModal";
+import { useState } from "react";
 import { ReactNode } from "react";
 type PageTemplateType = {
   children: ReactNode;
-  getToken: string;
-  logOut: () => void;
 };
 
-const PageTemplate = ({ children, getToken, logOut }: PageTemplateType) => {
+const PageTemplate = ({ children }: PageTemplateType) => {
+  const [showLogModal, setShowLogModal] = useState(false);
   return (
     <div className={styles.main}>
-      <Header getToken={getToken} logOut={logOut} />
+      <Header showLogModal={showLogModal} setShowLogModal={setShowLogModal} />
       <div className={styles.content}>{children}</div>
       <Footer />
+      {showLogModal && <LoginModal />}
     </div>
   );
 };

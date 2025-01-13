@@ -14,6 +14,7 @@ const MainQuestionPage = () => {
   const [answerText, setAnswerText] = useState<string>("");
   const [newAnswer, setNewAnswer] = useState<null | AnswerType>(null);
   const [token, setToken] = useState(cookie.get("jwt-token"));
+
   useEffect(() => {
     if (token) {
       checkingAuth(token, setToken);
@@ -24,14 +25,6 @@ const MainQuestionPage = () => {
   const id = router.query.id;
   const cookieG = cookie.get("jwt-token");
 
-  const logOut = () => {
-    if (token) {
-      setToken(cookie.remove("jwt-token")!);
-      router.reload();
-    } else {
-      console.log("No token!");
-    }
-  };
   const getQuestion = async () => {
     const response = await axios.get(`http://localhost:3002/questions/${id}`);
     setQuestion(response.data.question);
@@ -85,7 +78,7 @@ const MainQuestionPage = () => {
 
   return (
     <>
-      <PageTemplate getToken={token} logOut={logOut}>
+      <PageTemplate>
         {question && (
           <div>
             <h1>{question.title}</h1>
