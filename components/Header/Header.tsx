@@ -6,10 +6,9 @@ import cookie from "js-cookie";
 import { useEffect, useState } from "react";
 import { checkingAuth } from "@/utils/jwtTokenDecoded";
 type HeaderPropsType = {
-  showLogModal: boolean;
   setShowLogModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
-const Header = ({ showLogModal, setShowLogModal }: HeaderPropsType) => {
+const Header = ({ setShowLogModal }: HeaderPropsType) => {
   const router = useRouter();
   const [tokenExists, setTokenExists] = useState<string | undefined>(undefined);
 
@@ -46,7 +45,7 @@ const Header = ({ showLogModal, setShowLogModal }: HeaderPropsType) => {
               Logout
             </li>
           ) : (
-            <li onClick={() => setShowLogModal(!showLogModal)}>Login</li>
+            <li onClick={() => setShowLogModal(true)}>Login</li>
           )}
         </ul>
       </nav>

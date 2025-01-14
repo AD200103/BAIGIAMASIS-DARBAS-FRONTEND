@@ -7,13 +7,22 @@ import LoginModal from "@/components/LoginModal/LoginModal";
 const AskPage = () => {
   const [question, setQuestion] = useState("");
   const [title, setTitle] = useState("");
-  const [token, setToken] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+
   const body = {
     question_text: question,
     title: title,
   };
+
   useEffect(() => {
-    setToken(cookie.get("jwt-token"));
+    setTimeout(() => {
+      if (!cookie.get("jwt-token")) {
+        setShowModal(true);
+      }
+      if (cookie.get("jwt-token")) {
+        setShowModal(false);
+      }
+    }, 100);
   }, []);
 
   const addQuestion = async () => {
@@ -57,10 +66,7 @@ const AskPage = () => {
           <button onClick={addQuestion}>Add question!</button>
         </div>
       </div>
-
-      <div className={`${styles.modal} ${!token && styles.showModal}`}>
-        <LoginModal />
-      </div>
+      <LoginModal showModal={showModal} setShowModal={setShowModal} />
     </PageTemplate>
   );
 };

@@ -1,13 +1,18 @@
-.main {
+.modal {
   min-height: 100vh;
   width: 100%;
   background-color: rgb(5, 5, 5, 0.7);
-  position: fixed;
   display: flex;
   justify-content: center;
+  position: fixed;
+  top: -1000px;
   transition-duration: 2000ms;
+  width: 100%;
 }
-.main .loginForm {
+.showModal {
+  transform: translateY(1000px);
+}
+.modal .loginForm {
   display: flex;
   flex-direction: column;
   align-items: center;

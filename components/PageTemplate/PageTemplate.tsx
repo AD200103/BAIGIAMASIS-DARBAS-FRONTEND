@@ -12,10 +12,10 @@ const PageTemplate = ({ children }: PageTemplateType) => {
   const [showLogModal, setShowLogModal] = useState(false);
   return (
     <div className={styles.main}>
-      <Header showLogModal={showLogModal} setShowLogModal={setShowLogModal} />
+      <Header setShowLogModal={setShowLogModal} />
       <div className={styles.content}>{children}</div>
       <Footer />
-      {showLogModal && <LoginModal />}
+      <LoginModal showModal={showLogModal} setShowModal={setShowLogModal} />
     </div>
   );
 };

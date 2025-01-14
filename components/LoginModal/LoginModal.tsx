@@ -4,9 +4,10 @@ import { useRouter } from "next/router";
 import cookie from "js-cookie";
 import { useState } from "react";
 
-const LoginModal = () => {
+const LoginModal = ({ showModal, setShowModal }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const router = useRouter();
   const body = {
     email: email,
@@ -27,8 +28,9 @@ const LoginModal = () => {
   };
 
   return (
-    <div className={styles.main}>
+    <div className={`${styles.modal} ${showModal && styles.showModal}`}>
       <div className={styles.loginForm}>
+        <button onClick={() => setShowModal(false)}>Close</button>
         <input
           value={email}
           type="text"
