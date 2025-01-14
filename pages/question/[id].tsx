@@ -11,12 +11,16 @@ import Answers from "@/components/Answers/Answers";
 import styles from "./styles.module.css";
 import LoginModal from "@/components/LoginModal/LoginModal";
 import { decodeToken } from "@/utils/jwtTokenDecoded";
+import DeleteQuestionModal from "@/components/DeleteQuestionModal/DeleteQuestionModal";
 
 const MainQuestionPage = () => {
   const [question, setQuestion] = useState<null | QuestionType>(null);
   const [answerText, setAnswerText] = useState<string>("");
   const [newAnswer, setNewAnswer] = useState<null | AnswerType>(null);
   const [showModal, setShowModal] = useState(false);
+  const [showQustionDelModal, setShowQustionDelModal] = useState(false);
+  const [message, setMessage] = useState("Login for full experience!");
+
   const router = useRouter();
   const id = router.query.id;
   const token = cookie.get("jwt-token");
@@ -62,23 +66,9 @@ const MainQuestionPage = () => {
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.status == 403) {
+        setMessage("Login to answer!");
         setShowModal(true);
       }
-    }
-  };
-
-  const deleteQuestion = async () => {
-    try {
-      const headers = { authorization: cookie.get("jwt-token") };
-      const response = await axios.delete(
-        `http://localhost:3002/question/${id}`,
-        { headers }
-      );
-      if (response.status == 200) {
-        router.push("/");
-      }
-    } catch (err) {
-      console.log(err);
     }
   };
 
@@ -96,7 +86,9 @@ const MainQuestionPage = () => {
             <h1>{question.title}</h1>
             <p>{question.question_text}</p>
             {question.user_id == userIdFromToken && (
-              <button onClick={deleteQuestion}>Delete</button>
+              <button onClick={() => setShowQustionDelModal(true)}>
+                Delete
+              </button>
             )}
             <div className={styles.dateEmailBox}>
               <p>
@@ -135,8 +127,16 @@ const MainQuestionPage = () => {
       <LoginModal
         showModal={showModal}
         setShowModal={setShowModal}
-        message={"Login to answer!"}
+        message={message}
       />
+      {showQustionDelModal && (
+        <DeleteQuestionModal
+          id={id}
+          setShowQustionDelModal={setShowQustionDelModal}
+          setShowModal={setShowModal}
+          setMessage={setMessage}
+        />
+      )}
     </>
   );
 };
