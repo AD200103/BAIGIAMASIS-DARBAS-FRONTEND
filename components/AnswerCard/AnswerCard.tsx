@@ -4,7 +4,9 @@ import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateAndEmail";
 import { decodeToken } from "@/utils/jwtTokenDecoded";
 import { AnswerType } from "@/types";
+import { useState } from "react";
 import LikesDislikes from "../LikesDislikes/LikesDislikes";
+import LoginModal from "../LoginModal/LoginModal";
 type AnswerCardPropsType = {
   answer: string;
   date: Date;
@@ -30,6 +32,7 @@ const AnswerCard = ({
   setAnswers,
 }: AnswerCardPropsType) => {
   const userIdFromToken = decodeToken(cookie.get("jwt-token")!);
+  const [showLogModal, setShowLogModal] = useState(false);
 
   const deleteAnswer = async () => {
     const headers = { authorization: cookie.get("jwt-token") };
@@ -59,6 +62,12 @@ const AnswerCard = ({
         usersWhoDislikedTheAnswer={usersWhoDislikedTheAnswer}
         userIdFromToken={userIdFromToken!}
         userId={userId}
+        setShowLogModal={setShowLogModal}
+      />
+      <LoginModal
+        showModal={showLogModal}
+        setShowModal={setShowLogModal}
+        message={"Login to rate answers!"}
       />
       {userIdFromToken == userId && (
         <button onClick={deleteAnswer}>Delete</button>

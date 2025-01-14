@@ -14,7 +14,6 @@ const Answers = ({ answer, updateAnswersNumberToQuestion }: NewAnswerType) => {
   const router = useRouter();
   const id = router.query.id;
   const [answers, setAnswers] = useState<AnswerType[] | null>(null);
-
   const getAnswers = async () => {
     try {
       const response = await axios.get(

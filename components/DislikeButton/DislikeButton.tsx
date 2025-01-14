@@ -20,6 +20,7 @@ const DislikeButton = ({
   setUserLikeIdArr,
   setLikeState,
   setLikesAmmount,
+  setShowLogModal,
 }: DislikePropsType) => {
   const updateAnswerDislikeStatus = async () => {
     try {
@@ -58,6 +59,7 @@ const DislikeButton = ({
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.status == 403) {
+        setShowLogModal(true);
         console.log(err);
       }
     }

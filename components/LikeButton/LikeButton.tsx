@@ -19,6 +19,7 @@ const LikeButton = ({
   userLikeIdArr,
   likeState,
   setLikeState,
+  setShowLogModal,
 }: LikePropsType) => {
   const updateAnswerLikeStatus = async () => {
     try {
@@ -57,6 +58,7 @@ const LikeButton = ({
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.status == 403) {
+        setShowLogModal(true);
         console.log(err);
       }
     }

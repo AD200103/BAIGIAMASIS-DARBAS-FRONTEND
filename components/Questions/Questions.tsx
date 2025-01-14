@@ -30,6 +30,7 @@ const Questions = ({ questions }: QuestionPropsType) => {
             id={q.id}
             title={q.title}
             name={q.name}
+            userId={q.user_id}
             question={q.question_text}
             answerNumber={q.answers}
           />

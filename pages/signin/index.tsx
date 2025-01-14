@@ -26,6 +26,7 @@ const MainSigninPage = () => {
         setName("");
         setEmail("");
         setPassword("");
+
         router.push("/");
       }
     } catch (err: unknown) {

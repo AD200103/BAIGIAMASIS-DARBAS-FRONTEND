@@ -42,6 +42,9 @@ const AskPage = () => {
         console.log(response);
       }
     } catch (err) {
+      if (err.status == 403) {
+        setShowModal(true);
+      }
       console.log(err);
     }
   };
@@ -66,7 +69,11 @@ const AskPage = () => {
           <button onClick={addQuestion}>Add question!</button>
         </div>
       </div>
-      <LoginModal showModal={showModal} setShowModal={setShowModal} />
+      <LoginModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        message={"Login to ask a question!"}
+      />
     </PageTemplate>
   );
 };

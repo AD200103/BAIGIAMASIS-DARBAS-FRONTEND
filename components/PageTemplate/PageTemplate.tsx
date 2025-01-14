@@ -15,7 +15,11 @@ const PageTemplate = ({ children }: PageTemplateType) => {
       <Header setShowLogModal={setShowLogModal} />
       <div className={styles.content}>{children}</div>
       <Footer />
-      <LoginModal showModal={showLogModal} setShowModal={setShowLogModal} />
+      <LoginModal
+        showModal={showLogModal}
+        setShowModal={setShowLogModal}
+        message={"Login for full experience!"}
+      />
     </div>
   );
 };

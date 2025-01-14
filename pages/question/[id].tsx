@@ -9,15 +9,18 @@ import { QuestionType, AnswerType } from "@/types";
 import { dateConvert } from "@/utils/dateAndEmail";
 import Answers from "@/components/Answers/Answers";
 import styles from "./styles.module.css";
+import LoginModal from "@/components/LoginModal/LoginModal";
+import { decodeToken } from "@/utils/jwtTokenDecoded";
 
 const MainQuestionPage = () => {
   const [question, setQuestion] = useState<null | QuestionType>(null);
   const [answerText, setAnswerText] = useState<string>("");
   const [newAnswer, setNewAnswer] = useState<null | AnswerType>(null);
-
+  const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   const id = router.query.id;
   const token = cookie.get("jwt-token");
+  const userIdFromToken = decodeToken(token!);
 
   const getQuestion = async () => {
     const response = await axios.get(`http://localhost:3002/questions/${id}`);
@@ -59,8 +62,23 @@ const MainQuestionPage = () => {
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.status == 403) {
-        router.push("/signin");
+        setShowModal(true);
       }
+    }
+  };
+
+  const deleteQuestion = async () => {
+    try {
+      const headers = { authorization: cookie.get("jwt-token") };
+      const response = await axios.delete(
+        `http://localhost:3002/question/${id}`,
+        { headers }
+      );
+      if (response.status == 200) {
+        router.push("/");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -77,8 +95,18 @@ const MainQuestionPage = () => {
           <div>
             <h1>{question.title}</h1>
             <p>{question.question_text}</p>
+            {question.user_id == userIdFromToken && (
+              <button onClick={deleteQuestion}>Delete</button>
+            )}
             <div className={styles.dateEmailBox}>
-              <p>Asked by: {question?.name}</p>
+              <p>
+                Asked by:{" "}
+                {question.user_id == userIdFromToken ? (
+                  <span>You</span>
+                ) : (
+                  question?.name
+                )}
+              </p>
               <p>At: {dateConvert(question?.date)}, UTC+00</p>
             </div>
           </div>
@@ -104,6 +132,11 @@ const MainQuestionPage = () => {
           </button>
         </div>
       </PageTemplate>
+      <LoginModal
+        showModal={showModal}
+        setShowModal={setShowModal}
+        message={"Login to answer!"}
+      />
     </>
   );
 };
