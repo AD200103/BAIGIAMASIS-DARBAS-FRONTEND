@@ -4,6 +4,7 @@ import cookie from "js-cookie";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { signingIn } from "@/api/user";
+import { signinValidation } from "@/utils/signinValidation";
 type DataType = {
   message: string;
 };
@@ -12,9 +13,33 @@ const SigninForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+
+  const [namePlacholder, setNamePLaceholder] = useState("Name");
+  const [emailPlacholder, setEmailPLaceholder] = useState("Email");
+  const [passwordPlacholder, setPassPLaceholder] = useState("Password");
+  const [redNameAlert, setRedNameAlert] = useState(false);
+  const [redEmailAlert, setRedEmailAlert] = useState(false);
+  const [redPasAlert, setRedPasAlert] = useState(false);
+
   const router = useRouter();
   const signIn = async () => {
     try {
+      // if (name.trim() == "") {
+      //   setName("");
+      // }
+      // if (email.trim() == "") {
+      //   setEmail("");
+      // }
+
+      if (!name) {
+        signinValidation("Name", setNamePLaceholder, setRedNameAlert);
+      }
+      if (!email) {
+        signinValidation("Email", setEmailPLaceholder, setRedEmailAlert);
+      }
+      if (!password) {
+        signinValidation("Password", setPassPLaceholder, setRedPasAlert);
+      }
       const body = {
         name: name,
         email: email,
@@ -44,21 +69,24 @@ const SigninForm = () => {
     <div className={styles.signinForm}>
       <h1>Become a member!</h1>
       <input
+        className={`${styles.input} ${redNameAlert && styles.redAlert}`}
         value={name}
         type="text"
-        placeholder="name"
+        placeholder={namePlacholder}
         onChange={(e) => setName(e.target.value)}
       />
       <input
+        className={`${styles.input} ${redEmailAlert && styles.redAlert}`}
         value={email}
         type="email"
-        placeholder="email"
+        placeholder={emailPlacholder}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
+        className={`${styles.input} ${redPasAlert && styles.redAlert}`}
         value={password}
         type="password"
-        placeholder="password"
+        placeholder={passwordPlacholder}
         onChange={(e) => setPassword(e.target.value)}
       />
       <button onClick={signIn}>Sign up</button>

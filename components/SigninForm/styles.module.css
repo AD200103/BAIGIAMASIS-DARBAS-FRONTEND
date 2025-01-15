@@ -16,7 +16,7 @@
   color: rgb(119, 117, 117);
   font-weight: lighter;
 }
-.signinForm input,
+.input,
 .signinForm button {
   all: unset;
   border: rgb(184, 182, 182) 1px solid;
@@ -41,4 +41,10 @@
 }
 .signinForm p {
   text-align: center;
+}
+.redAlert {
+  border-color: rgb(186, 2, 2);
+}
+.redAlert::placeholder {
+  color: rgb(186, 2, 2);
 }
