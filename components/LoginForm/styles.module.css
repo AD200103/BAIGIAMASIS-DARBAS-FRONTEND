@@ -1,0 +1,11 @@
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  height: 300px;
+  width: 250px;
+  background-color: white;
+  padding: 20px;
+  margin-top: 150px;
+}

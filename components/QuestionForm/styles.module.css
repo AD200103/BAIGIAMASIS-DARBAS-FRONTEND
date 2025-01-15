@@ -22,13 +22,3 @@
   text-align: center;
   width: 100px;
 }
-
-.modal {
-  position: fixed;
-  top: -1000px;
-  transition-duration: 2000ms;
-  width: 100%;
-}
-.showModal {
-  transform: translateY(1000px);
-}

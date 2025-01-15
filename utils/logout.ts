@@ -5,6 +5,6 @@ export const logOut = (router: NextRouter) => {
     cookie.remove("jwt-token");
     router.reload();
   } else {
-    console.log("No token!");
+    return;
   }
 };

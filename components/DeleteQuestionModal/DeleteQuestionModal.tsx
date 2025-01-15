@@ -2,12 +2,19 @@ import styles from "./styles.module.css";
 import axios from "axios";
 import cookie from "js-cookie";
 import { useRouter } from "next/router";
+import React from "react";
+type DeleteQuestionModalPropsType = {
+  id: string | undefined;
+  setShowQustionDelModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+};
 const DeleteQuestionModal = ({
   id,
   setShowQustionDelModal,
   setShowModal,
   setMessage,
-}) => {
+}: DeleteQuestionModalPropsType) => {
   const router = useRouter();
   const deleteQuestion = async () => {
     try {

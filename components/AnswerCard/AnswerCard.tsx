@@ -8,21 +8,17 @@ import { useState } from "react";
 import LikesDislikes from "../LikesDislikes/LikesDislikes";
 import LoginModal from "../LoginModal/LoginModal";
 type AnswerCardPropsType = {
-  answer: string;
+  answer_text: string;
   date: Date;
   id: string;
   name: string;
   userId: string;
-  likes: number;
-  dislikes: number;
-  likeStatus: boolean;
   usersWhoLikedTheAnswer: string[];
   usersWhoDislikedTheAnswer: string[];
   setAnswers: React.Dispatch<React.SetStateAction<AnswerType[] | null>>;
 };
-
 const AnswerCard = ({
-  answer,
+  answer_text,
   date,
   name,
   id,
@@ -51,7 +47,7 @@ const AnswerCard = ({
 
   return (
     <div className={styles.main}>
-      <p>{answer}</p>
+      <p>{answer_text}</p>
       <div>
         <p>{dateConvert(date)}, UTC+00</p>
         {userIdFromToken == userId ? <p>You</p> : <p>{name}</p>}

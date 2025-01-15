@@ -6,11 +6,14 @@ import { useRouter } from "next/router";
 import AnswerCard from "../AnswerCard/AnswerCard";
 import { AnswerType } from "@/types";
 
-type NewAnswerType = {
+type AnswersPropsType = {
   answer: AnswerType | null;
   updateAnswersNumberToQuestion: (answers: number) => void;
 };
-const Answers = ({ answer, updateAnswersNumberToQuestion }: NewAnswerType) => {
+const Answers = ({
+  answer,
+  updateAnswersNumberToQuestion,
+}: AnswersPropsType) => {
   const router = useRouter();
   const id = router.query.id;
   const [answers, setAnswers] = useState<AnswerType[] | null>(null);
@@ -46,22 +49,12 @@ const Answers = ({ answer, updateAnswersNumberToQuestion }: NewAnswerType) => {
   return (
     <div className={styles.main}>
       {answers &&
-        answers.map((a) => (
-          <AnswerCard
-            key={a.id}
-            id={a.id}
-            answer={a.answer_text}
-            date={a.date}
-            name={a.name}
-            userId={a.userId}
-            likes={a.gained_likes_number}
-            likeStatus={a.like_status}
-            dislikes={a.gained_dislikes_number}
-            usersWhoLikedTheAnswer={a.usersWhoLikedTheAnswer}
-            usersWhoDislikedTheAnswer={a.usersWhoDislikedTheAnswer}
-            setAnswers={setAnswers}
-          />
-        ))}
+        answers
+          .sort(
+            (a, b) =>
+              b.usersWhoLikedTheAnswer.length - a.usersWhoLikedTheAnswer.length
+          )
+          .map((a) => <AnswerCard key={a.id} {...a} setAnswers={setAnswers} />)}
     </div>
   );
 };

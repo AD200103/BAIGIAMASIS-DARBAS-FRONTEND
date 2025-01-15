@@ -2,10 +2,10 @@ import styles from "./styles.module.css";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import { QuestionType } from "@/types";
 import { useState } from "react";
-type QuestionPropsType = {
+type QuestionsPropsType = {
   questions: QuestionType[];
 };
-const Questions = ({ questions }: QuestionPropsType) => {
+const Questions = ({ questions }: QuestionsPropsType) => {
   const [sortVal, setSortVal] = useState("All");
 
   return (
@@ -16,7 +16,7 @@ const Questions = ({ questions }: QuestionPropsType) => {
         <option value="Unanswered">Unanswered</option>
       </select>
       {questions
-        .sort((a, b) => b.date.localeCompare(a.date))
+        .sort((a, b) => b.date.toString().localeCompare(a.date.toString()))
         .filter(
           (a) =>
             (sortVal == "All" && a.answers >= 0) ||
@@ -24,16 +24,7 @@ const Questions = ({ questions }: QuestionPropsType) => {
             (sortVal == "Unanswered" && a.answers == 0)
         )
         .map((q) => (
-          <QuestionCard
-            key={q.id}
-            date={q.date}
-            id={q.id}
-            title={q.title}
-            name={q.name}
-            userId={q.user_id}
-            question={q.question_text}
-            answerNumber={q.answers}
-          />
+          <QuestionCard key={q.id} {...q} />
         ))}
     </div>
   );

@@ -1,13 +1,14 @@
 import styles from "./styles.module.css";
 import LikeButton from "../LikeButton/LikeButton";
 import DislikeButton from "../DislikeButton/DislikeButton";
-import { useState } from "react";
+import React, { useState } from "react";
 type LikesDislikesPropsType = {
   id: string;
   usersWhoLikedTheAnswer: string[];
   usersWhoDislikedTheAnswer: string[];
-  userIdFromToken: string;
+  userIdFromToken: string | undefined;
   userId: string;
+  setShowLogModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const LikesDislikes = ({
   id,
