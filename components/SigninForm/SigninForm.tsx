@@ -1,8 +1,9 @@
 import styles from "./styles.module.css";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import cookie from "js-cookie";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { signingIn } from "@/api/user";
 type DataType = {
   message: string;
 };
@@ -19,7 +20,7 @@ const SigninForm = () => {
         email: email,
         password: password,
       };
-      const response = await axios.post("http://localhost:3002/register", body);
+      const response = await signingIn(body);
       if (response.status == 200) {
         cookie.set("jwt-token", response.data.token);
         setName("");

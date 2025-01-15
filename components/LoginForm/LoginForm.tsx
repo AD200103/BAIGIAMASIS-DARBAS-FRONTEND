@@ -1,8 +1,8 @@
 import styles from "./styles.module.css";
 import { useState } from "react";
-import axios from "axios";
 import cookie from "js-cookie";
 import { useRouter } from "next/router";
+import { logingIn } from "@/api/user";
 type LoginFormPropsType = {
   message: string;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,7 +17,7 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
         email: email,
         password: password,
       };
-      const response = await axios.post("http://localhost:3002/login", body);
+      const response = await logingIn(body);
       if (response.status == 200) {
         cookie.set("jwt-token", response.data.token);
         router.reload();
