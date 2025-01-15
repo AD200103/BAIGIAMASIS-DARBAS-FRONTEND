@@ -30,10 +30,8 @@ const SigninForm = () => {
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.status == 403) {
-        if (error) {
-          const data = error.response!.data as DataType;
-          setErrorMsg(data.message);
-        }
+        const data = error.response!.data as DataType;
+        setErrorMsg(data.message);
         setTimeout(() => {
           setErrorMsg("");
         }, 2000);

@@ -1,5 +1,4 @@
 import cookie from "js-cookie";
-import axios from "axios";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateAndEmail";
 import { decodeToken } from "@/utils/jwtTokenDecoded";
@@ -7,6 +6,8 @@ import { AnswerType } from "@/types";
 import { useState } from "react";
 import LikesDislikes from "../LikesDislikes/LikesDislikes";
 import LoginModal from "../LoginModal/LoginModal";
+import { deleteAnswer } from "@/api/answer";
+import { AxiosError } from "axios";
 type AnswerCardPropsType = {
   answer_text: string;
   date: Date;
@@ -29,19 +30,22 @@ const AnswerCard = ({
 }: AnswerCardPropsType) => {
   const userIdFromToken = decodeToken(cookie.get("jwt-token")!);
   const [showLogModal, setShowLogModal] = useState(false);
+  const [message, setMessage] = useState("Login to rate answers!");
 
-  const deleteAnswer = async () => {
-    const headers = { authorization: cookie.get("jwt-token") };
+  const deleteAnAnswer = async () => {
+    const token = cookie.get("jwt-token") as string;
+    console.log(token);
     try {
-      const response = await axios.delete(
-        `http://localhost:3002/answer/${id}`,
-        { headers }
-      );
+      const response = await deleteAnswer(id, token);
       if (response.status == 200) {
         setAnswers((prev) => prev!.filter((a) => a.id !== id));
       }
     } catch (err) {
-      console.log(err);
+      const error = err as AxiosError;
+      if (error.status == 403) {
+        setMessage("Login to delete your answer!");
+        setShowLogModal(true);
+      }
     }
   };
 
@@ -63,10 +67,10 @@ const AnswerCard = ({
       <LoginModal
         showModal={showLogModal}
         setShowModal={setShowLogModal}
-        message={"Login to rate answers!"}
+        message={message}
       />
       {userIdFromToken == userId && (
-        <button onClick={deleteAnswer}>Delete</button>
+        <button onClick={deleteAnAnswer}>Delete</button>
       )}
     </div>
   );

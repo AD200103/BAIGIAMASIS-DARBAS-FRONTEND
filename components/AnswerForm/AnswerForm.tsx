@@ -1,13 +1,14 @@
 import styles from "./styles.module.css";
 import React, { useState } from "react";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import cookie from "js-cookie";
 import { AnswerType } from "@/types";
+import { addAnswer } from "@/api/answer";
 type AnwerFormPropsType = {
   setNewAnswer: React.Dispatch<React.SetStateAction<AnswerType | null>>;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-  id: string | undefined;
+  id: string;
 };
 const AnswerForm = ({
   setNewAnswer,
@@ -17,19 +18,13 @@ const AnswerForm = ({
 }: AnwerFormPropsType) => {
   const [answerText, setAnswerText] = useState("");
 
-  const addAnswer = async () => {
+  const addAnAnswer = async () => {
     try {
       const body = {
         answer_text: answerText,
       };
-      const headers = {
-        authorization: cookie.get("jwt-token"),
-      };
-      const response = await axios.post(
-        `http://localhost:3002/question/${id}/answers`,
-        body,
-        { headers }
-      );
+      const token = cookie.get("jwt-token") as string;
+      const response = await addAnswer(token, body, id);
       if (response.status == 201) {
         setNewAnswer(response.data.answer);
         setAnswerText("");
@@ -52,7 +47,7 @@ const AnswerForm = ({
       ></textarea>
       <button
         onClick={() => {
-          addAnswer();
+          addAnAnswer();
         }}
       >
         Add answer

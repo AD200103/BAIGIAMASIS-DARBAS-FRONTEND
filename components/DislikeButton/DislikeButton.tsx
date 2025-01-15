@@ -3,9 +3,9 @@ import cookie from "js-cookie";
 import styles from "./styles.module.css";
 import dislike from "../../assets/img/dislike.svg";
 import activeDislike from "../../assets/img/dislikeActive.svg";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { LikeDislikeButtonPropsType } from "@/types";
-
+import { updateAnswerDislikeLikeStatus } from "@/api/answer";
 type DislikePropsType = LikeDislikeButtonPropsType & { dislikeState: boolean };
 
 const DislikeButton = ({
@@ -24,7 +24,7 @@ const DislikeButton = ({
 }: DislikePropsType) => {
   const updateAnswerDislikeStatus = async () => {
     try {
-      const headers = { authorization: cookie.get("jwt-token") };
+      const token = cookie.get("jwt-token") as string;
 
       const body = {
         usersWhoLikedTheAnswer: userLikeIdArr.includes(userIdFromToken!)
@@ -35,15 +35,7 @@ const DislikeButton = ({
           ? userDislikeIdArr.filter((userid) => userid !== userIdFromToken!)
           : [...userDislikeIdArr, userIdFromToken!],
       };
-
-      const response = await axios.put(
-        `http://localhost:3002/answer/${id}`,
-        body,
-        {
-          headers,
-        }
-      );
-
+      const response = await updateAnswerDislikeLikeStatus(id, body, token);
       if (response.status == 200) {
         const dislikedUsersArray =
           response.data.answer.usersWhoDislikedTheAnswer;

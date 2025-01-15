@@ -1,29 +1,23 @@
 import styles from "./styles.module.css";
 import { SetStateAction, useState } from "react";
 import cookie from "js-cookie";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
+import { addQuestion } from "@/api/question";
 type QuestionFormPropsType = {
   setShowModal: React.Dispatch<SetStateAction<boolean>>;
 };
 const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
   const [question, setQuestion] = useState("");
   const [title, setTitle] = useState("");
-  const addQuestion = async () => {
+
+  const addAQuestion = async () => {
     try {
       const body = {
         question_text: question,
         title: title,
       };
-      const headers = {
-        authorization: cookie.get("jwt-token"),
-      };
-      const response = await axios.post(
-        "http://localhost:3002/question",
-        body,
-        {
-          headers,
-        }
-      );
+      const token = cookie.get("jwt-token") as string;
+      const response = await addQuestion(body, token);
       if (response.status == 201) {
         setQuestion("");
         setTitle("");
@@ -51,7 +45,7 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
           onChange={(e) => setQuestion(e.target.value)}
         ></textarea>
         <p>{question.length}</p>
-        <button onClick={addQuestion}>Add question!</button>
+        <button onClick={addAQuestion}>Add question!</button>
       </div>
     </div>
   );

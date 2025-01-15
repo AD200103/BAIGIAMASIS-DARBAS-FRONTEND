@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios from "axios";
 import styles from "./styles.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import AnswerCard from "../AnswerCard/AnswerCard";
 import { AnswerType } from "@/types";
-
+import { getAnswers } from "@/api/answer";
 type AnswersPropsType = {
   answer: AnswerType | null;
   updateAnswersNumberToQuestion: (answers: number) => void;
@@ -15,13 +14,12 @@ const Answers = ({
   updateAnswersNumberToQuestion,
 }: AnswersPropsType) => {
   const router = useRouter();
-  const id = router.query.id;
+  const id = router.query.id as string;
   const [answers, setAnswers] = useState<AnswerType[] | null>(null);
-  const getAnswers = async () => {
+
+  const getAllAnswers = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:3002/question/${id}/answers`
-      );
+      const response = await getAnswers(id);
       if (response.status == 200) {
         setAnswers(response.data.answers);
       }
@@ -37,7 +35,7 @@ const Answers = ({
   }, [answer]);
   useEffect(() => {
     if (id) {
-      getAnswers();
+      getAllAnswers();
     }
   }, [id]);
   useEffect(() => {
