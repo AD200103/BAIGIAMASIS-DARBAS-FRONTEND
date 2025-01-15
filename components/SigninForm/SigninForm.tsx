@@ -3,13 +3,15 @@ import axios, { AxiosError } from "axios";
 import cookie from "js-cookie";
 import { useState } from "react";
 import { useRouter } from "next/router";
+type DataType = {
+  message: string;
+};
 const SigninForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const router = useRouter();
-
   const signIn = async () => {
     try {
       const body = {
@@ -29,7 +31,8 @@ const SigninForm = () => {
       const error = err as AxiosError;
       if (error.status == 403) {
         if (error) {
-          setErrorMsg(error.response!.data!.message);
+          const data = error.response!.data as DataType;
+          setErrorMsg(data.message);
         }
         setTimeout(() => {
           setErrorMsg("");
