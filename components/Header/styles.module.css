@@ -2,10 +2,10 @@
   padding: 20px;
   width: 100%;
   height: 100px;
-  background-color: burlywood;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 2px rgb(59, 7, 73) solid;
 }
 .main nav ul {
   list-style: none;
