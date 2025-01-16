@@ -11,19 +11,41 @@
   gap: 20px;
 }
 .titleAndQuestion {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
+  border: rgb(126, 126, 126) solid 1px;
+  box-shadow: 0px 0px 8px 4px rgba(153, 86, 153, 1);
+  border-radius: 5px;
+  padding: 20px;
+}
+.addQuestionBtn {
+  all: unset;
+  background-color: rgb(134, 10, 192);
+  padding: 8px;
+  color: white;
+  box-shadow: 0px 0px 8px 4px rgba(153, 86, 153, 1);
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.addQuestionBtn:hover {
+  scale: 1.05;
+}
+.addQuestionBtn:active {
+  scale: 1;
 }
 .input {
   all: unset;
-  padding: 20px;
-  border-bottom: black solid 1px;
+  border-bottom: rgb(126, 126, 126) solid 1px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
 }
 .textareaInput {
   all: unset;
   padding: 20px;
   width: 600px;
-  height: 260px;
+  height: 215px;
   word-break: break-all;
 }
 .main .questionForm button {

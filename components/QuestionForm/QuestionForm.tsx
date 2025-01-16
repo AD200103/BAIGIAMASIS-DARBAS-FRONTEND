@@ -75,6 +75,7 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
           <input
             className={`${styles.input} ${redTitleAlert && styles.redAlert}`}
             value={title}
+            maxLength={40}
             type="text"
             placeholder={titlePlacholder}
             onChange={(e) => setTitle(e.target.value)}
@@ -89,8 +90,10 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
             onChange={(e) => setQuestion(e.target.value)}
           ></textarea>
         </div>
-        <p>{question.length}</p>
-        <button onClick={addAQuestion}>Add question!</button>
+        <p>{question.length}/1000</p>
+        <button className={styles.addQuestionBtn} onClick={addAQuestion}>
+          Add question!
+        </button>
       </div>
     </div>
   );

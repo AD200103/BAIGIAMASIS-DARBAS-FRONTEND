@@ -3,6 +3,7 @@ import PageTemplate from "@/components/PageTemplate/PageTemplate";
 import cookie from "js-cookie";
 import LoginModal from "@/components/LoginModal/LoginModal";
 import QuestionForm from "@/components/QuestionForm/QuestionForm";
+import styles from "./styles.module.css";
 const AskPage = () => {
   const [showModal, setShowModal] = useState(false);
 
@@ -19,6 +20,7 @@ const AskPage = () => {
 
   return (
     <PageTemplate>
+      <h1 className={styles.askQustionTitle}>Ask a question!</h1>
       <QuestionForm setShowModal={setShowModal} />
       <LoginModal
         showModal={showModal}

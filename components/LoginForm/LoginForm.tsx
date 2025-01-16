@@ -104,10 +104,6 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
           onClick={() => {
             setLoaderVis(true);
             router.push("/signin");
-            if (router.pathname == "/signin") {
-              setLoaderVis(false);
-              setShowModal(false);
-            }
           }}
         >
           Sign in

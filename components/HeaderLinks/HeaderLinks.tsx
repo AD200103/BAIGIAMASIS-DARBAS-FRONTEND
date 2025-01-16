@@ -4,6 +4,7 @@ import { logOut } from "@/utils/logout";
 import { useRouter } from "next/router";
 import React, { SetStateAction, useEffect, useState } from "react";
 import { checkingAuth } from "@/utils/jwtTokenDecoded";
+import styles from "./styles.module.css";
 type HeaderLinksPropsType = {
   setShowLogModal: React.Dispatch<SetStateAction<boolean>>;
 };
@@ -20,18 +21,31 @@ const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
   }, [tokenExists]);
   return (
     <nav>
-      <ul>
+      <ul className={styles.listStyle}>
         <Link href="/">
-          <li>Home</li>
+          <div
+            className={`${styles.linkStyle} ${
+              router.pathname == "/" && styles.linkActiveStyle
+            }`}
+          >
+            <li>Home</li>
+          </div>
         </Link>
         <Link href="/askquestion">
-          <li>Ask a question!</li>
+          <div
+            className={`${styles.linkStyle} ${
+              router.pathname == "/askquestion" && styles.linkActiveStyle
+            }`}
+          >
+            <li>Ask a question!</li>
+          </div>
         </Link>
         <Link href="/signin">
-          <li>Sign In</li>
+          <li className={styles.signInBtn}>Sign In</li>
         </Link>
         {tokenExists ? (
           <li
+            className={styles.signInBtn}
             onClick={() => {
               logOut(router);
             }}
@@ -39,7 +53,12 @@ const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
             Logout
           </li>
         ) : (
-          <li onClick={() => setShowLogModal(true)}>Login</li>
+          <li
+            className={styles.signInBtn}
+            onClick={() => setShowLogModal(true)}
+          >
+            Login
+          </li>
         )}
       </ul>
     </nav>
