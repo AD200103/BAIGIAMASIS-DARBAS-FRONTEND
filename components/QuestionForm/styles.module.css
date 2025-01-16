@@ -10,10 +10,18 @@
   align-items: center;
   gap: 20px;
 }
-.main .questionForm textarea {
+.titleAndQuestion {
+  display: flex;
+  flex-direction: column;
+}
+.input {
   all: unset;
   padding: 20px;
-  border: 1px black solid;
+  border-bottom: black solid 1px;
+}
+.textareaInput {
+  all: unset;
+  padding: 20px;
   width: 600px;
   height: 260px;
   word-break: break-all;
@@ -21,4 +29,10 @@
 .main .questionForm button {
   text-align: center;
   width: 100px;
+}
+.redAlert {
+  border-color: rgb(186, 2, 2);
+}
+.redAlert::placeholder {
+  color: rgb(186, 2, 2);
 }

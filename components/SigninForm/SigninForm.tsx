@@ -26,10 +26,17 @@ const SigninForm = () => {
   const signIn = async () => {
     try {
       if (!name || name.trim() == "") {
-        inputValidation("Name", setNamePLaceholder, setRedNameAlert, setName);
+        inputValidation(
+          "Name is required!",
+          "Name",
+          setNamePLaceholder,
+          setRedNameAlert,
+          setName
+        );
       }
       if (!email || email.trim() == "") {
         inputValidation(
+          "Email is required!",
           "Email",
           setEmailPLaceholder,
           setRedEmailAlert,
@@ -38,6 +45,7 @@ const SigninForm = () => {
       }
       if (!password || password.trim() == "") {
         inputValidation(
+          "Password is required!",
           "Password",
           setPassPLaceholder,
           setRedPasAlert,

@@ -3,12 +3,22 @@ import { SetStateAction, useState } from "react";
 import cookie from "js-cookie";
 import { AxiosError } from "axios";
 import { addQuestion } from "@/api/question";
+import { inputValidation } from "@/utils/inputValidation";
 type QuestionFormPropsType = {
   setShowModal: React.Dispatch<SetStateAction<boolean>>;
 };
 const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
   const [question, setQuestion] = useState("");
   const [title, setTitle] = useState("");
+
+  const [questionPlaceholder, setQuestPLaceholder] = useState(
+    "Enter your question..."
+  );
+  const [titlePlacholder, setTitlePLaceholder] = useState(
+    "Title of the question"
+  );
+  const [redQuestionAlert, setRedQuestAlert] = useState(false);
+  const [redTitleAlert, setRedTitleAlert] = useState(false);
 
   const addAQuestion = async () => {
     try {
@@ -27,23 +37,49 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
       if (error.status == 403) {
         setShowModal(true);
       }
+      if (error.status == 500) {
+        if (!question || question.trim() == "") {
+          inputValidation(
+            "You can't ask an empty question!",
+            "Enter your question...",
+            setQuestPLaceholder,
+            setRedQuestAlert,
+            setQuestion
+          );
+        }
+        if (!title || title.trim() == "") {
+          inputValidation(
+            "Title is required!",
+            "Title",
+            setTitlePLaceholder,
+            setRedTitleAlert,
+            setTitle
+          );
+        }
+      }
     }
   };
   return (
     <div className={styles.main}>
       <div className={styles.questionForm}>
-        <input
-          value={title}
-          type="text"
-          placeholder="Title"
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <textarea
-          maxLength={1000}
-          value={question}
-          placeholder="Enter your question..."
-          onChange={(e) => setQuestion(e.target.value)}
-        ></textarea>
+        <div className={styles.titleAndQuestion}>
+          <input
+            className={`${styles.input} ${redTitleAlert && styles.redAlert}`}
+            value={title}
+            type="text"
+            placeholder={titlePlacholder}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <textarea
+            className={`${styles.textareaInput} ${
+              redQuestionAlert && styles.redAlert
+            }`}
+            maxLength={1000}
+            value={question}
+            placeholder={questionPlaceholder}
+            onChange={(e) => setQuestion(e.target.value)}
+          ></textarea>
+        </div>
         <p>{question.length}</p>
         <button onClick={addAQuestion}>Add question!</button>
       </div>

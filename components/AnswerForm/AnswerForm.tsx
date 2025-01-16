@@ -39,15 +39,13 @@ const AnswerForm = ({
         setShowModal(true);
       }
       if (error.status == 500) {
-        if (!answerText || answerText.trim() == "") {
-          inputValidation(
-            "Your answer",
-            setAnsPLaceholder,
-            setRedAnsAlert,
-            setAnswerText
-          );
-          return;
-        }
+        inputValidation(
+          "You can't provide an empty answer!",
+          "Your answer...",
+          setAnsPLaceholder,
+          setRedAnsAlert,
+          setAnswerText
+        );
       }
     }
   };

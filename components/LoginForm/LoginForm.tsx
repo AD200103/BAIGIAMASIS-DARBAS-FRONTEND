@@ -26,6 +26,7 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
     try {
       if (!email || email.trim() == "") {
         inputValidation(
+          "email is required!",
           "email",
           setEmailPLaceholder,
           setRedEmailAlert,
@@ -34,6 +35,7 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
       }
       if (!password || password.trim() == "") {
         inputValidation(
+          "password is required!",
           "password",
           setPassPLaceholder,
           setRedPasAlert,
@@ -70,7 +72,7 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
         X
       </button>
       <LogoComponent />
-      <p>{message}</p>
+      <p className={styles.msg}>{message}</p>
       <input
         className={`${styles.input} ${redEmailAlert && styles.redAlert}`}
         value={email}

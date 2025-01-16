@@ -25,7 +25,9 @@
   margin-top: -5px;
   color: black;
 }
-
+.msg {
+  text-align: center;
+}
 .loginForm input:focus {
   border-color: rgb(0, 102, 255);
 }
