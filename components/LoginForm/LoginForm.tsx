@@ -3,16 +3,46 @@ import { useState } from "react";
 import cookie from "js-cookie";
 import { useRouter } from "next/router";
 import { logingIn } from "@/api/user";
+import LogoComponent from "../LogoComponent/LogoComponent";
+import { AxiosError } from "axios";
+import { inputValidation } from "@/utils/inputValidation";
 type LoginFormPropsType = {
   message: string;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
+type DataType = {
+  message: string;
+};
 const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
+  const [emailPlaceholder, setEmailPLaceholder] = useState("email");
+  const [passwordPlacholder, setPassPLaceholder] = useState("password");
+  const [redEmailAlert, setRedEmailAlert] = useState(false);
+  const [redPasAlert, setRedPasAlert] = useState(false);
   const router = useRouter();
   const login = async () => {
     try {
+      if (!email || email.trim() == "") {
+        inputValidation(
+          "email",
+          setEmailPLaceholder,
+          setRedEmailAlert,
+          setEmail
+        );
+      }
+      if (!password || password.trim() == "") {
+        inputValidation(
+          "password",
+          setPassPLaceholder,
+          setRedPasAlert,
+          setPassword
+        );
+      }
+      if (email.trim() == "" || password.trim() == "") {
+        return;
+      }
       const body = {
         email: email,
         password: password,
@@ -22,29 +52,47 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
         cookie.set("jwt-token", response.data.token);
         router.reload();
       }
-    } catch (err) {
+    } catch (err: unknown) {
+      const error = err as AxiosError;
+      if (error.status == 403) {
+        const data = error.response!.data as DataType;
+        setErrMessage(data.message);
+        setTimeout(() => {
+          setErrMessage("");
+        }, 2000);
+      }
       console.log(err);
     }
   };
   return (
     <div className={styles.loginForm}>
-      <button onClick={() => setShowModal(false)}>Close</button>
+      <button className={styles.closeBtn} onClick={() => setShowModal(false)}>
+        X
+      </button>
+      <LogoComponent />
       <p>{message}</p>
       <input
+        className={`${styles.input} ${redEmailAlert && styles.redAlert}`}
         value={email}
         type="text"
-        placeholder="email"
+        placeholder={emailPlaceholder}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
+        className={`${styles.input} ${redPasAlert && styles.redAlert}`}
         value={password}
         type="password"
-        placeholder="password"
+        placeholder={passwordPlacholder}
         onChange={(e) => setPassword(e.target.value)}
       />
+      <p className={styles.errMsg}>{errMessage}</p>
       <button onClick={login}>Login</button>
-      <p>Not yet a member?</p>
-      <button onClick={() => router.push("/signin")}>Sign in</button>
+      <div className={styles.signInProps}>
+        <p>Not yet a member?</p>
+        <p className={styles.signInText} onClick={() => router.push("/signin")}>
+          Sign in
+        </p>
+      </div>
     </div>
   );
 };

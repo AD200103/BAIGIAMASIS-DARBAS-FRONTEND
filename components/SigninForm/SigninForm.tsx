@@ -4,18 +4,19 @@ import cookie from "js-cookie";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { signingIn } from "@/api/user";
-import { signinValidation } from "@/utils/signinValidation";
+import { inputValidation } from "@/utils/inputValidation";
 type DataType = {
   message: string;
 };
 const SigninForm = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
   const [errorMsg, setErrorMsg] = useState("");
 
   const [namePlacholder, setNamePLaceholder] = useState("Name");
-  const [emailPlacholder, setEmailPLaceholder] = useState("Email");
+  const [emailPlaceholder, setEmailPLaceholder] = useState("Email");
   const [passwordPlacholder, setPassPLaceholder] = useState("Password");
   const [redNameAlert, setRedNameAlert] = useState(false);
   const [redEmailAlert, setRedEmailAlert] = useState(false);
@@ -24,22 +25,29 @@ const SigninForm = () => {
   const router = useRouter();
   const signIn = async () => {
     try {
-      // if (name.trim() == "") {
-      //   setName("");
-      // }
-      // if (email.trim() == "") {
-      //   setEmail("");
-      // }
+      if (!name || name.trim() == "") {
+        inputValidation("Name", setNamePLaceholder, setRedNameAlert, setName);
+      }
+      if (!email || email.trim() == "") {
+        inputValidation(
+          "Email",
+          setEmailPLaceholder,
+          setRedEmailAlert,
+          setEmail
+        );
+      }
+      if (!password || password.trim() == "") {
+        inputValidation(
+          "Password",
+          setPassPLaceholder,
+          setRedPasAlert,
+          setPassword
+        );
+      }
+      if (name.trim() == "" || email.trim() == "" || password.trim() == "") {
+        return;
+      }
 
-      if (!name) {
-        signinValidation("Name", setNamePLaceholder, setRedNameAlert);
-      }
-      if (!email) {
-        signinValidation("Email", setEmailPLaceholder, setRedEmailAlert);
-      }
-      if (!password) {
-        signinValidation("Password", setPassPLaceholder, setRedPasAlert);
-      }
       const body = {
         name: name,
         email: email,
@@ -71,6 +79,7 @@ const SigninForm = () => {
       <input
         className={`${styles.input} ${redNameAlert && styles.redAlert}`}
         value={name}
+        maxLength={20}
         type="text"
         placeholder={namePlacholder}
         onChange={(e) => setName(e.target.value)}
@@ -78,19 +87,22 @@ const SigninForm = () => {
       <input
         className={`${styles.input} ${redEmailAlert && styles.redAlert}`}
         value={email}
-        type="email"
-        placeholder={emailPlacholder}
+        maxLength={20}
+        type="text"
+        placeholder={emailPlaceholder}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
         className={`${styles.input} ${redPasAlert && styles.redAlert}`}
         value={password}
+        maxLength={20}
         type="password"
         placeholder={passwordPlacholder}
         onChange={(e) => setPassword(e.target.value)}
       />
+
       <button onClick={signIn}>Sign up</button>
-      <p>{errorMsg}</p>
+      <p className={styles.errMsg}>{errorMsg}</p>
     </div>
   );
 };

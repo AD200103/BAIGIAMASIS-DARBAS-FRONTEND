@@ -21,7 +21,7 @@ const MainQuestionPage = () => {
   const [message, setMessage] = useState("Login for full experience!");
 
   const router = useRouter();
-  const id = router.query.id as string | undefined;
+  const id = router.query.id as string;
   const token = cookie.get("jwt-token");
   const userIdFromToken: string | undefined = decodeToken(token!);
 
