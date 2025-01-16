@@ -7,12 +7,10 @@ import LogoComponent from "../LogoComponent/LogoComponent";
 import { AxiosError } from "axios";
 import { inputValidation } from "@/utils/inputValidation";
 import Loader from "../Loader/Loader";
+import { DataType } from "@/types";
 type LoginFormPropsType = {
   message: string;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-};
-type DataType = {
-  message: string;
 };
 const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
   const [email, setEmail] = useState("");
@@ -62,8 +60,8 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
       }
     } catch (err: unknown) {
       const error = err as AxiosError;
+      setLoaderVis(false);
       if (error.status == 403) {
-        setLoaderVis(false);
         const data = error.response!.data as DataType;
         setErrMessage(data.message);
         setTimeout(() => {
@@ -101,7 +99,17 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
       <button onClick={login}>Login</button>
       <div className={styles.signInProps}>
         <p>Not yet a member?</p>
-        <p className={styles.signInText} onClick={() => router.push("/signin")}>
+        <p
+          className={styles.signInText}
+          onClick={() => {
+            setLoaderVis(true);
+            router.push("/signin");
+            if (router.pathname == "/signin") {
+              setLoaderVis(false);
+              setShowModal(false);
+            }
+          }}
+        >
           Sign in
         </p>
       </div>

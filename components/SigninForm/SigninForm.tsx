@@ -5,9 +5,9 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { signingIn } from "@/api/user";
 import { inputValidation } from "@/utils/inputValidation";
-type DataType = {
-  message: string;
-};
+import { DataType } from "@/types";
+import Loader from "../Loader/Loader";
+
 const SigninForm = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -22,10 +22,13 @@ const SigninForm = () => {
   const [redEmailAlert, setRedEmailAlert] = useState(false);
   const [redPasAlert, setRedPasAlert] = useState(false);
 
+  const [loaderVis, setLoaderVis] = useState(false);
   const router = useRouter();
   const signIn = async () => {
     try {
+      setLoaderVis(true);
       if (!name || name.trim() == "") {
+        setLoaderVis(false);
         inputValidation(
           "Name is required!",
           "Name",
@@ -35,6 +38,7 @@ const SigninForm = () => {
         );
       }
       if (!email || email.trim() == "") {
+        setLoaderVis(false);
         inputValidation(
           "Email is required!",
           "Email",
@@ -44,6 +48,7 @@ const SigninForm = () => {
         );
       }
       if (!password || password.trim() == "") {
+        setLoaderVis(false);
         inputValidation(
           "Password is required!",
           "Password",
@@ -53,6 +58,7 @@ const SigninForm = () => {
         );
       }
       if (name.trim() == "" || email.trim() == "" || password.trim() == "") {
+        setLoaderVis(false);
         return;
       }
 
@@ -71,6 +77,7 @@ const SigninForm = () => {
       }
     } catch (err: unknown) {
       const error = err as AxiosError;
+      setLoaderVis(false);
       if (error.status == 403) {
         const data = error.response!.data as DataType;
         setErrorMsg(data.message);
@@ -83,6 +90,7 @@ const SigninForm = () => {
 
   return (
     <div className={styles.signinForm}>
+      {loaderVis && <Loader />}
       <h1>Become a member!</h1>
       <input
         className={`${styles.input} ${redNameAlert && styles.redAlert}`}

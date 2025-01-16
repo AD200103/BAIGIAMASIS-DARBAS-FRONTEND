@@ -39,3 +39,6 @@ export type LikeDislikeButtonPropsType = {
   setLikeState: React.Dispatch<React.SetStateAction<boolean>>;
   setShowLogModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
+export type DataType = {
+  message: string;
+};
