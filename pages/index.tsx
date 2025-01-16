@@ -3,6 +3,7 @@ import PageTemplate from "@/components/PageTemplate/PageTemplate";
 import Questions from "@/components/Questions/Questions";
 import { QuestionType } from "@/types";
 import { gettingQuestions } from "@/api/question";
+import Loader from "@/components/Loader/Loader";
 const MainPage = () => {
   const [questions, setQuestions] = useState<null | QuestionType[]>(null);
   const getQuestions = async () => {
@@ -20,7 +21,7 @@ const MainPage = () => {
   return (
     <>
       <PageTemplate>
-        {questions && <Questions questions={questions} />}
+        {questions ? <Questions questions={questions} /> : <Loader />}
       </PageTemplate>
     </>
   );

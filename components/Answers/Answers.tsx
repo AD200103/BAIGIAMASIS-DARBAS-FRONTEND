@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import AnswerCard from "../AnswerCard/AnswerCard";
 import { AnswerType } from "@/types";
 import { getAnswers } from "@/api/answer";
+import Loader from "../Loader/Loader";
 type AnswersPropsType = {
   answer: AnswerType | null;
   updateAnswersNumberToQuestion: (answers: number) => void;
@@ -46,13 +47,16 @@ const Answers = ({
 
   return (
     <div className={styles.main}>
-      {answers &&
+      {answers ? (
         answers
           .sort(
             (a, b) =>
               b.usersWhoLikedTheAnswer.length - a.usersWhoLikedTheAnswer.length
           )
-          .map((a) => <AnswerCard key={a.id} {...a} setAnswers={setAnswers} />)}
+          .map((a) => <AnswerCard key={a.id} {...a} setAnswers={setAnswers} />)
+      ) : (
+        <Loader />
+      )}
     </div>
   );
 };

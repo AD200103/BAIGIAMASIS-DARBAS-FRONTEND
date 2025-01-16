@@ -4,13 +4,15 @@ import cookie from "js-cookie";
 import { AxiosError } from "axios";
 import { addQuestion } from "@/api/question";
 import { inputValidation } from "@/utils/inputValidation";
+import { useRouter } from "next/router";
+import Loader from "../Loader/Loader";
 type QuestionFormPropsType = {
   setShowModal: React.Dispatch<SetStateAction<boolean>>;
 };
 const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
   const [question, setQuestion] = useState("");
   const [title, setTitle] = useState("");
-
+  const [loaderVis, setLoaderVis] = useState(false);
   const [questionPlaceholder, setQuestPLaceholder] = useState(
     "Enter your question..."
   );
@@ -19,7 +21,7 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
   );
   const [redQuestionAlert, setRedQuestAlert] = useState(false);
   const [redTitleAlert, setRedTitleAlert] = useState(false);
-
+  const router = useRouter();
   const addAQuestion = async () => {
     try {
       const body = {
@@ -27,17 +29,23 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
         title: title,
       };
       const token = cookie.get("jwt-token") as string;
+      if (token) {
+        setLoaderVis(true);
+      }
       const response = await addQuestion(body, token);
       if (response.status == 201) {
         setQuestion("");
         setTitle("");
+        router.push("/");
       }
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.status == 403) {
+        setLoaderVis(false);
         setShowModal(true);
       }
       if (error.status == 500) {
+        setLoaderVis(false);
         if (!question || question.trim() == "") {
           inputValidation(
             "You can't ask an empty question!",
@@ -61,6 +69,7 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
   };
   return (
     <div className={styles.main}>
+      {loaderVis && <Loader />}
       <div className={styles.questionForm}>
         <div className={styles.titleAndQuestion}>
           <input

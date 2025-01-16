@@ -6,6 +6,7 @@ import { logingIn } from "@/api/user";
 import LogoComponent from "../LogoComponent/LogoComponent";
 import { AxiosError } from "axios";
 import { inputValidation } from "@/utils/inputValidation";
+import Loader from "../Loader/Loader";
 type LoginFormPropsType = {
   message: string;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,10 +22,13 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
   const [passwordPlacholder, setPassPLaceholder] = useState("password");
   const [redEmailAlert, setRedEmailAlert] = useState(false);
   const [redPasAlert, setRedPasAlert] = useState(false);
+  const [loaderVis, setLoaderVis] = useState(false);
   const router = useRouter();
   const login = async () => {
     try {
+      setLoaderVis(true);
       if (!email || email.trim() == "") {
+        setLoaderVis(false);
         inputValidation(
           "email is required!",
           "email",
@@ -34,6 +38,7 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
         );
       }
       if (!password || password.trim() == "") {
+        setLoaderVis(false);
         inputValidation(
           "password is required!",
           "password",
@@ -43,6 +48,7 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
         );
       }
       if (email.trim() == "" || password.trim() == "") {
+        setLoaderVis(false);
         return;
       }
       const body = {
@@ -57,6 +63,7 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.status == 403) {
+        setLoaderVis(false);
         const data = error.response!.data as DataType;
         setErrMessage(data.message);
         setTimeout(() => {
@@ -68,6 +75,7 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
   };
   return (
     <div className={styles.loginForm}>
+      {loaderVis && <Loader />}
       <button className={styles.closeBtn} onClick={() => setShowModal(false)}>
         X
       </button>
