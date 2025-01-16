@@ -1,0 +1,18 @@
+.burgerModal {
+  width: 100%;
+  left: -3000px;
+  height: 100vh;
+  position: fixed;
+  top: 98px;
+  border-top: black 2px solid;
+  background-color: rgb(13, 13, 13, 0.8);
+  transition-duration: 2000ms;
+}
+.burgerModalShow {
+  transform: translateX(3000px);
+}
+@media screen and (min-width: 768px) {
+  .burgerModalShow {
+    transform: translateX(-3000px);
+  }
+}

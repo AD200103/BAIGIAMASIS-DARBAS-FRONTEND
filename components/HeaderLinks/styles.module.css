@@ -21,3 +21,8 @@
 .signInBtn:active {
   scale: 1;
 }
+@media screen and (max-width: 768px) {
+  .listStyleContainer {
+    display: none;
+  }
+}

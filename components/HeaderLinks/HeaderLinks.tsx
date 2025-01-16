@@ -20,7 +20,7 @@ const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
     setTokenExists(cookie.get("jwt-token"));
   }, [tokenExists]);
   return (
-    <nav>
+    <nav className={styles.listStyleContainer}>
       <ul className={styles.listStyle}>
         <Link href="/">
           <div
