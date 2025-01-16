@@ -4,6 +4,7 @@ import { AxiosError } from "axios";
 import cookie from "js-cookie";
 import { AnswerType } from "@/types";
 import { addAnswer } from "@/api/answer";
+import { inputValidation } from "@/utils/inputValidation";
 type AnwerFormPropsType = {
   setNewAnswer: React.Dispatch<React.SetStateAction<AnswerType | null>>;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
@@ -17,6 +18,8 @@ const AnswerForm = ({
   id,
 }: AnwerFormPropsType) => {
   const [answerText, setAnswerText] = useState("");
+  const [ansPlacholder, setAnsPLaceholder] = useState("Your answer...");
+  const [redAnsAlert, setRedAnsAlert] = useState(false);
 
   const addAnAnswer = async () => {
     try {
@@ -35,14 +38,26 @@ const AnswerForm = ({
         setMessage("Login to answer!");
         setShowModal(true);
       }
+      if (error.status == 500) {
+        if (!answerText || answerText.trim() == "") {
+          inputValidation(
+            "Your answer",
+            setAnsPLaceholder,
+            setRedAnsAlert,
+            setAnswerText
+          );
+          return;
+        }
+      }
     }
   };
   return (
     <div className={styles.answerForm}>
       <textarea
+        className={`${styles.inputTextArea} ${redAnsAlert && styles.redAlert}`}
         value={answerText}
         maxLength={900}
-        placeholder="Your answer..."
+        placeholder={ansPlacholder}
         onChange={(e) => setAnswerText(e.target.value)}
       ></textarea>
       <button

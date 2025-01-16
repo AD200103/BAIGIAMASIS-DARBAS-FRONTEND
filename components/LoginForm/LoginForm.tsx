@@ -74,12 +74,14 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
       <input
         className={`${styles.input} ${redEmailAlert && styles.redAlert}`}
         value={email}
+        maxLength={60}
         type="text"
         placeholder={emailPlaceholder}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
         className={`${styles.input} ${redPasAlert && styles.redAlert}`}
+        maxLength={30}
         value={password}
         type="password"
         placeholder={passwordPlacholder}
