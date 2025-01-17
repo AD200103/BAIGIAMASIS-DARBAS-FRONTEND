@@ -1,0 +1,10 @@
+.main {
+  padding-right: 300px;
+  padding-left: 20px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.main .main:last-child {
+  border-bottom: 2px rgb(128, 125, 125) solid;
+}

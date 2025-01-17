@@ -13,7 +13,7 @@ const QuestionPanel = ({
   setShowQustionDelModal,
 }: QuestionPanelPropsType) => {
   return (
-    <div>
+    <div className={styles.main}>
       <h1>{question.title}</h1>
       <p>{question.question_text}</p>
       {question.user_id == userIdFromToken && (
@@ -23,9 +23,9 @@ const QuestionPanel = ({
         <p>
           Asked by:{" "}
           {question.user_id == userIdFromToken ? (
-            <span>You</span>
+            <span className={styles.youStyle}>You</span>
           ) : (
-            question?.name
+            <span className={styles.youUsername}>{question?.name}</span>
           )}
         </p>
         <p>At: {dateConvert(question?.date)}, UTC+00</p>

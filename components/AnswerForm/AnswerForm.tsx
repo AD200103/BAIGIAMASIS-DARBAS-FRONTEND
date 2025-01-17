@@ -61,20 +61,25 @@ const AnswerForm = ({
   return (
     <div className={styles.answerForm}>
       {loaderVis && <Loader />}
-      <textarea
-        className={`${styles.inputTextArea} ${redAnsAlert && styles.redAlert}`}
-        value={answerText}
-        maxLength={900}
-        placeholder={ansPlacholder}
-        onChange={(e) => setAnswerText(e.target.value)}
-      ></textarea>
-      <button
-        onClick={() => {
-          addAnAnswer();
-        }}
-      >
-        Add answer
-      </button>
+      <div className={styles.textAndButton}>
+        <textarea
+          className={`${styles.inputTextArea} ${
+            redAnsAlert && styles.redAlert
+          }`}
+          value={answerText}
+          maxLength={900}
+          placeholder={ansPlacholder}
+          onChange={(e) => setAnswerText(e.target.value)}
+        ></textarea>
+        <p className={styles.charNumb}>{answerText.length}/900</p>
+        <button
+          onClick={() => {
+            addAnAnswer();
+          }}
+        >
+          Add answer
+        </button>
+      </div>
     </div>
   );
 };

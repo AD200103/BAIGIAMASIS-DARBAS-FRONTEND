@@ -1,7 +1,10 @@
 .main {
-  border: 2px black solid;
-  width: 30%;
-  background-color: cadetblue;
+  border-top: 2px rgb(128, 125, 125) solid;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 .likes button {
   all: unset;
@@ -12,4 +15,45 @@
 .likes button img {
   width: 100%;
   height: 100%;
+}
+.nameDate {
+  display: flex;
+  gap: 20px;
+  font-size: 0.9rem;
+}
+.likesNameDate {
+  display: flex;
+  justify-content: space-between;
+}
+.youClass {
+  color: rgb(43, 167, 74);
+}
+.userClass {
+  color: rgb(93, 33, 196);
+}
+.ansText {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.delBtn {
+  all: unset;
+  width: 20px;
+  height: 20px;
+  font-size: 0.8rem;
+  position: absolute;
+  right: 20px;
+  padding-top: 2px;
+  background-color: red;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.delBtn:hover {
+  scale: 1.05;
+}
+.delBtn:active {
+  scale: 1;
 }

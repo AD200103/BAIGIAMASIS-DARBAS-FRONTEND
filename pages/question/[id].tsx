@@ -12,7 +12,7 @@ import { decodeToken } from "@/utils/jwtTokenDecoded";
 import DeleteQuestionModal from "@/components/DeleteQuestionModal/DeleteQuestionModal";
 import AnswerForm from "@/components/AnswerForm/AnswerForm";
 import QuestionPanel from "@/components/QuestionPanel/QuestionPanel";
-
+import styles from "./styles.module.css";
 const MainQuestionPage = () => {
   const [question, setQuestion] = useState<null | QuestionType>(null);
   const [newAnswer, setNewAnswer] = useState<null | AnswerType>(null);
@@ -58,7 +58,7 @@ const MainQuestionPage = () => {
             userIdFromToken={userIdFromToken}
             setShowQustionDelModal={setShowQustionDelModal}
           />
-          <h2>Answers</h2>
+          <h2 className={styles.answers}>Answers</h2>
           <Answers
             answer={newAnswer}
             updateAnswersNumberToQuestion={updateAnswersNumberToQuestion}

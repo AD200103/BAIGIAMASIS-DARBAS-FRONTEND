@@ -1,7 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 import styles from "./styles.module.css";
 import LikeButton from "../LikeButton/LikeButton";
 import DislikeButton from "../DislikeButton/DislikeButton";
 import React, { useState } from "react";
+import like from "../../assets/img/like.svg";
+import dislike from "../../assets/img/dislike.svg";
+
 type LikesDislikesPropsType = {
   id: string;
   usersWhoLikedTheAnswer: string[];
@@ -36,9 +40,9 @@ const LikesDislikes = ({
   );
 
   return (
-    <div>
-      <div className={styles.likes}>
-        {userIdFromToken !== userId && (
+    <div className={styles.likesBoth}>
+      <div className={styles.like}>
+        {userIdFromToken !== userId ? (
           <LikeButton
             setLikesAmmount={setLikesAmmount}
             setShowLogModal={setShowLogModal}
@@ -53,11 +57,13 @@ const LikesDislikes = ({
             setLikeState={setLikeState}
             setDislikesAmmount={setDislikesAmmount}
           />
+        ) : (
+          <img alt="like" src={like.src}></img>
         )}
-        <p>Likes:{likesAmmount}</p>
+        <p>{likesAmmount}</p>
       </div>
-      <div className={styles.likes}>
-        {userIdFromToken !== userId && (
+      <div className={styles.like}>
+        {userIdFromToken !== userId ? (
           <DislikeButton
             setDislikesAmmount={setDislikesAmmount}
             setShowLogModal={setShowLogModal}
@@ -72,8 +78,10 @@ const LikesDislikes = ({
             setLikeState={setLikeState}
             setLikesAmmount={setLikesAmmount}
           />
+        ) : (
+          <img alt="dislike" src={dislike.src}></img>
         )}
-        <p>Dislikes:{dislikesAmmount}</p>
+        <p>{dislikesAmmount}</p>
       </div>
     </div>
   );
