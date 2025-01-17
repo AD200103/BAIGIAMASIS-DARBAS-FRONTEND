@@ -24,7 +24,11 @@ const Header = () => {
         setShowModal={setShowLogModal}
         message={"Login for full experience!"}
       />
-      <BurgerModal showBurgerModal={showBurgerModal} />
+      <BurgerModal
+        setShowLogModal={setShowLogModal}
+        showBurgerModal={showBurgerModal}
+        setShowBurgerModal={setShowBurgerModal}
+      />
     </div>
   );
 };

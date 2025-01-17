@@ -1,24 +1,13 @@
-import cookie from "js-cookie";
 import Link from "next/link";
-import { logOut } from "@/utils/logout";
 import { useRouter } from "next/router";
-import React, { SetStateAction, useEffect, useState } from "react";
-import { checkingAuth } from "@/utils/jwtTokenDecoded";
+import React from "react";
 import styles from "./styles.module.css";
+import LoginLogoutComponent from "../LoginLogoutComponent/LoginLogoutComponent";
 type HeaderLinksPropsType = {
-  setShowLogModal: React.Dispatch<SetStateAction<boolean>>;
+  setShowLogModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
-  const [tokenExists, setTokenExists] = useState<string | undefined>(undefined);
   const router = useRouter();
-  useEffect(() => {
-    if (tokenExists) {
-      checkingAuth(tokenExists, setTokenExists);
-    }
-  }, [tokenExists]);
-  useEffect(() => {
-    setTokenExists(cookie.get("jwt-token"));
-  }, [tokenExists]);
   return (
     <nav className={styles.listStyleContainer}>
       <ul className={styles.listStyle}>
@@ -43,23 +32,10 @@ const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
         <Link href="/signin">
           <li className={styles.signInBtn}>Sign In</li>
         </Link>
-        {tokenExists ? (
-          <li
-            className={styles.signInBtn}
-            onClick={() => {
-              logOut(router);
-            }}
-          >
-            Logout
-          </li>
-        ) : (
-          <li
-            className={styles.signInBtn}
-            onClick={() => setShowLogModal(true)}
-          >
-            Login
-          </li>
-        )}
+        <LoginLogoutComponent
+          setShowLogModal={setShowLogModal}
+          className={styles.signInBtn}
+        />
       </ul>
     </nav>
   );

@@ -1,12 +1,37 @@
 .burgerModal {
   width: 100%;
   left: -3000px;
-  height: 100vh;
+  min-height: 100vh;
   position: fixed;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
   top: 98px;
   border-top: black 2px solid;
-  background-color: rgb(13, 13, 13, 0.8);
+  background-color: rgb(13, 13, 13, 0.9);
   transition-duration: 2000ms;
+  gap: 20px;
+}
+.burgerModal a,
+.login {
+  text-decoration: none;
+  color: white;
+  padding: 20px;
+  border-bottom: 2px solid white;
+  font-size: 2rem;
+  text-align: center;
+  width: 60%;
+  cursor: pointer;
+  list-style: none;
+}
+.burgerModal a:hover,
+.login:hover {
+  background-color: rgb(200, 197, 197, 0.8);
+}
+.burgerModal a:active,
+.login:active {
+  background-color: rgb(200, 197, 197, 1);
 }
 .burgerModalShow {
   transform: translateX(3000px);
