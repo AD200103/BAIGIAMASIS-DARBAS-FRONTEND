@@ -2,11 +2,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import styles from "./styles.module.css";
+import { useState } from "react";
 import LoginLogoutComponent from "../LoginLogoutComponent/LoginLogoutComponent";
 type HeaderLinksPropsType = {
   setShowLogModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
+  const [showBurgerModal, setShowBurgerModal] = useState(false);
+
   const router = useRouter();
   return (
     <nav className={styles.listStyleContainer}>
@@ -35,6 +38,8 @@ const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
         <LoginLogoutComponent
           setShowLogModal={setShowLogModal}
           className={styles.signInBtn}
+          showBurgerModal={showBurgerModal}
+          setShowBurgerModal={setShowBurgerModal}
         />
       </ul>
     </nav>

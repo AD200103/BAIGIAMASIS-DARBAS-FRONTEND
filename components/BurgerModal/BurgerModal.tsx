@@ -39,6 +39,7 @@ const BurgerModal = ({
         setShowLogModal={setShowLogModal}
         className={styles.login}
         setShowBurgerModal={setShowBurgerModal}
+        showBurgerModal={showBurgerModal}
       />
     </div>
   );

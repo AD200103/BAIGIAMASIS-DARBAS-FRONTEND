@@ -5,13 +5,15 @@ import { checkingAuth } from "@/utils/jwtTokenDecoded";
 import cookie from "js-cookie";
 type LoginLogoutComponentPropsType = {
   setShowLogModal: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowBurgerModal?: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowBurgerModal: React.Dispatch<React.SetStateAction<boolean>>;
+  showBurgerModal: boolean;
   className: string;
 };
 const LoginLogoutComponent = ({
   setShowLogModal,
   className,
   setShowBurgerModal,
+  showBurgerModal,
 }: LoginLogoutComponentPropsType) => {
   const [tokenExists, setTokenExists] = useState<string | undefined>(undefined);
   const router = useRouter();
@@ -37,7 +39,9 @@ const LoginLogoutComponent = ({
     <li
       className={className}
       onClick={() => {
-        setShowBurgerModal!(false);
+        if (showBurgerModal) {
+          setShowBurgerModal(false);
+        }
         setShowLogModal(true);
       }}
     >

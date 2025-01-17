@@ -16,9 +16,7 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
   const [questionPlaceholder, setQuestPLaceholder] = useState(
     "Enter your question..."
   );
-  const [titlePlacholder, setTitlePLaceholder] = useState(
-    "Title of the question"
-  );
+  const [titlePlacholder, setTitlePLaceholder] = useState("Title");
   const [redQuestionAlert, setRedQuestAlert] = useState(false);
   const [redTitleAlert, setRedTitleAlert] = useState(false);
   const router = useRouter();
