@@ -50,3 +50,8 @@
 .buttons button:last-child:active {
   scale: 1;
 }
+@media screen and (max-width: 768px) {
+  .panel {
+    width: 300px;
+  }
+}
