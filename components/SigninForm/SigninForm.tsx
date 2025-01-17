@@ -103,7 +103,7 @@ const SigninForm = () => {
       <input
         className={`${styles.input} ${redEmailAlert && styles.redAlert}`}
         value={email}
-        maxLength={20}
+        maxLength={60}
         type="text"
         placeholder={emailPlaceholder}
         onChange={(e) => setEmail(e.target.value)}

@@ -17,7 +17,12 @@ const QuestionPanel = ({
       <h1>{question.title}</h1>
       <p>{question.question_text}</p>
       {question.user_id == userIdFromToken && (
-        <button onClick={() => setShowQustionDelModal(true)}>Delete</button>
+        <p
+          className={styles.delBtn}
+          onClick={() => setShowQustionDelModal(true)}
+        >
+          Delete
+        </p>
       )}
       <div className={styles.dateEmailBox}>
         <p>

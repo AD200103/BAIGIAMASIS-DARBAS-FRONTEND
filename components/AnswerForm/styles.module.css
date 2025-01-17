@@ -50,3 +50,8 @@
 .redAlert::placeholder {
   color: rgb(186, 2, 2);
 }
+@media screen and (max-width: 768px) {
+  .textAndButton {
+    width: 80%;
+  }
+}

@@ -1,7 +1,7 @@
 .main {
   display: flex;
   flex-direction: column;
-  border: black solid 4px;
+  border-top: black solid 2px;
   width: 70%;
   height: 130px;
   align-items: center;
@@ -12,11 +12,12 @@
 .main h4 {
   align-self: flex-end;
   justify-self: flex-end;
-  font-weight: 200;
   font-size: 0.8rem;
 }
-.main h4 span {
-  color: blue;
+.main a {
+  all: unset;
+  color: rgb(93, 33, 196);
+  cursor: pointer;
 }
 .main a,
 .main p {
@@ -25,7 +26,7 @@
 .main a h2 {
   font-weight: 300;
   font-size: 1.3rem;
-  color: rgb(74, 74, 233);
+  word-break: break-all;
 }
 .main a h2:hover {
   color: rgb(38, 38, 155);
@@ -35,4 +36,16 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.yClass {
+  color: rgb(43, 167, 74);
+}
+.userClass {
+  color: rgb(93, 33, 196);
+}
+@media screen and (max-width: 768px) {
+  .main {
+    height: fit-content;
+    gap: 10px;
+  }
 }

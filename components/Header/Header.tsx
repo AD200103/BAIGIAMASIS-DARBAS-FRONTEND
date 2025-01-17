@@ -11,14 +11,6 @@ const Header = () => {
   const [showBurgerModal, setShowBurgerModal] = useState(false);
   return (
     <div className={styles.main}>
-      <LogoComponent />
-      <button
-        onClick={() => setShowBurgerModal(!showBurgerModal)}
-        className={styles.burgerBtn}
-      >
-        <img src={burger.src} alt="burger" />
-      </button>
-      <HeaderLinks setShowLogModal={setShowLogModal} />
       <LoginModal
         showModal={showLogModal}
         setShowModal={setShowLogModal}
@@ -29,6 +21,14 @@ const Header = () => {
         showBurgerModal={showBurgerModal}
         setShowBurgerModal={setShowBurgerModal}
       />
+      <LogoComponent />
+      <button
+        onClick={() => setShowBurgerModal(!showBurgerModal)}
+        className={styles.burgerBtn}
+      >
+        <img src={burger.src} alt="burger" />
+      </button>
+      <HeaderLinks setShowLogModal={setShowLogModal} />
     </div>
   );
 };

@@ -32,7 +32,11 @@ const QuestionCard = ({
       <p>{question_text}</p>
       <h4>
         Posted by:{" "}
-        {userIdFromToken !== user_id ? <span>{name}</span> : <span>You</span>}{" "}
+        {userIdFromToken !== user_id ? (
+          <span className={styles.userClass}>{name}</span>
+        ) : (
+          <span className={styles.yClass}>You</span>
+        )}{" "}
         <br />
         At: {dateConvert(date)}, UTC+00
       </h4>

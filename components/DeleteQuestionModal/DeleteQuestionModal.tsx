@@ -44,8 +44,10 @@ const DeleteQuestionModal = ({
       {loaderVis && <Loader />}
       <div className={styles.panel}>
         <h1>Are you sure you want to delete this question?</h1>
-        <button onClick={deleteAQuestion}>Yes</button>
-        <button onClick={() => setShowQustionDelModal(false)}>No</button>
+        <div className={styles.buttons}>
+          <button onClick={deleteAQuestion}>Yes</button>
+          <button onClick={() => setShowQustionDelModal(false)}>No</button>
+        </div>
       </div>
     </div>
   );

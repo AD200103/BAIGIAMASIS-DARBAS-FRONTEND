@@ -58,13 +58,20 @@ const AnswerCard = ({
 
   return (
     <div className={styles.main}>
+      <LoginModal
+        showModal={showLogModal}
+        setShowModal={setShowLogModal}
+        message={message}
+      />
       {loaderVis && <Loader />}
-      <p className={styles.ansText}>Answer: {answer_text}</p>
-      {userIdFromToken == userId && (
-        <button className={styles.delBtn} onClick={deleteAnAnswer}>
-          X
-        </button>
-      )}
+      <div className={styles.ansAndDelBtn}>
+        <p className={styles.ansText}>Answer: {answer_text}</p>
+        {userIdFromToken == userId && (
+          <p className={styles.delBtn} onClick={deleteAnAnswer}>
+            Delete
+          </p>
+        )}
+      </div>
       <div className={styles.likesNameDate}>
         <LikesDislikes
           id={id}
@@ -76,22 +83,17 @@ const AnswerCard = ({
         />
         <div className={styles.nameDate}>
           {userIdFromToken == userId ? (
-            <p>
+            <h4>
               Answered by: <span className={styles.youClass}>You</span>
-            </p>
+            </h4>
           ) : (
-            <p>
+            <h4>
               Answered by: <span className={styles.userClass}>{name}</span>
-            </p>
+            </h4>
           )}
-          <p>At: {dateConvert(date)}, UTC+00</p>
+          <h4>At: {dateConvert(date)}, UTC+00</h4>
         </div>
       </div>
-      <LoginModal
-        showModal={showLogModal}
-        setShowModal={setShowLogModal}
-        message={message}
-      />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 .burgerModal {
   width: 100%;
   left: -3000px;
-  min-height: 100vh;
+  min-height: calc(100vh - 100px);
   position: fixed;
   display: flex;
   align-items: center;
@@ -34,10 +34,10 @@
   background-color: rgb(200, 197, 197, 1);
 }
 .burgerModalShow {
-  transform: translateX(3000px);
+  left: 0px;
 }
 @media screen and (min-width: 768px) {
   .burgerModalShow {
-    transform: translateX(-3000px);
+    left: -3000px;
   }
 }
