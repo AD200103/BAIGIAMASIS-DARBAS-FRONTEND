@@ -13,6 +13,8 @@ import DeleteQuestionModal from "@/components/DeleteQuestionModal/DeleteQuestion
 import AnswerForm from "@/components/AnswerForm/AnswerForm";
 import QuestionPanel from "@/components/QuestionPanel/QuestionPanel";
 import styles from "./styles.module.css";
+import { getQuestion, updateAnswersNumberToQuestion } from "@/api/question";
+
 const MainQuestionPage = () => {
   const [question, setQuestion] = useState<null | QuestionType>(null);
   const [newAnswer, setNewAnswer] = useState<null | AnswerType>(null);
@@ -25,27 +27,24 @@ const MainQuestionPage = () => {
   const token = cookie.get("jwt-token");
   const userIdFromToken: string | undefined = decodeToken(token!);
 
-  const getQuestion = async () => {
-    const response = await axios.get(`http://localhost:3002/questions/${id}`);
+  const getAQuestion = async () => {
+    const response = await getQuestion(id);
     setQuestion(response.data.question);
   };
 
-  const updateAnswersNumberToQuestion = async (answerAmmount: number) => {
+  const updateAnAnswersNumberToQuestion = async (answerAmmount: number) => {
     const body = {
       answers: answerAmmount,
     };
     try {
-      const response = await axios.put(
-        `http://localhost:3002/question/${id}`,
-        body
-      );
+      const response = await updateAnswersNumberToQuestion(body, id);
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
     if (id) {
-      getQuestion();
+      getAQuestion();
     }
   }, [id]);
 
@@ -61,7 +60,7 @@ const MainQuestionPage = () => {
           <h2 className={styles.answers}>Answers</h2>
           <Answers
             answer={newAnswer}
-            updateAnswersNumberToQuestion={updateAnswersNumberToQuestion}
+            updateAnAnswersNumberToQuestion={updateAnAnswersNumberToQuestion}
           />
           <AnswerForm
             setNewAnswer={setNewAnswer}

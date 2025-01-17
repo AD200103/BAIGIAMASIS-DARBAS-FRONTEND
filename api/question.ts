@@ -22,3 +22,17 @@ export const gettingQuestions = async () => {
   const response = await axios.get(`${process.env.BASE_URL}/questions`);
   return response;
 };
+export const getQuestion = async (id: string) => {
+  const response = await axios.get(`${process.env.BASE_URL}/questions/${id}`);
+  return response;
+};
+export const updateAnswersNumberToQuestion = async (
+  body: object,
+  id: string
+) => {
+  const response = await axios.put(
+    `${process.env.BASE_URL}/question/${id}`,
+    body
+  );
+  return response;
+};

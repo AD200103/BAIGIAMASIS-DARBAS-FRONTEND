@@ -8,11 +8,11 @@ import { getAnswers } from "@/api/answer";
 import Loader from "../Loader/Loader";
 type AnswersPropsType = {
   answer: AnswerType | null;
-  updateAnswersNumberToQuestion: (answers: number) => void;
+  updateAnAnswersNumberToQuestion: (answers: number) => void;
 };
 const Answers = ({
   answer,
-  updateAnswersNumberToQuestion,
+  updateAnAnswersNumberToQuestion,
 }: AnswersPropsType) => {
   const router = useRouter();
   const id = router.query.id as string;
@@ -41,7 +41,7 @@ const Answers = ({
   }, [id]);
   useEffect(() => {
     if (answers) {
-      updateAnswersNumberToQuestion(answers.length);
+      updateAnAnswersNumberToQuestion(answers.length);
     }
   }, [answers && answers!.length]);
 
