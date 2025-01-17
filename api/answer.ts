@@ -1,7 +1,7 @@
 import axios from "axios";
 export const deleteAnswer = async (id: string, token: string) => {
   const headers = { authorization: token };
-  const response = await axios.delete(`http://localhost:3002/answer/${id}`, {
+  const response = await axios.delete(`${process.env.BASE_URL}/answer/${id}`, {
     headers,
   });
   return response;
@@ -11,15 +11,17 @@ export const addAnswer = async (token: string, body: object, id: string) => {
     authorization: token,
   };
   const response = await axios.post(
-    `http://localhost:3002/question/${id}/answers`,
+    `${process.env.BASE_URL}/question/${id}/answers`,
     body,
-    { headers }
+    {
+      headers,
+    }
   );
   return response;
 };
 export const getAnswers = async (id: string) => {
   const response = await axios.get(
-    `http://localhost:3002/question/${id}/answers`
+    `${process.env.BASE_URL}/question/${id}/answers`
   );
   return response;
 };
@@ -29,8 +31,12 @@ export const updateAnswerDislikeLikeStatus = async (
   token: string
 ) => {
   const headers = { authorization: token };
-  const response = await axios.put(`http://localhost:3002/answer/${id}`, body, {
-    headers,
-  });
+  const response = await axios.put(
+    `${process.env.BASE_URL}/answer/${id}`,
+    body,
+    {
+      headers,
+    }
+  );
   return response;
 };

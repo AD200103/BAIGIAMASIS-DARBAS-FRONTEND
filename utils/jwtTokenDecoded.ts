@@ -21,7 +21,7 @@ export const checkingAuth = async (
 ) => {
   try {
     const headers = { authorization: token };
-    const response = await axios.get("http://localhost:3002/token_check", {
+    const response = await axios.get(`${process.env.BASE_URL}/token_check`, {
       headers,
     });
   } catch (err: unknown) {
