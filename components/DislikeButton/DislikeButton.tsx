@@ -15,8 +15,6 @@ const DislikeButton = ({
   setUserDislikeIdArr,
   dislikeState,
   setDislikeState,
-  userDislikeIdArr,
-  userLikeIdArr,
   setUserLikeIdArr,
   setLikeState,
   setLikesAmmount,
@@ -25,17 +23,9 @@ const DislikeButton = ({
   const updateAnswerDislikeStatus = async () => {
     try {
       const token = cookie.get("jwt-token") as string;
-
-      const body = {
-        usersWhoLikedTheAnswer: userLikeIdArr.includes(userIdFromToken!)
-          ? userLikeIdArr.filter((userid) => userid !== userIdFromToken!)
-          : userLikeIdArr,
-
-        usersWhoDislikedTheAnswer: userDislikeIdArr.includes(userIdFromToken!)
-          ? userDislikeIdArr.filter((userid) => userid !== userIdFromToken!)
-          : [...userDislikeIdArr, userIdFromToken!],
-      };
+      const body = {};
       const response = await updateAnswerDislikeLikeStatus(id, body, token);
+      console.log(response.data);
       if (response.status == 200) {
         const dislikedUsersArray =
           response.data.answer.usersWhoDislikedTheAnswer;

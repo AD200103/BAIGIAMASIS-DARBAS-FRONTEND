@@ -13,30 +13,19 @@ const LikeButton = ({
   userIdFromToken,
   id,
   setUserDislikeIdArr,
-  userDislikeIdArr,
   setDislikeState,
   setDislikesAmmount,
   setUserLikeIdArr,
-  userLikeIdArr,
   likeState,
   setLikeState,
   setShowLogModal,
 }: LikePropsType) => {
   const updateAnswerLikeStatus = async () => {
     try {
+      const body = {};
       const token = cookie.get("jwt-token") as string;
-
-      const body = {
-        usersWhoDislikedTheAnswer: userDislikeIdArr.includes(userIdFromToken!)
-          ? userDislikeIdArr.filter((userid) => userid !== userIdFromToken!)
-          : userDislikeIdArr,
-
-        usersWhoLikedTheAnswer: userLikeIdArr.includes(userIdFromToken!)
-          ? userLikeIdArr.filter((userid) => userid !== userIdFromToken!)
-          : [...userLikeIdArr, userIdFromToken!],
-      };
-
       const response = await updateAnswerDislikeLikeStatus(id, body, token);
+      console.log(response);
 
       if (response.status == 200) {
         const likedUsersArray = response.data.answer.usersWhoLikedTheAnswer;
