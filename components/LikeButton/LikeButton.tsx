@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 import cookie from "js-cookie";
 import styles from "./styles.module.css";
@@ -24,8 +23,10 @@ const LikeButton = ({
   const updateAnswerLikeStatus = async () => {
     try {
       const token = cookie.get("jwt-token") as string;
-      console.log(!likeState);
-
+      console.log(likeState);
+      if (token) {
+        setLikeState(!likeState);
+      }
       const body = {
         likeStatus: likeState,
       };
