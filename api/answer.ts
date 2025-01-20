@@ -27,13 +27,12 @@ export const getAnswers = async (id: string) => {
 };
 export const updateAnswerDislikeLikeStatus = async (
   id: string,
-  body: object,
   token: string
 ) => {
   const headers = { authorization: token };
   const response = await axios.put(
     `${process.env.BASE_URL}/answer/${id}`,
-    body,
+    {},
     {
       headers,
     }
