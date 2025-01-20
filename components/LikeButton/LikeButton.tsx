@@ -31,11 +31,11 @@ const LikeButton = ({
       };
       const response = await updateAnswerDislikeLikeStatus(id, token, body);
       if (response.status == 200) {
-        console.log(response.data.usersWhoLikedTheAnswer);
         const likedUsersArray = response.data.answer.usersWhoLikedTheAnswer;
         const dislikedUsersArray =
           response.data.answer.usersWhoDislikedTheAnswer;
         setUserLikeIdArr(likedUsersArray);
+        setLikeState(likedUsersArray.includes(userIdFromToken));
         setLikesAmmount(likedUsersArray.length);
         setUserDislikeIdArr(dislikedUsersArray);
         setDislikesAmmount(dislikedUsersArray.length);
