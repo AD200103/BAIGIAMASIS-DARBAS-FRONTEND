@@ -23,7 +23,12 @@ const DislikeButton = ({
   const updateAnswerDislikeStatus = async () => {
     try {
       const token = cookie.get("jwt-token") as string;
-      const body = {};
+      if (token) {
+        setLikeState(!dislikeState);
+      }
+      const body = {
+        dislikeStatus: !dislikeState,
+      };
       const response = await updateAnswerDislikeLikeStatus(id, token, body);
       console.log(response.data);
       if (response.status == 200) {
