@@ -24,9 +24,7 @@ const LikeButton = ({
     try {
       const token = cookie.get("jwt-token") as string;
       console.log(!likeState);
-      if (token) {
-        setLikeState(!likeState);
-      }
+
       const body = {
         likeStatus: likeState,
       };
