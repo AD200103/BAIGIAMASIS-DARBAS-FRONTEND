@@ -24,7 +24,7 @@ const DislikeButton = ({
     try {
       const token = cookie.get("jwt-token") as string;
       if (token) {
-        setLikeState(!dislikeState);
+        setDislikeState(!dislikeState);
       }
       const body = {
         dislikeStatus: !dislikeState,
@@ -37,8 +37,6 @@ const DislikeButton = ({
         const likedUsersArray = response.data.answer.usersWhoLikedTheAnswer;
         setUserDislikeIdArr(dislikedUsersArray);
         setDislikesAmmount(dislikedUsersArray.length);
-        setDislikeState(dislikedUsersArray.includes(userIdFromToken!));
-
         setUserLikeIdArr(likedUsersArray);
         setLikeState(likedUsersArray.includes(userIdFromToken!));
         setLikesAmmount(likedUsersArray.length);
