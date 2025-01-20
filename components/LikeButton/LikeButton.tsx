@@ -20,7 +20,6 @@ const LikeButton = ({
   setLikeState,
   setShowLogModal,
 }: LikePropsType) => {
-  console.log(likeState);
   const updateAnswerLikeStatus = async () => {
     try {
       const token = cookie.get("jwt-token") as string;
@@ -30,6 +29,7 @@ const LikeButton = ({
       const body = {
         likeStatus: likeState,
       };
+      console.log(body);
       console.log(likeState);
       const response = await updateAnswerDislikeLikeStatus(id, token, body);
       if (response.status == 200) {
