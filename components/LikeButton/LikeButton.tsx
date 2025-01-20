@@ -29,6 +29,7 @@ const LikeButton = ({
       const body = {
         likeStatus: likeState,
       };
+      console.log(likeState);
       const response = await updateAnswerDislikeLikeStatus(id, token, body);
       if (response.status == 200) {
         console.log(response);
