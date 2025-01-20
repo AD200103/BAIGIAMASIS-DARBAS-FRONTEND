@@ -27,7 +27,7 @@ const DislikeButton = ({
         setDislikeState(!dislikeState);
       }
       const body = {
-        dislikeStatus: !dislikeState,
+        pressed: "dislike pressed",
       };
       const response = await updateAnswerDislikeLikeStatus(id, token, body);
       if (response.status == 200) {

@@ -27,7 +27,7 @@ const LikeButton = ({
         setLikeState(!likeState);
       }
       const body = {
-        likeStatus: !likeState,
+        pressed: "like pressed",
       };
       const response = await updateAnswerDislikeLikeStatus(id, token, body);
       if (response.status == 200) {
@@ -35,7 +35,6 @@ const LikeButton = ({
         const dislikedUsersArray =
           response.data.answer.usersWhoDislikedTheAnswer;
         setUserLikeIdArr(likedUsersArray);
-        setLikeState(likedUsersArray.includes(userIdFromToken));
         setLikesAmmount(likedUsersArray.length);
         setUserDislikeIdArr(dislikedUsersArray);
         setDislikesAmmount(dislikedUsersArray.length);
