@@ -30,8 +30,8 @@ const DislikeButton = ({
         dislikeStatus: !dislikeState,
       };
       const response = await updateAnswerDislikeLikeStatus(id, token, body);
-      console.log(response.data);
       if (response.status == 200) {
+        console.log(response.data.usersWhoDislikedTheAnswer);
         const dislikedUsersArray =
           response.data.answer.usersWhoDislikedTheAnswer;
         const likedUsersArray = response.data.answer.usersWhoLikedTheAnswer;
