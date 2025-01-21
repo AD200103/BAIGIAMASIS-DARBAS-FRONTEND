@@ -44,7 +44,6 @@ const LikeButton = ({
           userDislikeIdArr,
           likesAmmount
         );
-        setLikesAmmount(userLikeIdArr.length);
       }
       await updateAnswerDislikeLikeStatus(id, token, body);
     } catch (err: unknown) {

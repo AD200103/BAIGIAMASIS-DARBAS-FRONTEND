@@ -63,7 +63,7 @@ const LikesDislikes = ({
         ) : (
           <img alt="like" src={like.src}></img>
         )}
-        <p>{likesAmmount}</p>
+        <p>{userLikeIdArr.length}</p>
       </div>
       <div className={styles.like}>
         {userIdFromToken !== userId ? (
