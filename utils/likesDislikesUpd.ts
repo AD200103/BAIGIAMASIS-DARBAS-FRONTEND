@@ -13,6 +13,7 @@ const updateLikesDislikes = (
   likesAmmount: number
 ) => {
   if (body.pressed == "like pressed") {
+    setLikesAmmount(userLikeIdArr.length);
     if (userLikeIdArr.includes(userIdFromToken!)) {
       setUserLikeIdArr((prev) => prev.filter((p) => p !== userIdFromToken));
     }
@@ -27,7 +28,6 @@ const updateLikesDislikes = (
       setUserDislikeIdArr(userDislikeIdArr);
       setDislikesAmmount(userDislikeIdArr.length);
     }
-    setLikesAmmount(userLikeIdArr.length);
     console.log(likesAmmount);
     return;
   }
