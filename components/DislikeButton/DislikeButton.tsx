@@ -20,6 +20,7 @@ const DislikeButton = ({
   setShowLogModal,
   userLikeIdArr,
   userDislikeIdArr,
+  setLikeState,
 }: DislikePropsType) => {
   const updateAnswerDislikeStatus = async () => {
     try {
@@ -28,15 +29,17 @@ const DislikeButton = ({
         pressed: "dislike pressed",
       };
       if (token) {
+        setDislikeState(!dislikeState);
         updateLikesDislikes(
           body,
           userIdFromToken,
           setUserDislikeIdArr,
           setUserLikeIdArr,
           userLikeIdArr,
-          userDislikeIdArr
+          userDislikeIdArr,
+          setLikeState,
+          setDislikeState
         );
-        setDislikeState(userDislikeIdArr.includes(userIdFromToken!));
       }
       await updateAnswerDislikeLikeStatus(id, token, body);
     } catch (err: unknown) {

@@ -7,9 +7,12 @@ const updateLikesDislikes = (
   setUserDislikeIdArr: React.Dispatch<React.SetStateAction<string[]>>,
   setUserLikeIdArr: React.Dispatch<React.SetStateAction<string[]>>,
   userLikeIdArr: string[],
-  userDislikeIdArr: string[]
+  userDislikeIdArr: string[],
+  setLikeState: React.Dispatch<React.SetStateAction<boolean>>,
+  setDislikeState: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   if (body.pressed == "like pressed") {
+    setDislikeState(false);
     if (userLikeIdArr.includes(userIdFromToken!)) {
       setUserLikeIdArr((prev) => prev.filter((p) => p !== userIdFromToken));
     }
@@ -25,6 +28,7 @@ const updateLikesDislikes = (
     return;
   }
   if (body.pressed == "dislike pressed") {
+    setLikeState(false);
     if (userDislikeIdArr.includes(userIdFromToken!)) {
       setUserDislikeIdArr((prev) => prev.filter((p) => p !== userIdFromToken));
     }

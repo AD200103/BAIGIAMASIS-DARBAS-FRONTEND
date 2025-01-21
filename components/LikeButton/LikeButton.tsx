@@ -20,6 +20,7 @@ const LikeButton = ({
   setShowLogModal,
   userLikeIdArr,
   userDislikeIdArr,
+  setDislikeState,
 }: LikePropsType) => {
   const updateAnswerLikeStatus = async () => {
     try {
@@ -28,15 +29,17 @@ const LikeButton = ({
         pressed: "like pressed",
       };
       if (token) {
+        setLikeState(!likeState);
         updateLikesDislikes(
           body,
           userIdFromToken,
           setUserDislikeIdArr,
           setUserLikeIdArr,
           userLikeIdArr,
-          userDislikeIdArr
+          userDislikeIdArr,
+          setLikeState,
+          setDislikeState
         );
-        setLikeState(userLikeIdArr.includes(userIdFromToken!));
       }
       await updateAnswerDislikeLikeStatus(id, token, body);
     } catch (err: unknown) {
