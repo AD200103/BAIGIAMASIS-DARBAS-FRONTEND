@@ -80,6 +80,7 @@ const LikesDislikes = ({
             userLikeIdArr={userLikeIdArr}
             setLikeState={setLikeState}
             setLikesAmmount={setLikesAmmount}
+            dislikesAmmount={dislikesAmmount}
           />
         ) : (
           <img alt="dislike" src={dislike.src}></img>
