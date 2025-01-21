@@ -16,11 +16,9 @@ const updateLikesDislikes = (
     if (userLikeIdArr.includes(userIdFromToken!)) {
       setUserLikeIdArr((prev) => prev.filter((p) => p !== userIdFromToken));
     }
-    setLikesAmmount(userLikeIdArr.length);
     if (!userLikeIdArr.includes(userIdFromToken!)) {
       setUserLikeIdArr((prev) => [...prev, userIdFromToken!]);
     }
-    setLikesAmmount(userLikeIdArr.length);
     if (userDislikeIdArr.includes(userIdFromToken!)) {
       setUserDislikeIdArr((prev) => prev.filter((p) => p !== userIdFromToken));
       setDislikesAmmount(userDislikeIdArr.length);
@@ -29,7 +27,7 @@ const updateLikesDislikes = (
       setUserDislikeIdArr(userDislikeIdArr);
       setDislikesAmmount(userDislikeIdArr.length);
     }
-    console.log(userLikeIdArr);
+    setLikesAmmount(userLikeIdArr.length);
     console.log(likesAmmount);
     return;
   }
