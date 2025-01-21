@@ -28,7 +28,6 @@ const LikeButton = ({
         pressed: "like pressed",
       };
       if (token) {
-        setLikeState(!likeState);
         updateLikesDislikes(
           body,
           userIdFromToken,
@@ -37,6 +36,7 @@ const LikeButton = ({
           userLikeIdArr,
           userDislikeIdArr
         );
+        setLikeState(userLikeIdArr.includes(userIdFromToken!));
       }
       await updateAnswerDislikeLikeStatus(id, token, body);
     } catch (err: unknown) {

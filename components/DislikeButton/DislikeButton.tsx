@@ -28,7 +28,6 @@ const DislikeButton = ({
         pressed: "dislike pressed",
       };
       if (token) {
-        setDislikeState(!dislikeState);
         updateLikesDislikes(
           body,
           userIdFromToken,
@@ -37,6 +36,7 @@ const DislikeButton = ({
           userLikeIdArr,
           userDislikeIdArr
         );
+        setDislikeState(userDislikeIdArr.includes(userIdFromToken!));
       }
       await updateAnswerDislikeLikeStatus(id, token, body);
     } catch (err: unknown) {
