@@ -6,8 +6,8 @@ import activeDislike from "../../assets/img/dislikeActive.svg";
 import { AxiosError } from "axios";
 import { LikeDislikeButtonPropsType } from "@/types";
 import { updateAnswerDislikeLikeStatus } from "@/api/answer";
+import updateLikesDislikes from "@/utils/likesDislikesUpd";
 type DislikePropsType = LikeDislikeButtonPropsType & { dislikeState: boolean };
-
 const DislikeButton = ({
   setDislikesAmmount,
   id,
@@ -16,30 +16,31 @@ const DislikeButton = ({
   dislikeState,
   setDislikeState,
   setUserLikeIdArr,
-  setLikeState,
   setLikesAmmount,
   setShowLogModal,
+  userLikeIdArr,
+  userDislikeIdArr,
 }: DislikePropsType) => {
   const updateAnswerDislikeStatus = async () => {
     try {
       const token = cookie.get("jwt-token") as string;
-      if (token) {
-        setDislikeState(!dislikeState);
-      }
       const body = {
         pressed: "dislike pressed",
       };
-      const response = await updateAnswerDislikeLikeStatus(id, token, body);
-      if (response.status == 200) {
-        const dislikedUsersArray =
-          response.data.answer.usersWhoDislikedTheAnswer;
-        const likedUsersArray = response.data.answer.usersWhoLikedTheAnswer;
-        setUserDislikeIdArr(dislikedUsersArray);
-        setDislikesAmmount(dislikedUsersArray.length);
-        setUserLikeIdArr(likedUsersArray);
-        setLikeState(likedUsersArray.includes(userIdFromToken!));
-        setLikesAmmount(likedUsersArray.length);
+      if (token) {
+        setDislikeState(!dislikeState);
+        updateLikesDislikes(
+          body,
+          userIdFromToken,
+          setUserDislikeIdArr,
+          setUserLikeIdArr,
+          setDislikesAmmount,
+          setLikesAmmount,
+          userLikeIdArr,
+          userDislikeIdArr
+        );
       }
+      await updateAnswerDislikeLikeStatus(id, token, body);
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.status == 403) {
@@ -48,7 +49,6 @@ const DislikeButton = ({
       }
     }
   };
-
   return (
     <button
       className={styles.main}

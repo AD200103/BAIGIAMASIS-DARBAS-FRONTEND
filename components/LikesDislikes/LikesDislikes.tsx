@@ -22,6 +22,7 @@ const LikesDislikes = ({
   userId,
   setShowLogModal,
 }: LikesDislikesPropsType) => {
+  //===========================================================================
   const [userLikeIdArr, setUserLikeIdArr] = useState(usersWhoLikedTheAnswer);
   const [likeState, setLikeState] = useState(
     userLikeIdArr.includes(userIdFromToken!)
@@ -29,6 +30,7 @@ const LikesDislikes = ({
   const [likesAmmount, setLikesAmmount] = useState(
     usersWhoLikedTheAnswer.length
   );
+  //===========================================================================
   const [userDislikeIdArr, setUserDislikeIdArr] = useState(
     usersWhoDislikedTheAnswer
   );
@@ -38,7 +40,7 @@ const LikesDislikes = ({
   const [dislikesAmmount, setDislikesAmmount] = useState(
     usersWhoDislikedTheAnswer.length
   );
-
+  //===========================================================================
   return (
     <div className={styles.likesBoth}>
       <div className={styles.like}>

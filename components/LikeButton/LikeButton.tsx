@@ -6,40 +6,41 @@ import activeLike from "../../assets/img/likeActive.svg";
 import { AxiosError } from "axios";
 import { LikeDislikeButtonPropsType } from "@/types";
 import { updateAnswerDislikeLikeStatus } from "@/api/answer";
-
+import updateLikesDislikes from "@/utils/likesDislikesUpd";
 type LikePropsType = LikeDislikeButtonPropsType & { likeState: boolean };
 const LikeButton = ({
   setLikesAmmount,
   userIdFromToken,
   id,
   setUserDislikeIdArr,
-  setDislikeState,
   setDislikesAmmount,
   setUserLikeIdArr,
   likeState,
   setLikeState,
   setShowLogModal,
+  userLikeIdArr,
+  userDislikeIdArr,
 }: LikePropsType) => {
   const updateAnswerLikeStatus = async () => {
     try {
       const token = cookie.get("jwt-token") as string;
-      if (token) {
-        setLikeState(!likeState);
-      }
       const body = {
         pressed: "like pressed",
       };
-      const response = await updateAnswerDislikeLikeStatus(id, token, body);
-      if (response.status == 200) {
-        const likedUsersArray = response.data.answer.usersWhoLikedTheAnswer;
-        const dislikedUsersArray =
-          response.data.answer.usersWhoDislikedTheAnswer;
-        setUserLikeIdArr(likedUsersArray);
-        setLikesAmmount(likedUsersArray.length);
-        setUserDislikeIdArr(dislikedUsersArray);
-        setDislikesAmmount(dislikedUsersArray.length);
-        setDislikeState(dislikedUsersArray.includes(userIdFromToken!));
+      if (token) {
+        setLikeState(!likeState);
+        updateLikesDislikes(
+          body,
+          userIdFromToken,
+          setUserDislikeIdArr,
+          setUserLikeIdArr,
+          setDislikesAmmount,
+          setLikesAmmount,
+          userLikeIdArr,
+          userDislikeIdArr
+        );
       }
+      await updateAnswerDislikeLikeStatus(id, token, body);
     } catch (err: unknown) {
       const error = err as AxiosError;
       if (error.status == 403) {
@@ -48,7 +49,6 @@ const LikeButton = ({
       }
     }
   };
-
   return (
     <button
       className={styles.main}
