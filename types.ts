@@ -27,13 +27,11 @@ export type TokenType = {
   name: string;
 };
 export type LikeDislikeButtonPropsType = {
-  setLikesAmmount: React.Dispatch<React.SetStateAction<number>>;
   userIdFromToken: string | undefined;
   id: string;
   setUserDislikeIdArr: React.Dispatch<React.SetStateAction<string[]>>;
   userDislikeIdArr: string[];
   setDislikeState: React.Dispatch<React.SetStateAction<boolean>>;
-  setDislikesAmmount: React.Dispatch<React.SetStateAction<number>>;
   setUserLikeIdArr: React.Dispatch<React.SetStateAction<string[]>>;
   userLikeIdArr: string[];
   setLikeState: React.Dispatch<React.SetStateAction<boolean>>;

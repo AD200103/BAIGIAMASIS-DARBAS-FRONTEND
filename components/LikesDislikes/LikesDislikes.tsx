@@ -27,9 +27,6 @@ const LikesDislikes = ({
   const [likeState, setLikeState] = useState(
     userLikeIdArr.includes(userIdFromToken!)
   );
-  const [likesAmmount, setLikesAmmount] = useState(
-    usersWhoLikedTheAnswer.length
-  );
   //===========================================================================
   const [userDislikeIdArr, setUserDislikeIdArr] = useState(
     usersWhoDislikedTheAnswer
@@ -37,16 +34,12 @@ const LikesDislikes = ({
   const [dislikeState, setDislikeState] = useState(
     userDislikeIdArr.includes(userIdFromToken!)
   );
-  const [dislikesAmmount, setDislikesAmmount] = useState(
-    usersWhoDislikedTheAnswer.length
-  );
   //===========================================================================
   return (
     <div className={styles.likesBoth}>
       <div className={styles.like}>
         {userIdFromToken !== userId ? (
           <LikeButton
-            setLikesAmmount={setLikesAmmount}
             setShowLogModal={setShowLogModal}
             id={id}
             userIdFromToken={userIdFromToken!}
@@ -57,8 +50,6 @@ const LikesDislikes = ({
             userLikeIdArr={userLikeIdArr}
             likeState={likeState}
             setLikeState={setLikeState}
-            setDislikesAmmount={setDislikesAmmount}
-            likesAmmount={likesAmmount}
           />
         ) : (
           <img alt="like" src={like.src}></img>
@@ -68,7 +59,6 @@ const LikesDislikes = ({
       <div className={styles.like}>
         {userIdFromToken !== userId ? (
           <DislikeButton
-            setDislikesAmmount={setDislikesAmmount}
             setShowLogModal={setShowLogModal}
             id={id}
             userIdFromToken={userIdFromToken!}
@@ -79,13 +69,11 @@ const LikesDislikes = ({
             setUserLikeIdArr={setUserLikeIdArr}
             userLikeIdArr={userLikeIdArr}
             setLikeState={setLikeState}
-            setLikesAmmount={setLikesAmmount}
-            dislikesAmmount={dislikesAmmount}
           />
         ) : (
           <img alt="dislike" src={dislike.src}></img>
         )}
-        <p>{dislikesAmmount}</p>
+        <p>{userDislikeIdArr.length}</p>
       </div>
     </div>
   );

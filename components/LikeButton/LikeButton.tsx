@@ -9,21 +9,17 @@ import { updateAnswerDislikeLikeStatus } from "@/api/answer";
 import updateLikesDislikes from "@/utils/likesDislikesUpd";
 type LikePropsType = LikeDislikeButtonPropsType & {
   likeState: boolean;
-  likesAmmount: number;
 };
 const LikeButton = ({
-  setLikesAmmount,
   userIdFromToken,
   id,
   setUserDislikeIdArr,
-  setDislikesAmmount,
   setUserLikeIdArr,
   likeState,
   setLikeState,
   setShowLogModal,
   userLikeIdArr,
   userDislikeIdArr,
-  likesAmmount,
 }: LikePropsType) => {
   const updateAnswerLikeStatus = async () => {
     try {
@@ -38,11 +34,8 @@ const LikeButton = ({
           userIdFromToken,
           setUserDislikeIdArr,
           setUserLikeIdArr,
-          setDislikesAmmount,
-          setLikesAmmount,
           userLikeIdArr,
-          userDislikeIdArr,
-          likesAmmount
+          userDislikeIdArr
         );
       }
       await updateAnswerDislikeLikeStatus(id, token, body);
