@@ -58,6 +58,7 @@ const LikesDislikes = ({
             likeState={likeState}
             setLikeState={setLikeState}
             setDislikesAmmount={setDislikesAmmount}
+            likesAmmount={likesAmmount}
           />
         ) : (
           <img alt="like" src={like.src}></img>

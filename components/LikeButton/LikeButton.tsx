@@ -7,7 +7,10 @@ import { AxiosError } from "axios";
 import { LikeDislikeButtonPropsType } from "@/types";
 import { updateAnswerDislikeLikeStatus } from "@/api/answer";
 import updateLikesDislikes from "@/utils/likesDislikesUpd";
-type LikePropsType = LikeDislikeButtonPropsType & { likeState: boolean };
+type LikePropsType = LikeDislikeButtonPropsType & {
+  likeState: boolean;
+  likesAmmount: number;
+};
 const LikeButton = ({
   setLikesAmmount,
   userIdFromToken,
@@ -20,6 +23,7 @@ const LikeButton = ({
   setShowLogModal,
   userLikeIdArr,
   userDislikeIdArr,
+  likesAmmount,
 }: LikePropsType) => {
   const updateAnswerLikeStatus = async () => {
     try {
@@ -37,7 +41,8 @@ const LikeButton = ({
           setDislikesAmmount,
           setLikesAmmount,
           userLikeIdArr,
-          userDislikeIdArr
+          userDislikeIdArr,
+          likesAmmount
         );
       }
       await updateAnswerDislikeLikeStatus(id, token, body);

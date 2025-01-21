@@ -9,7 +9,8 @@ const updateLikesDislikes = (
   setDislikesAmmount: React.Dispatch<React.SetStateAction<number>>,
   setLikesAmmount: React.Dispatch<React.SetStateAction<number>>,
   userLikeIdArr: string[],
-  userDislikeIdArr: string[]
+  userDislikeIdArr: string[],
+  likesAmmount: number
 ) => {
   if (body.pressed == "like pressed") {
     if (userLikeIdArr.includes(userIdFromToken!)) {
@@ -29,7 +30,7 @@ const updateLikesDislikes = (
       setDislikesAmmount(userDislikeIdArr.length);
     }
     console.log(userLikeIdArr);
-    console.log(userLikeIdArr.length);
+    console.log(likesAmmount);
     return;
   }
   if (body.pressed == "dislike pressed") {
