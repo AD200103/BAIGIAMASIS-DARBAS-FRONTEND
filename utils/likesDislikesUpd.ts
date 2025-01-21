@@ -15,12 +15,12 @@ const updateLikesDislikes = (
   if (body.pressed == "like pressed") {
     if (userLikeIdArr.includes(userIdFromToken!)) {
       setUserLikeIdArr((prev) => prev.filter((p) => p !== userIdFromToken));
-      setLikesAmmount(userLikeIdArr.length);
     }
+    setLikesAmmount(userLikeIdArr.length);
     if (!userLikeIdArr.includes(userIdFromToken!)) {
       setUserLikeIdArr((prev) => [...prev, userIdFromToken!]);
-      setLikesAmmount(userLikeIdArr.length);
     }
+    setLikesAmmount(userLikeIdArr.length);
     if (userDislikeIdArr.includes(userIdFromToken!)) {
       setUserDislikeIdArr((prev) => prev.filter((p) => p !== userIdFromToken));
       setDislikesAmmount(userDislikeIdArr.length);
