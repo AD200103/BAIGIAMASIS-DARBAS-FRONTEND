@@ -29,7 +29,7 @@ const updateLikesDislikes = (
       setDislikesAmmount(userDislikeIdArr.length);
     }
     console.log(userLikeIdArr);
-    console.log(userDislikeIdArr);
+    console.log(userLikeIdArr.length);
     return;
   }
   if (body.pressed == "dislike pressed") {
