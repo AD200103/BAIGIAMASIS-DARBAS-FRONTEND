@@ -1,8 +1,17 @@
 import "dotenv/config";
+type DateOptionType = {
+  hour: "2-digit" | "numeric" | undefined;
+  minute: "2-digit" | "numeric" | undefined;
+  hour12?: boolean;
+  timeZone?: string;
+};
 export const dateConvert = (date: Date) => {
-  const dateFixed = date
-    .toString()
-    .replace(/[TZ]/g, " ")
-    .slice(0, date.toString().length - 5);
-  return dateFixed;
+  const options: DateOptionType = {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Europe/Vilnius",
+  } as DateOptionType;
+  const formattedTime = new Intl.DateTimeFormat("lt-LT", options).format(date);
+  return formattedTime;
 };
