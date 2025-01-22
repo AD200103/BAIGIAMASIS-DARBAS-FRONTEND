@@ -31,14 +31,15 @@ const QuestionCard = ({
       </Link>
       <p>{question_text}</p>
       <h4>
-        Posted by:{" "}
-        {userIdFromToken !== user_id ? (
-          <span className={styles.userClass}>{name}</span>
-        ) : (
-          <span className={styles.yClass}>You</span>
-        )}{" "}
-        <br />
-        At: {dateConvert(date)}
+        <div className={styles.postedBy}>
+          Posted by:{" "}
+          {userIdFromToken !== user_id ? (
+            <span className={styles.userClass}>{name}</span>
+          ) : (
+            <span className={styles.yClass}>You</span>
+          )}{" "}
+        </div>
+        <>At: {dateConvert(date)}</>
       </h4>
       <p>Answers: {answers}</p>
     </div>
