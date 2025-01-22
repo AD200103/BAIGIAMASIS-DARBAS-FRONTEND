@@ -9,7 +9,7 @@ type ObjectDateType = {
   hour12: boolean;
   timeZone: string;
 };
-export const dateConvert = (date: string | Date) => {
+export const dateConvert = (date: string | Date, region: string) => {
   try {
     const dateInput = new Date(date);
     const options: ObjectDateType = {
@@ -20,13 +20,15 @@ export const dateConvert = (date: string | Date) => {
       minute: "2-digit",
       second: "2-digit",
       hour12: false,
-      timeZone: "Europe/Vilnius",
+      timeZone: region ? region : "Europe/Vilnius",
     };
-    new Intl.DateTimeFormat("lt-LT", options).format(dateInput as Date);
-    const formattedDate = JSON.stringify(dateInput)
+    const dateNew = new Intl.DateTimeFormat(undefined, options).format(
+      dateInput as Date
+    );
+    const formattedDate = JSON.stringify(dateNew)
       .replace(/[TZ]/g, " ")
       .replace(/"/g, "")
-      .slice(0, 1 - 9);
+      .slice(0, -3);
     return formattedDate;
   } catch (err) {
     console.error("Error in dateConvert:", err);

@@ -26,11 +26,15 @@ const MainQuestionPage = () => {
   const id = router.query.id as string;
   const token = cookie.get("jwt-token");
   const userIdFromToken: string | undefined = decodeToken(token!);
+  const [region, setRegion] = useState("");
 
   const getAQuestion = async () => {
     const response = await getQuestion(id);
     setQuestion(response.data.question);
   };
+  useEffect(() => {
+    setRegion(localStorage.getItem("region")!);
+  }, []);
 
   const updateAnAnswersNumberToQuestion = async (answerAmmount: number) => {
     const body = {
@@ -56,11 +60,13 @@ const MainQuestionPage = () => {
             question={question}
             userIdFromToken={userIdFromToken}
             setShowQustionDelModal={setShowQustionDelModal}
+            region={region}
           />
           <h2 className={styles.answers}>Answers</h2>
           <Answers
             answer={newAnswer}
             updateAnAnswersNumberToQuestion={updateAnAnswersNumberToQuestion}
+            region={region}
           />
           <AnswerForm
             setNewAnswer={setNewAnswer}

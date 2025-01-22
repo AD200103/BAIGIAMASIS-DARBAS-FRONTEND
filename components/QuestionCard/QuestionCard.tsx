@@ -11,6 +11,7 @@ type QuestionCardPropsType = {
   name: string;
   answers: number;
   user_id: string;
+  region: string;
 };
 
 const QuestionCard = ({
@@ -21,6 +22,7 @@ const QuestionCard = ({
   name,
   answers,
   user_id,
+  region,
 }: QuestionCardPropsType) => {
   const token = cookie.get("jwt-token");
   const userIdFromToken: string | undefined = decodeToken(token!);
@@ -39,7 +41,7 @@ const QuestionCard = ({
             <span className={styles.yClass}>You</span>
           )}{" "}
         </div>
-        <>At: {dateConvert(date)}</>
+        <>At: {dateConvert(date, region)}</>
       </h4>
       <p>Answers: {answers}</p>
     </div>

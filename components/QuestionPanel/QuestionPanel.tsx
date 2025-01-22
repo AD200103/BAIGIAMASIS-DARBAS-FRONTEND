@@ -6,11 +6,13 @@ type QuestionPanelPropsType = {
   question: QuestionType;
   userIdFromToken: string | undefined;
   setShowQustionDelModal: React.Dispatch<SetStateAction<boolean>>;
+  region: string;
 };
 const QuestionPanel = ({
   question,
   userIdFromToken,
   setShowQustionDelModal,
+  region,
 }: QuestionPanelPropsType) => {
   return (
     <div className={styles.main}>
@@ -33,7 +35,7 @@ const QuestionPanel = ({
             <span className={styles.youUsername}>{question?.name}</span>
           )}
         </p>
-        <p>At: {dateConvert(question?.date)}</p>
+        <p>At: {dateConvert(question?.date, region)}</p>
       </div>
     </div>
   );

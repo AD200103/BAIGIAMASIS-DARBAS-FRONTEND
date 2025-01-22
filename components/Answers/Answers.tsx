@@ -9,10 +9,12 @@ import Loader from "../Loader/Loader";
 type AnswersPropsType = {
   answer: AnswerType | null;
   updateAnAnswersNumberToQuestion: (answers: number) => void;
+  region: string;
 };
 const Answers = ({
   answer,
   updateAnAnswersNumberToQuestion,
+  region,
 }: AnswersPropsType) => {
   const router = useRouter();
   const id = router.query.id as string;
@@ -53,7 +55,14 @@ const Answers = ({
             (a, b) =>
               b.usersWhoLikedTheAnswer.length - a.usersWhoLikedTheAnswer.length
           )
-          .map((a) => <AnswerCard key={a.id} {...a} setAnswers={setAnswers} />)
+          .map((a) => (
+            <AnswerCard
+              key={a.id}
+              {...a}
+              setAnswers={setAnswers}
+              region={region}
+            />
+          ))
       ) : (
         <Loader />
       )}

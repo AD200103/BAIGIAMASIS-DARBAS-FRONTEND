@@ -18,6 +18,7 @@ type AnswerCardPropsType = {
   usersWhoLikedTheAnswer: string[];
   usersWhoDislikedTheAnswer: string[];
   setAnswers: React.Dispatch<React.SetStateAction<AnswerType[] | null>>;
+  region: string;
 };
 const AnswerCard = ({
   answer_text,
@@ -27,6 +28,7 @@ const AnswerCard = ({
   userId,
   usersWhoLikedTheAnswer,
   usersWhoDislikedTheAnswer,
+  region,
   setAnswers,
 }: AnswerCardPropsType) => {
   const userIdFromToken = decodeToken(cookie.get("jwt-token")!);
@@ -91,7 +93,7 @@ const AnswerCard = ({
               Answered by: <span className={styles.userClass}>{name}</span>
             </h4>
           )}
-          <h4>At: {dateConvert(date)}</h4>
+          <h4>At: {dateConvert(date, region)}</h4>
         </div>
       </div>
     </div>

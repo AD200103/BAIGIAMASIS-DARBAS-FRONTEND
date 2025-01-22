@@ -6,6 +6,7 @@ import { gettingQuestions } from "@/api/question";
 import Loader from "@/components/Loader/Loader";
 const MainPage = () => {
   const [questions, setQuestions] = useState<null | QuestionType[]>(null);
+  const [region, setRegion] = useState("");
   const getQuestions = async () => {
     try {
       const response = await gettingQuestions();
@@ -14,14 +15,20 @@ const MainPage = () => {
       console.log(err);
     }
   };
-
+  useEffect(() => {
+    setRegion(localStorage.getItem("region")!);
+  }, []);
   useEffect(() => {
     getQuestions();
   }, []);
   return (
     <>
       <PageTemplate>
-        {questions ? <Questions questions={questions} /> : <Loader />}
+        {questions ? (
+          <Questions questions={questions} region={region} />
+        ) : (
+          <Loader />
+        )}
       </PageTemplate>
     </>
   );

@@ -5,7 +5,10 @@ import { useState } from "react";
 type QuestionsPropsType = {
   questions: QuestionType[];
 };
-const Questions = ({ questions }: QuestionsPropsType) => {
+const Questions = ({
+  questions,
+  region,
+}: QuestionsPropsType & { region: string }) => {
   const [sortVal, setSortVal] = useState("All");
 
   return (
@@ -31,7 +34,7 @@ const Questions = ({ questions }: QuestionsPropsType) => {
             (sortVal == "Unanswered" && a.answers == 0)
         )
         .map((q) => (
-          <QuestionCard key={q.id} {...q} />
+          <QuestionCard key={q.id} {...q} region={region} />
         ))}
     </div>
   );

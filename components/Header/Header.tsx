@@ -6,6 +6,8 @@ import HeaderLinks from "../HeaderLinks/HeaderLinks";
 import LogoComponent from "../LogoComponent/LogoComponent";
 import burger from "../../assets/img/burger.svg";
 import BurgerModal from "../BurgerModal/BurgerModal";
+import RegionSelect from "../RegionSelect/RegionSelect";
+import LogoRegion from "../LogoRegion/LogoRegion";
 const Header = () => {
   const [showLogModal, setShowLogModal] = useState(false);
   const [showBurgerModal, setShowBurgerModal] = useState(false);
@@ -28,7 +30,9 @@ const Header = () => {
       >
         <img src={burger.src} alt="burger" />
       </button>
+      <RegionSelect />
       <HeaderLinks setShowLogModal={setShowLogModal} />
+      <LogoRegion />
     </div>
   );
 };
