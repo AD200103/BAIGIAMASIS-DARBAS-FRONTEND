@@ -1,6 +1,4 @@
-type BodyType = {
-  pressed: string;
-};
+import { BodyType } from "@/types";
 const updateLikesDislikes = (
   body: BodyType,
   userIdFromToken: string | undefined,

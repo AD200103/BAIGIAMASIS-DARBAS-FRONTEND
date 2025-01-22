@@ -40,3 +40,6 @@ export type LikeDislikeButtonPropsType = {
 export type DataType = {
   message: string;
 };
+export type BodyType = {
+  pressed: string;
+};

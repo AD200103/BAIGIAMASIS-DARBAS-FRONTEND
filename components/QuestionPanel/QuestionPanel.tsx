@@ -33,7 +33,7 @@ const QuestionPanel = ({
             <span className={styles.youUsername}>{question?.name}</span>
           )}
         </p>
-        <p>At: {dateConvert(question?.date)}, UTC+00</p>
+        <p>At: {dateConvert(question?.date)}</p>
       </div>
     </div>
   );

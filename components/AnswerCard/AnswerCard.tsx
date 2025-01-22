@@ -91,7 +91,7 @@ const AnswerCard = ({
               Answered by: <span className={styles.userClass}>{name}</span>
             </h4>
           )}
-          <h4>At: {dateConvert(date)}, UTC+00</h4>
+          <h4>At: {dateConvert(date)}</h4>
         </div>
       </div>
     </div>

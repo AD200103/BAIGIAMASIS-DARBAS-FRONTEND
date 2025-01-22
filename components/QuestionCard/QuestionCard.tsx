@@ -38,7 +38,7 @@ const QuestionCard = ({
           <span className={styles.yClass}>You</span>
         )}{" "}
         <br />
-        At: {dateConvert(date)}, UTC+00
+        At: {dateConvert(date)}
       </h4>
       <p>Answers: {answers}</p>
     </div>
