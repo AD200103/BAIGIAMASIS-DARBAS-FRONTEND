@@ -1,8 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { logOut } from "@/utils/logout";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { checkingAuth } from "@/utils/jwtTokenDecoded";
 import cookie from "js-cookie";
+import { useTranslation } from "react-i18next";
+
 type LoginLogoutComponentPropsType = {
   setShowLogModal: React.Dispatch<React.SetStateAction<boolean>>;
   setShowBurgerModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,16 +19,22 @@ const LoginLogoutComponent = ({
   showBurgerModal,
 }: LoginLogoutComponentPropsType) => {
   const [tokenExists, setTokenExists] = useState<string | undefined>(undefined);
+  const [login, setLogin] = useState("");
+  const [logout, setLogout] = useState("");
   const router = useRouter();
   useEffect(() => {
     if (tokenExists) {
       checkingAuth(tokenExists, setTokenExists);
     }
-  }, [tokenExists]);
-  useEffect(() => {
     setTokenExists(cookie.get("jwt-token"));
   }, [tokenExists]);
 
+  useEffect(() => {
+    setLogout(t("Logout"));
+    setLogin(t("Login"));
+  }, [login, logout]);
+
+  const { t } = useTranslation();
   return tokenExists ? (
     <li
       className={className}
@@ -33,7 +42,7 @@ const LoginLogoutComponent = ({
         logOut(router);
       }}
     >
-      Logout
+      {logout}
     </li>
   ) : (
     <li
@@ -45,7 +54,7 @@ const LoginLogoutComponent = ({
         setShowLogModal(true);
       }}
     >
-      Login
+      {login}
     </li>
   );
 };

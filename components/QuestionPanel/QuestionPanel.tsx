@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateAndEmail";
 import { SetStateAction } from "react";
 import { QuestionType } from "@/types";
+import { useTranslation } from "react-i18next";
 type QuestionPanelPropsType = {
   question: QuestionType;
   userIdFromToken: string | undefined;
@@ -14,6 +15,7 @@ const QuestionPanel = ({
   setShowQustionDelModal,
   region,
 }: QuestionPanelPropsType) => {
+  const { t } = useTranslation();
   return (
     <div className={styles.main}>
       <h1>{question.title}</h1>
@@ -23,19 +25,21 @@ const QuestionPanel = ({
           className={styles.delBtn}
           onClick={() => setShowQustionDelModal(true)}
         >
-          Delete
+          {t("Delete")}
         </p>
       )}
       <div className={styles.dateEmailBox}>
         <p>
-          Asked by:{" "}
+          {t("PostedBy")}{" "}
           {question.user_id == userIdFromToken ? (
-            <span className={styles.youStyle}>You</span>
+            <span className={styles.youStyle}>{t("You")}</span>
           ) : (
             <span className={styles.youUsername}>{question?.name}</span>
           )}
         </p>
-        <p>At: {dateConvert(question?.date, region)}</p>
+        <p>
+          {t("time")}: {dateConvert(question?.date, region)}
+        </p>
       </div>
     </div>
   );

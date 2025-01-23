@@ -6,6 +6,7 @@ import { AnswerType } from "@/types";
 import { addAnswer } from "@/api/answer";
 import { inputValidation } from "@/utils/inputValidation";
 import Loader from "../Loader/Loader";
+import { useTranslation } from "react-i18next";
 type AnwerFormPropsType = {
   setNewAnswer: React.Dispatch<React.SetStateAction<AnswerType | null>>;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
@@ -18,10 +19,12 @@ const AnswerForm = ({
   setShowModal,
   id,
 }: AnwerFormPropsType) => {
+  const { t } = useTranslation();
   const [answerText, setAnswerText] = useState("");
-  const [ansPlacholder, setAnsPLaceholder] = useState("Your answer...");
+  const [ansPlacholder, setAnsPLaceholder] = useState(t("YourAnswer"));
   const [redAnsAlert, setRedAnsAlert] = useState(false);
   const [loaderVis, setLoaderVis] = useState(false);
+
   const addAnAnswer = async () => {
     try {
       const body = {
@@ -48,8 +51,8 @@ const AnswerForm = ({
         setLoaderVis(false);
         if (!answerText || answerText.trim() == "") {
           inputValidation(
-            "You can't provide an empty answer!",
-            "Your answer...",
+            t("AnswerRequired"),
+            t("YourAnswer"),
             setAnsPLaceholder,
             setRedAnsAlert,
             setAnswerText
@@ -77,7 +80,7 @@ const AnswerForm = ({
             addAnAnswer();
           }}
         >
-          Add answer
+          {t("AddAnswer")}
         </button>
       </div>
     </div>

@@ -1,11 +1,14 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./styles.module.css";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import cookie from "js-cookie";
 import { AxiosError } from "axios";
 import { addQuestion } from "@/api/question";
 import { inputValidation } from "@/utils/inputValidation";
 import { useRouter } from "next/router";
 import Loader from "../Loader/Loader";
+import { useTranslation } from "react-i18next";
+
 type QuestionFormPropsType = {
   setShowModal: React.Dispatch<SetStateAction<boolean>>;
 };
@@ -13,13 +16,24 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
   const [question, setQuestion] = useState("");
   const [title, setTitle] = useState("");
   const [loaderVis, setLoaderVis] = useState(false);
-  const [questionPlaceholder, setQuestPLaceholder] = useState(
-    "Enter your question..."
-  );
-  const [titlePlacholder, setTitlePLaceholder] = useState("Title");
+  const [questionPlaceholder, setQuestPLaceholder] = useState("");
+  const [titlePlacholder, setTitlePLaceholder] = useState("");
+  const [questionReq, setQuestionReq] = useState("");
+  const [titleReq, setTitleReq] = useState("");
   const [redQuestionAlert, setRedQuestAlert] = useState(false);
   const [redTitleAlert, setRedTitleAlert] = useState(false);
+  const [addQ, setAddQ] = useState("");
   const router = useRouter();
+
+  const { t } = useTranslation();
+  useEffect(() => {
+    setTitlePLaceholder(t("titlePlacholder"));
+    setQuestPLaceholder(t("questionPlaceholder"));
+    setQuestionReq(t("QuestionReq"));
+    setTitleReq(t("setTitleReq"));
+    setAddQ(t("AddQuestion"));
+  }, [addQ]);
+
   const addAQuestion = async () => {
     try {
       const body = {
@@ -46,8 +60,8 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
         setLoaderVis(false);
         if (!question || question.trim() == "") {
           inputValidation(
-            "You can't ask an empty question!",
-            "Enter your question...",
+            questionReq,
+            questionPlaceholder,
             setQuestPLaceholder,
             setRedQuestAlert,
             setQuestion
@@ -55,8 +69,8 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
         }
         if (!title || title.trim() == "") {
           inputValidation(
-            "Title is required!",
-            "Title",
+            titleReq,
+            titlePlacholder,
             setTitlePLaceholder,
             setRedTitleAlert,
             setTitle
@@ -90,7 +104,7 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
         </div>
         <p>{question.length}/1000</p>
         <button className={styles.addQuestionBtn} onClick={addAQuestion}>
-          Add question!
+          {addQ}
         </button>
       </div>
     </div>

@@ -1,25 +1,72 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-const resources = {
-  en: {
-    translation: {
-      "Welcome to React": "Welcome to React and react-i18next",
-    },
-  },
-  fr: {
-    translation: {
-      "Welcome to React": "Bienvenue à React et react-i18next",
-    },
-  },
-};
-
 i18n.use(initReactI18next).init({
-  resources,
-  fallbackLng: "en",
-  lng: "en",
-  interpolation: {
-    escapeValue: false,
+  debug: true,
+  fallbackLng: "lt",
+  resources: {
+    en: {
+      translation: {
+        questions: "Questions",
+        All: "All",
+        Answered: "Answered",
+        Unanswered: "Unanswered",
+        SortQuestionsBy: "Sort questions by",
+        Home: "Home",
+        AskAQuestion: "Ask a question",
+        SignIn: "Sign In",
+        Answers: "Answers",
+        Login: "Login",
+        Logout: "Logout",
+        LoginToAskAQuestion: "Login to ask a question",
+        titlePlacholder: "Title",
+        questionPlaceholder: "Enter your question...",
+        AddQuestion: "Add question!",
+        QuestionReq: "You cant' provide an empty question!",
+        setTitleReq: "Title is required!",
+        PostedBy: "Posted by:",
+        time: "At",
+        Delete: "Delete",
+        You: "You",
+        AnsweredBy: "Answered by:",
+        Answer: "Answer:",
+        LoginToDeleteYourAnswer: "Login to delete your answer!",
+        AnswerRequired: "You can't provide an empty answer!",
+        YourAnswer: "Your answer...",
+        AddAnswer: "Add answer",
+      },
+    },
+    lt: {
+      translation: {
+        questions: "Klausimai",
+        All: "Visi",
+        Answered: "Atsakyti",
+        Unanswered: "Neatsakyti",
+        SortQuestionsBy: "Rūšiuoti klausimus pagal",
+        Home: "Pagrindinis",
+        AskAQuestion: "Užduok klausimą",
+        SignIn: "Registruotis",
+        Answers: "Atsakymai",
+        Login: "Prisijungti",
+        Logout: "Atsijungti",
+        LoginToAskAQuestion: "Prisijunkite norėdami užduoti klausimą!",
+        titlePlacholder: "Pavadinimas",
+        questionPlaceholder: "Užduokite savo klausimą...",
+        AddQuestion: "Pridėti klausimą!",
+        QuestionReq: "Negalite pridėti tuščio klausimo!",
+        setTitleReq: "Pavadinimas yra privalomas!",
+        PostedBy: "Klausia:",
+        time: "Laikas",
+        Delete: "Ištrinti",
+        You: "Jūs",
+        AnsweredBy: "Atsakė:",
+        Answer: "Atsakymas:",
+        LoginToDeleteYourAnswer:
+          "Norėdami ištrinti savo atsakymą, prisijunkite!",
+        AnswerRequired: "Negalite pridėti tuščio atsakymo!",
+        YourAnswer: "Jūsų atsakymas...",
+        AddAnswer: "Pridėti atsakymą",
+      },
+    },
   },
 });
-
 export default i18n;

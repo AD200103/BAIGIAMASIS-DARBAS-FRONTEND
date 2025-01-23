@@ -1,14 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import { useState } from "react";
 import LoginLogoutComponent from "../LoginLogoutComponent/LoginLogoutComponent";
+import { useTranslation } from "react-i18next";
 type HeaderLinksPropsType = {
   setShowLogModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
   const [showBurgerModal, setShowBurgerModal] = useState(false);
+  const [home, setHome] = useState("");
+  const [askQuestion, setAskQuestion] = useState("");
+  const [signIn, setSignIn] = useState("");
+
+  const { t } = useTranslation();
+  useEffect(() => {
+    setHome(t("Home"));
+    setAskQuestion(t("AskAQuestion"));
+    setSignIn(t("SignIn"));
+  }, [home, askQuestion, signIn]);
 
   const router = useRouter();
   return (
@@ -20,7 +32,7 @@ const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
               router.pathname == "/" && styles.linkActiveStyle
             }`}
           >
-            <li>Home</li>
+            <li>{home}</li>
           </div>
         </Link>
         <Link href="/askquestion">
@@ -29,11 +41,11 @@ const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
               router.pathname == "/askquestion" && styles.linkActiveStyle
             }`}
           >
-            <li>Ask a question!</li>
+            <li>{askQuestion}!</li>
           </div>
         </Link>
         <Link href="/signin">
-          <li className={styles.signInBtn}>Sign In</li>
+          <li className={styles.signInBtn}>{signIn}</li>
         </Link>
         <LoginLogoutComponent
           setShowLogModal={setShowLogModal}

@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import { QuestionType } from "@/types";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 type QuestionsPropsType = {
   questions: QuestionType[];
 };
@@ -10,19 +11,19 @@ const Questions = ({
   region,
 }: QuestionsPropsType & { region: string }) => {
   const [sortVal, setSortVal] = useState("All");
-
+  const { t } = useTranslation();
   return (
     <div className={styles.main}>
-      <h1>Questions</h1>
+      <h1>{t("questions")}</h1>
       <div className={styles.dropdownContainer}>
-        <p>Sort questions by:</p>
+        <p>{t("SortQuestionsBy")}:</p>
         <select
           className={styles.dropdown}
           onChange={(e) => setSortVal(e.target.value)}
         >
-          <option value="All">All</option>
-          <option value="Answered">Answered</option>
-          <option value="Unanswered">Unanswered</option>
+          <option value="All">{t("All")}</option>
+          <option value="Answered">{t("Answered")}</option>
+          <option value="Unanswered">{t("Unanswered")}</option>
         </select>
       </div>
       {questions

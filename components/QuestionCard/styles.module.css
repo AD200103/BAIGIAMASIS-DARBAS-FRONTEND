@@ -45,9 +45,13 @@
 }
 .yClass {
   color: rgb(43, 167, 74);
+  margin-left: 4px;
+  word-break: break-all;
 }
 .userClass {
   color: rgb(93, 33, 196);
+  margin-left: 4px;
+  word-break: break-all;
 }
 @media screen and (max-width: 768px) {
   .main {

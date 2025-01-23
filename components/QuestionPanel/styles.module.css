@@ -22,7 +22,10 @@
   color: rgb(93, 33, 196);
 }
 .delBtn {
-  margin-left: 5px;
   color: rgb(184, 6, 6);
   cursor: pointer;
+  width: fit-content;
+}
+.delBtn:hover {
+  text-decoration: underline;
 }

@@ -8,6 +8,7 @@ import LikesDislikes from "../LikesDislikes/LikesDislikes";
 import LoginModal from "../LoginModal/LoginModal";
 import { deleteAnswer } from "@/api/answer";
 import { AxiosError } from "axios";
+import { useTranslation } from "react-i18next";
 import Loader from "../Loader/Loader";
 type AnswerCardPropsType = {
   answer_text: string;
@@ -35,13 +36,12 @@ const AnswerCard = ({
   const [showLogModal, setShowLogModal] = useState(false);
   const [message, setMessage] = useState("Login to rate answers!");
   const [loaderVis, setLoaderVis] = useState(false);
-
+  const { t } = useTranslation();
   const deleteAnAnswer = async () => {
     const token = cookie.get("jwt-token") as string;
     if (token) {
       setLoaderVis(true);
     }
-    console.log(token);
     try {
       const response = await deleteAnswer(id, token);
       if (response.status == 200) {
@@ -52,7 +52,7 @@ const AnswerCard = ({
       const error = err as AxiosError;
       if (error.status == 403) {
         setLoaderVis(false);
-        setMessage("Login to delete your answer!");
+        setMessage(t("LoginToDeleteYourAnswer"));
         setShowLogModal(true);
       }
     }
@@ -67,10 +67,12 @@ const AnswerCard = ({
       />
       {loaderVis && <Loader />}
       <div className={styles.ansAndDelBtn}>
-        <p className={styles.ansText}>Answer: {answer_text}</p>
+        <p className={styles.ansText}>
+          {t("Answer")} {answer_text}
+        </p>
         {userIdFromToken == userId && (
           <p className={styles.delBtn} onClick={deleteAnAnswer}>
-            Delete
+            {t("Delete")}
           </p>
         )}
       </div>
@@ -84,16 +86,17 @@ const AnswerCard = ({
           setShowLogModal={setShowLogModal}
         />
         <div className={styles.nameDate}>
-          {userIdFromToken == userId ? (
-            <h4>
-              Answered by: <span className={styles.youClass}>You</span>
-            </h4>
-          ) : (
-            <h4>
-              Answered by: <span className={styles.userClass}>{name}</span>
-            </h4>
-          )}
-          <h4>At: {dateConvert(date, region)}</h4>
+          <h4>
+            {t("AnsweredBy")}{" "}
+            {userIdFromToken == userId ? (
+              <span className={styles.youClass}>{t("You")}</span>
+            ) : (
+              <span className={styles.userClass}>{name}</span>
+            )}
+          </h4>
+          <h4>
+            {t("time")}: {dateConvert(date, region)}
+          </h4>
         </div>
       </div>
     </div>

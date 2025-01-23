@@ -2,6 +2,8 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import { dateConvert } from "@/utils/dateAndEmail";
 import { decodeToken } from "@/utils/jwtTokenDecoded";
+import { useTranslation } from "react-i18next";
+
 import cookie from "js-cookie";
 type QuestionCardPropsType = {
   id: string;
@@ -26,6 +28,7 @@ const QuestionCard = ({
 }: QuestionCardPropsType) => {
   const token = cookie.get("jwt-token");
   const userIdFromToken: string | undefined = decodeToken(token!);
+  const { t } = useTranslation();
   return (
     <div className={styles.main}>
       <Link href={`/question/${id}`}>
@@ -34,16 +37,20 @@ const QuestionCard = ({
       <p>{question_text}</p>
       <h4>
         <div className={styles.postedBy}>
-          Posted by:{" "}
+          {t("PostedBy")}
           {userIdFromToken !== user_id ? (
             <span className={styles.userClass}>{name}</span>
           ) : (
-            <span className={styles.yClass}>You</span>
-          )}{" "}
+            <span className={styles.yClass}>{t("You")}</span>
+          )}
         </div>
-        <>At: {dateConvert(date, region)}</>
+        <>
+          {t("time")}: {dateConvert(date, region)}
+        </>
       </h4>
-      <p>Answers: {answers}</p>
+      <p>
+        {t("Answers")}: {answers}
+      </p>
     </div>
   );
 };

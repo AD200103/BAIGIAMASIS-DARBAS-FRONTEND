@@ -17,7 +17,7 @@
 }
 .nameDate {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   font-size: 0.9rem;
   align-items: center;
 }
@@ -42,9 +42,12 @@
   word-break: break-all;
 }
 .delBtn {
-  margin-left: 5px;
   color: rgb(184, 6, 6);
   cursor: pointer;
+  height: fit-content;
+}
+.delBtn:hover {
+  text-decoration: underline;
 }
 .ansAndDelBtn {
   display: flex;

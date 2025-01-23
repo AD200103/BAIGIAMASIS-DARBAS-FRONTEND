@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import cookie from "js-cookie";
@@ -14,6 +13,7 @@ import AnswerForm from "@/components/AnswerForm/AnswerForm";
 import QuestionPanel from "@/components/QuestionPanel/QuestionPanel";
 import styles from "./styles.module.css";
 import { getQuestion, updateAnswersNumberToQuestion } from "@/api/question";
+import { useTranslation } from "react-i18next";
 
 const MainQuestionPage = () => {
   const [question, setQuestion] = useState<null | QuestionType>(null);
@@ -21,6 +21,7 @@ const MainQuestionPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [showQustionDelModal, setShowQustionDelModal] = useState(false);
   const [message, setMessage] = useState("Login for full experience!");
+  const { t } = useTranslation();
 
   const router = useRouter();
   const id = router.query.id as string;
@@ -62,7 +63,7 @@ const MainQuestionPage = () => {
             setShowQustionDelModal={setShowQustionDelModal}
             region={region}
           />
-          <h2 className={styles.answers}>Answers</h2>
+          <h2 className={styles.answers}>{t("Answers")}</h2>
           <Answers
             answer={newAnswer}
             updateAnAnswersNumberToQuestion={updateAnAnswersNumberToQuestion}
