@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./styles.module.css";
 import { AxiosError } from "axios";
 import cookie from "js-cookie";
@@ -86,9 +87,24 @@ const SigninForm = () => {
       setLoaderVis(false);
       if (error.status == 403) {
         const data = error.response!.data as DataType;
-        setErrorMsg(data.message);
+        const msg = data.message;
+        if (msg == "Username already exists!") {
+          setErrorMsg(t("singUsrnExists"));
+          setRedNameAlert(true);
+        }
+        if (msg == "Email and username already exists!") {
+          setErrorMsg(t("singUsrnEmailExists"));
+          setRedNameAlert(true);
+          setRedEmailAlert(true);
+        }
+        if (msg == "Email already exists!") {
+          setErrorMsg(t("singEmailExists"));
+          setRedEmailAlert(true);
+        }
         setTimeout(() => {
           setErrorMsg("");
+          setRedEmailAlert(false);
+          setRedNameAlert(false);
         }, 2000);
       }
     }
