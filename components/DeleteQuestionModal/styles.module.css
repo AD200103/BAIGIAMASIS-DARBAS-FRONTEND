@@ -9,10 +9,14 @@
   justify-content: center;
   gap: 20px;
 }
+.main h1 {
+  font-size: 1.2rem;
+  color: rgb(108, 61, 108);
+}
 .panel {
-  margin-top: 100px;
+  margin-top: 200px;
   width: 400px;
-  height: 300px;
+  height: 160px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -30,26 +34,18 @@
 }
 .buttons button {
   all: unset;
-  background-color: rgba(153, 86, 153, 1);
-  color: white;
+  color: rgb(99, 51, 99);
   padding: 10px;
   width: 60px;
   cursor: pointer;
+  border: 2px solid rgba(153, 86, 153, 1);
 }
-.buttons button:first-child {
-  background-color: rgb(155, 37, 49);
-}
-.buttons button:last-child {
-  background-color: rgb(87, 145, 28);
-}
+
 .buttons button:first-child:hover,
 .buttons button:last-child:hover {
-  scale: 1.05;
+  background-color: rgba(153, 86, 153, 0.4);
 }
-.buttons button:first-child:active,
-.buttons button:last-child:active {
-  scale: 1;
-}
+
 @media screen and (max-width: 768px) {
   .panel {
     width: 300px;

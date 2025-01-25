@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { deleteQuestion } from "@/api/question";
 import { AxiosError } from "axios";
 import Loader from "../Loader/Loader";
+import { useTranslation } from "react-i18next";
 type DeleteQuestionModalPropsType = {
   id: string;
   setShowQustionDelModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +20,7 @@ const DeleteQuestionModal = ({
 }: DeleteQuestionModalPropsType) => {
   const router = useRouter();
   const [loaderVis, setLoaderVis] = useState(false);
+  const { t } = useTranslation();
   const deleteAQuestion = async () => {
     try {
       const token = cookie.get("jwt-token") as string;
@@ -43,10 +45,12 @@ const DeleteQuestionModal = ({
     <div className={styles.main}>
       {loaderVis && <Loader />}
       <div className={styles.panel}>
-        <h1>Are you sure you want to delete this question?</h1>
+        <h1>{t("DelQuestion")}</h1>
         <div className={styles.buttons}>
-          <button onClick={deleteAQuestion}>Yes</button>
-          <button onClick={() => setShowQustionDelModal(false)}>No</button>
+          <button onClick={deleteAQuestion}>{t("Yes")}</button>
+          <button onClick={() => setShowQustionDelModal(false)}>
+            {t("No")}
+          </button>
         </div>
       </div>
     </div>

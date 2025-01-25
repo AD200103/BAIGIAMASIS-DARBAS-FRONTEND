@@ -44,7 +44,7 @@ const AnswerForm = ({
       const error = err as AxiosError;
       if (error.status == 403) {
         setLoaderVis(false);
-        setMessage("Login to answer!");
+        setMessage(t("loginToAnswer"));
         setShowModal(true);
       }
       if (error.status == 500) {

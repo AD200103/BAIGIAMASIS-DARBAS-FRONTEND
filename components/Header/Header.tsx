@@ -7,7 +7,9 @@ import LogoComponent from "../LogoComponent/LogoComponent";
 import burger from "../../assets/img/burger.svg";
 import BurgerModal from "../BurgerModal/BurgerModal";
 import RegionSelect from "../RegionSelect/RegionSelect";
+import { useTranslation } from "react-i18next";
 const Header = () => {
+  const { t } = useTranslation();
   const [showLogModal, setShowLogModal] = useState(false);
   const [showBurgerModal, setShowBurgerModal] = useState(false);
   return (
@@ -15,7 +17,7 @@ const Header = () => {
       <LoginModal
         showModal={showLogModal}
         setShowModal={setShowLogModal}
-        message={"Login for full experience!"}
+        message={t("loginForFullExp")}
       />
       <BurgerModal
         setShowLogModal={setShowLogModal}

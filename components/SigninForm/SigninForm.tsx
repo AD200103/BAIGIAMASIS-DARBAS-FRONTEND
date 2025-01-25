@@ -1,29 +1,37 @@
 import styles from "./styles.module.css";
 import { AxiosError } from "axios";
 import cookie from "js-cookie";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { signingIn } from "@/api/user";
 import { inputValidation } from "@/utils/inputValidation";
 import { DataType } from "@/types";
+import { useTranslation } from "react-i18next";
 import Loader from "../Loader/Loader";
 
 const SigninForm = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
   const [errorMsg, setErrorMsg] = useState("");
-
-  const [namePlacholder, setNamePLaceholder] = useState("Name");
-  const [emailPlaceholder, setEmailPLaceholder] = useState("Email");
-  const [passwordPlacholder, setPassPLaceholder] = useState("Password");
+  const { t } = useTranslation();
+  const [namePlacholder, setNamePLaceholder] = useState("");
+  const [emailPlaceholder, setEmailPLaceholder] = useState("");
+  const [passwordPlacholder, setPassPLaceholder] = useState("");
   const [redNameAlert, setRedNameAlert] = useState(false);
   const [redEmailAlert, setRedEmailAlert] = useState(false);
   const [redPasAlert, setRedPasAlert] = useState(false);
+  const [signUp, setSignUp] = useState("");
 
   const [loaderVis, setLoaderVis] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setNamePLaceholder(t("Name"));
+    setEmailPLaceholder(t("Email"));
+    setPassPLaceholder(t("Password"));
+    setSignUp(t("SignUp"));
+  }, [signUp]);
 
   const signIn = async () => {
     try {
@@ -31,8 +39,8 @@ const SigninForm = () => {
       if (!name || name.trim() == "") {
         setLoaderVis(false);
         inputValidation(
-          "Name is required!",
-          "Name",
+          t("signNameReq"),
+          t("Name"),
           setNamePLaceholder,
           setRedNameAlert,
           setName
@@ -41,8 +49,8 @@ const SigninForm = () => {
       if (!email || email.trim() == "") {
         setLoaderVis(false);
         inputValidation(
-          "Email is required!",
-          "Email",
+          t("signEmailReq"),
+          t("Email"),
           setEmailPLaceholder,
           setRedEmailAlert,
           setEmail
@@ -51,8 +59,8 @@ const SigninForm = () => {
       if (!password || password.trim() == "") {
         setLoaderVis(false);
         inputValidation(
-          "Password is required!",
-          "Password",
+          t("signPassReq"),
+          t("Password"),
           setPassPLaceholder,
           setRedPasAlert,
           setPassword
@@ -71,9 +79,6 @@ const SigninForm = () => {
       const response = await signingIn(body);
       if (response.status == 200) {
         cookie.set("jwt-token", response.data.token);
-        setName("");
-        setEmail("");
-        setPassword("");
         router.push("/");
       }
     } catch (err: unknown) {
@@ -92,7 +97,7 @@ const SigninForm = () => {
   return (
     <div className={styles.signinForm}>
       {loaderVis && <Loader />}
-      <h1>Become a member!</h1>
+      <h1>{t("SignUp")}</h1>
       <input
         className={`${styles.input} ${redNameAlert && styles.redAlert}`}
         value={name}
@@ -118,7 +123,7 @@ const SigninForm = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button onClick={signIn}>Sign up</button>
+      <button onClick={signIn}>{signUp}</button>
       <p className={styles.errMsg}>{errorMsg}</p>
     </div>
   );

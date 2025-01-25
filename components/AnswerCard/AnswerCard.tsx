@@ -32,11 +32,11 @@ const AnswerCard = ({
   region,
   setAnswers,
 }: AnswerCardPropsType) => {
+  const { t } = useTranslation();
   const userIdFromToken = decodeToken(cookie.get("jwt-token")!);
   const [showLogModal, setShowLogModal] = useState(false);
-  const [message, setMessage] = useState("Login to rate answers!");
+  const [message, setMessage] = useState(t("loginToRate"));
   const [loaderVis, setLoaderVis] = useState(false);
-  const { t } = useTranslation();
   const deleteAnAnswer = async () => {
     const token = cookie.get("jwt-token") as string;
     if (token) {

@@ -10,9 +10,6 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const reg = localStorage.getItem("region");
     let lang = "lt";
-    if (reg == "Europe/Vilnius") {
-      lang = "lt";
-    }
     if (reg == "Europe/London") {
       lang = "en";
     }

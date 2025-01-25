@@ -1,26 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./styles.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cookie from "js-cookie";
 import { useRouter } from "next/router";
 import { logingIn } from "@/api/user";
 import LogoComponent from "../LogoComponent/LogoComponent";
 import { AxiosError } from "axios";
 import { inputValidation } from "@/utils/inputValidation";
+import { useTranslation } from "react-i18next";
 import Loader from "../Loader/Loader";
-import { DataType } from "@/types";
 type LoginFormPropsType = {
   message: string;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage] = useState("");
-  const [emailPlaceholder, setEmailPLaceholder] = useState("email");
-  const [passwordPlacholder, setPassPLaceholder] = useState("password");
+  const [emailPlaceholder, setEmailPLaceholder] = useState("");
+  const [passwordPlacholder, setPassPLaceholder] = useState("");
   const [redEmailAlert, setRedEmailAlert] = useState(false);
   const [redPasAlert, setRedPasAlert] = useState(false);
   const [loaderVis, setLoaderVis] = useState(false);
+  const [signIn, setSignIn] = useState("");
+
+  useEffect(() => {
+    setEmailPLaceholder(t("email"));
+    setPassPLaceholder(t("password"));
+    setSignIn(t("SignIn"));
+  }, [signIn]);
+
   const router = useRouter();
   const login = async () => {
     try {
@@ -28,8 +38,8 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
       if (!email || email.trim() == "") {
         setLoaderVis(false);
         inputValidation(
-          "email is required!",
-          "email",
+          t("emailReq"),
+          t("email"),
           setEmailPLaceholder,
           setRedEmailAlert,
           setEmail
@@ -38,8 +48,8 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
       if (!password || password.trim() == "") {
         setLoaderVis(false);
         inputValidation(
-          "password is required!",
-          "password",
+          t("passwordReq"),
+          t("password"),
           setPassPLaceholder,
           setRedPasAlert,
           setPassword
@@ -62,8 +72,7 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
       const error = err as AxiosError;
       setLoaderVis(false);
       if (error.status == 403) {
-        const data = error.response!.data as DataType;
-        setErrMessage(data.message);
+        setErrMessage(t("loginErrMsg"));
         setTimeout(() => {
           setErrMessage("");
         }, 2000);
@@ -96,9 +105,9 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
         onChange={(e) => setPassword(e.target.value)}
       />
       <p className={styles.errMsg}>{errMessage}</p>
-      <button onClick={login}>Login</button>
+      <button onClick={login}>{t("Login")}</button>
       <div className={styles.signInProps}>
-        <p>Not yet a member?</p>
+        <p>{t("NotMember")}</p>
         <p
           className={styles.signInText}
           onClick={() => {
@@ -106,7 +115,7 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
             router.push("/signin");
           }}
         >
-          Sign in
+          {signIn}
         </p>
       </div>
     </div>
