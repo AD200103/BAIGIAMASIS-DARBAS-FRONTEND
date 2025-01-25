@@ -22,6 +22,7 @@ const LoginLogoutComponent = ({
   const [login, setLogin] = useState("");
   const [logout, setLogout] = useState("");
   const router = useRouter();
+
   useEffect(() => {
     if (tokenExists) {
       checkingAuth(tokenExists, setTokenExists);

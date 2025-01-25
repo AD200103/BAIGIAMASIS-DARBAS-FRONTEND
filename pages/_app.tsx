@@ -7,6 +7,9 @@ import { useTranslation } from "react-i18next";
 export default function App({ Component, pageProps }: AppProps) {
   const { i18n } = useTranslation();
 
+  const date = new Date();
+  const dateFormed = Math.floor(date.getTime() / 1000);
+
   useEffect(() => {
     const reg = localStorage.getItem("region");
     let lang = "lt";
@@ -14,6 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
       lang = "en";
     }
     i18n.changeLanguage(lang);
+    console.log(dateFormed);
   }, []);
 
   return <Component {...pageProps} />;

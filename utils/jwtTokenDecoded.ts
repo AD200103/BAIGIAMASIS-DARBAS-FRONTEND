@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import jwt from "jsonwebtoken";
 import cookie from "js-cookie";
 import axios, { AxiosError } from "axios";
@@ -21,7 +20,7 @@ export const checkingAuth = async (
 ) => {
   try {
     const headers = { authorization: token };
-    const response = await axios.get(`${process.env.BASE_URL}/token_check`, {
+    await axios.get(`${process.env.BASE_URL}/token_check`, {
       headers,
     });
   } catch (err: unknown) {
@@ -29,6 +28,7 @@ export const checkingAuth = async (
     if (error.status == 403) {
       cookie.remove("jwt-token");
       setToken(cookie.get("jwt-token"));
+      setTimeout(() => {}, 60000);
     }
   }
 };
