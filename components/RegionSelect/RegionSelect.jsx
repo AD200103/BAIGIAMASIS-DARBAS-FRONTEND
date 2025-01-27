@@ -4,7 +4,14 @@ import { useRouter } from "next/router";
 import LogoRegion from "../LogoRegion/LogoRegion";
 const RegionSelect = () => {
   const router = useRouter();
-  const [region, setRegion] = useState("");
+  const [counties, setCountries] = useState([
+    { region: "Europe/Vilnius", shortCut: "LTU" },
+    { region: "Europe/London", shortCut: "UK" },
+  ]);
+  const [region, setRegion] = useState("" || "LTU");
+  const [showRegions, setShowRegions] = useState(false);
+  const [logoRegion, setLogoRegion] = useState("" || "Europe/Vilnius");
+
   useEffect(() => {
     {
       const country = localStorage.getItem("region");
@@ -14,27 +21,32 @@ const RegionSelect = () => {
       if (country == "Europe/London") {
         setRegion("UK");
       }
+      setLogoRegion(country);
     }
-  }, []);
+  }, [logoRegion]);
 
   return (
     <div className={styles.main}>
-      <div className={styles.dropdownContainer}>
-        <select
-          className={styles.dropdown}
-          onChange={(e) => {
-            localStorage.setItem("region", e.target.value);
-            router.reload();
-          }}
-        >
-          <option className={styles.optionOne} value="">
-            {region}
-          </option>
-          <option value="Europe/Vilnius">LTU</option>
-          <option value="Europe/London">UK</option>
-        </select>
-        <LogoRegion />
-      </div>
+      <ul className={styles.dropdownContainer}>
+        <li>
+          {region}
+          <LogoRegion region={logoRegion} />
+        </li>
+        <div tabIndex={"0"} className={styles.countryListContainer}>
+          {counties.map((country) => (
+            <li
+              key={country.shortCut}
+              onClick={() => {
+                localStorage.setItem("region", country.region);
+                router.reload();
+              }}
+            >
+              {country.shortCut}
+              <LogoRegion region={country.region} />
+            </li>
+          ))}
+        </div>
+      </ul>
     </div>
   );
 };

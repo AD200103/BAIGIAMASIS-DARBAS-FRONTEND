@@ -1,29 +1,38 @@
-.dropdown {
-  all: unset;
-  height: 20px;
-  padding: 5px;
-}
 .dropdownContainer {
   display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
-  padding: 5px;
-  background-color: rgb(14, 14, 14, 0.2);
+  flex-direction: column;
+  height: fit-content;
+  width: 100px;
+  background-color: rgb(137, 137, 137);
   border-radius: 5px;
   cursor: pointer;
+  top: 35px;
+  right: 15px;
+  position: absolute;
 }
-
-.dropdown option {
-  all: unset;
-  background-color: aqua;
-  width: 50px;
-  cursor: pointer;
+.dropdownContainer li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  width: 100%;
 }
-.dropdownContainer:hover {
-  background-color: rgb(14, 14, 14, 0.6);
+.countryListContainer {
+  position: absolute;
+  width: 100%;
+  padding-top: 45px;
+  top: 0px;
+  height: 30px;
+  overflow: hidden;
+  opacity: 0;
 }
-.dropdown .optionOne {
-  display: none;
+.countryListContainer:focus {
+  height: 60px;
+  padding-top: 0px;
+  top: 45px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #696666;
+  opacity: 1;
 }

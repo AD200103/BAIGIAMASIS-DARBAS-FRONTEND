@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 2px rgb(59, 7, 73) solid;
+  position: relative;
 }
 .burgerBtn {
   all: unset;
