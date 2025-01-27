@@ -9,7 +9,6 @@ const RegionSelect = () => {
     { region: "Europe/London", shortCut: "UK" },
   ]);
   const [region, setRegion] = useState("" || "LTU");
-  const [showRegions, setShowRegions] = useState(false);
   const [logoRegion, setLogoRegion] = useState("" || "Europe/Vilnius");
 
   useEffect(() => {
