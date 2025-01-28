@@ -18,8 +18,10 @@ export const addQuestion = async (body: object, token: string) => {
   });
   return response;
 };
-export const gettingQuestions = async () => {
-  const response = await axios.get(`${process.env.BASE_URL}/questions`);
+export const gettingQuestions = async (page: number) => {
+  const response = await axios.get(
+    `${process.env.BASE_URL}/questions?p=${page}`
+  );
   return response;
 };
 export const getQuestion = async (id: string) => {

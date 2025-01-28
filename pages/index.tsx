@@ -10,7 +10,7 @@ const MainPage = () => {
   const [region, setRegion] = useState("");
   const getQuestions = async () => {
     try {
-      const response = await gettingQuestions();
+      const response = await gettingQuestions(2);
       setQuestions(response.data.questions);
     } catch (err) {
       console.log(err);
