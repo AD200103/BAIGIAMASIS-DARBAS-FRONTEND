@@ -28,11 +28,6 @@
   background-color: #b51010;
   cursor: pointer;
 }
-.emptyCell {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
 
 .countryListContainer {
   position: absolute;
