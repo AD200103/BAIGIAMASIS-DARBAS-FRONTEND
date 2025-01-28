@@ -19,7 +19,7 @@ export const addQuestion = async (body: object, token: string) => {
   return response;
 };
 export const gettingQuestions = async () => {
-  const response = await axios.get(`${process.env.BASE_URL}/`);
+  const response = await axios.get(`${process.env.BASE_URL}/questions`);
   return response;
 };
 export const getQuestion = async (id: string) => {
