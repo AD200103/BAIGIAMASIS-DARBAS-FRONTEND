@@ -27,7 +27,6 @@ const Questions = ({
         </select>
       </div>
       {questions
-        .sort((a, b) => b.date.toString().localeCompare(a.date.toString()))
         .filter(
           (a) =>
             (sortVal == "All" && a.answers >= 0) ||

@@ -1,0 +1,22 @@
+.main {
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  bottom: 110px;
+  width: fit-content;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.main button {
+  all: unset;
+  cursor: pointer;
+  color: black;
+}
+.main p {
+  color: rgb(4, 4, 4, 0.6);
+  cursor: default;
+}

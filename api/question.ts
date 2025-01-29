@@ -18,9 +18,12 @@ export const addQuestion = async (body: object, token: string) => {
   });
   return response;
 };
-export const gettingQuestions = async (page: number) => {
+export const gettingQuestions = async (
+  page: number,
+  questionNumberPerPage: number
+) => {
   const response = await axios.get(
-    `${process.env.BASE_URL}/questions?p=${page}`
+    `${process.env.BASE_URL}/questions?p=${page}&q=${questionNumberPerPage}`
   );
   return response;
 };

@@ -1,0 +1,18 @@
+.main {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  cursor: pointer;
+  border: 1px black solid;
+}
+.main:active {
+  background-color: black;
+  color: white;
+}
+.btnActive {
+  background-color: black;
+  color: white;
+}
