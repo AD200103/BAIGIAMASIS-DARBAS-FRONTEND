@@ -3,7 +3,10 @@ import styles from "./styles.module.css";
 import Lithuania from "../../assets/img/regions/Lithuania.webp";
 import UK from "../../assets/img/regions/UK.webp";
 import { useEffect, useState } from "react";
-const LogoRegion = ({ region }) => {
+type LogoRegionPropsType = {
+  region: string;
+};
+const LogoRegion = ({ region }: LogoRegionPropsType) => {
   const [country, setCountry] = useState(Lithuania);
   useEffect(() => {
     if (region == "Europe/Vilnius") {
