@@ -25,13 +25,13 @@ const Header = () => {
         setShowBurgerModal={setShowBurgerModal}
       />
       <LogoComponent />
-      <button
-        onClick={() => setShowBurgerModal(!showBurgerModal)}
-        className={styles.burgerBtn}
-      >
-        <img src={burger.src} alt="burger" />
-      </button>
       <div className={styles.linksAndRegion}>
+        <button
+          onClick={() => setShowBurgerModal(!showBurgerModal)}
+          className={styles.burgerBtn}
+        >
+          <img src={burger.src} alt="burger" />
+        </button>
         <HeaderLinks setShowLogModal={setShowLogModal} />
         <RegionSelect />
       </div>

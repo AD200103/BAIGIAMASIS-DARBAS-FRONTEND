@@ -34,7 +34,7 @@ const MainQuestionPage = () => {
     setQuestion(response.data.question);
   };
   useEffect(() => {
-    setRegion(localStorage.getItem("region")!);
+    setRegion(sessionStorage.getItem("region")!);
   }, []);
 
   const updateAnAnswersNumberToQuestion = async (answerAmmount: number) => {

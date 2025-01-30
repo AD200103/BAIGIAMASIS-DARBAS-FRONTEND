@@ -20,7 +20,7 @@ const RegionSelect = () => {
   };
   useEffect(() => {
     {
-      const country = localStorage.getItem("region");
+      const country = sessionStorage.getItem("region");
       if (country == "Europe/Vilnius") {
         setRegion("LTU");
       }
@@ -50,7 +50,7 @@ const RegionSelect = () => {
             <li
               key={country.shortCut}
               onClick={() => {
-                localStorage.setItem("region", country.region);
+                sessionStorage.setItem("region", country.region);
                 router.reload();
               }}
             >

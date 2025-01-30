@@ -12,11 +12,14 @@ const MainPage = () => {
   const [region, setRegion] = useState("");
   const [pageNum, setPageNum] = useState(0);
   const [loaderVis, setLoaderVis] = useState(false);
-  const [questionPerPage, setQuestionPerPage] = useState(5);
+  const [questionsPerPage, setQuestionsPerPage] = useState(2);
   const [pageNumArr, setPageNumArr] = useState<null | number[]>(null);
 
   const getQuestions = async () => {
     setLoaderVis(true);
+    const questionPerPage = parseInt(
+      sessionStorage.getItem("questionPerPage") || "2"
+    );
     try {
       const response = await gettingQuestions(pageNum, questionPerPage);
       if (response.status == 200) {
@@ -41,9 +44,15 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    setRegion(localStorage.getItem("region")!);
+    setRegion(sessionStorage.getItem("region") || "Europe/Vilnius");
+  }, []);
+
+  useEffect(() => {
+    setQuestionsPerPage(
+      parseInt(sessionStorage.getItem("questionPerPage") || "2")
+    );
     getQuestions();
-  }, [pageNum, questionPerPage]);
+  }, [pageNum, questionsPerPage]);
 
   return (
     <>
@@ -55,7 +64,14 @@ const MainPage = () => {
           setPageNum={setPageNum}
           pageNumArr={pageNumArr}
         />
-        <select onChange={(e) => setQuestionPerPage(parseInt(e.target.value))}>
+        <select
+          onChange={(e) => {
+            sessionStorage.setItem("questionPerPage", e.target.value);
+            setQuestionsPerPage(parseInt(e.target.value));
+          }}
+        >
+          <option>{questionsPerPage}</option>
+          <option value="2">2</option>
           <option value="5">5</option>
           <option value="10">10</option>
           <option value="20">20</option>

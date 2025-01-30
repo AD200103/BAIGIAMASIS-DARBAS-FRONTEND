@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const dateFormed = Math.floor(date.getTime() / 1000);
 
   useEffect(() => {
-    const reg = localStorage.getItem("region");
+    const reg = sessionStorage.getItem("region");
     let lang = "lt";
     if (reg == "Europe/London") {
       lang = "en";

@@ -37,6 +37,7 @@
   align-items: center;
   height: 90px;
   padding: 5px;
+  padding-right: 10px;
   gap: 5px;
   overflow-y: scroll;
   scrollbar-width: thin;
@@ -49,4 +50,9 @@
 .showReg {
   height: 120px;
   margin-top: 75px;
+}
+@media screen and (max-width: 768px) {
+  .dropdownContainer {
+    width: 95px;
+  }
 }
