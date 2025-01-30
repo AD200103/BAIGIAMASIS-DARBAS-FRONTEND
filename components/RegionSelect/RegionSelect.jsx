@@ -1,13 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.css";
-import { useRouter } from "next/router";
 import LogoRegion from "../LogoRegion/LogoRegion";
+import DropdownRegionCont from "../DropdownRegionCont/DropdownRegionCont";
+import { regionSelect } from "@/utils/regionSetting";
+
 const RegionSelect = () => {
-  const router = useRouter();
-  const [counties, setCountries] = useState([
-    { region: "Europe/Vilnius", shortCut: "LTU" },
-    { region: "Europe/London", shortCut: "UK" },
-  ]);
   const [showReg, setShowReg] = useState(false);
   const [region, setRegion] = useState("" || "LTU");
   const [logoRegion, setLogoRegion] = useState("" || "Europe/Vilnius");
@@ -21,13 +18,7 @@ const RegionSelect = () => {
   useEffect(() => {
     {
       const country = sessionStorage.getItem("region");
-      if (country == "Europe/Vilnius") {
-        setRegion("LTU");
-      }
-      if (country == "Europe/London") {
-        setRegion("UK");
-      }
-      setLogoRegion(country);
+      regionSelect({ country, setLogoRegion, setRegion });
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -45,20 +36,7 @@ const RegionSelect = () => {
           {region}
           <LogoRegion region={logoRegion} />
         </li>
-        <div className={styles.regionContainer}>
-          {counties.map((country) => (
-            <li
-              key={country.shortCut}
-              onClick={() => {
-                sessionStorage.setItem("region", country.region);
-                router.reload();
-              }}
-            >
-              {country.shortCut}
-              <LogoRegion region={country.region} />
-            </li>
-          ))}
-        </div>
+        <DropdownRegionCont />
       </ul>
     </div>
   );

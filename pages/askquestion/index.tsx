@@ -16,6 +16,7 @@ const AskPage = () => {
     setMessage(t("LoginToAskAQuestion"));
   }, [askQuestion]);
   const { t } = useTranslation();
+
   useEffect(() => {
     setTimeout(() => {
       if (!cookie.get("jwt-token")) {

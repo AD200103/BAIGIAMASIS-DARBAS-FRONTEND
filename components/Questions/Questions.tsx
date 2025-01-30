@@ -1,31 +1,31 @@
 import styles from "./styles.module.css";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import { QuestionType } from "@/types";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import SelectPageNum from "../SelectPageNum/SelectPageNum";
+import SortQuestionsBy from "../SortQuestionsBy/SortQuestionBy";
 type QuestionsPropsType = {
   questions: QuestionType[];
+  setQuestionsPerPage: React.Dispatch<React.SetStateAction<number>>;
+  questionsPerPage: number;
 };
 const Questions = ({
   questions,
   region,
+  setQuestionsPerPage,
+  questionsPerPage,
 }: QuestionsPropsType & { region: string }) => {
   const [sortVal, setSortVal] = useState("All");
   const { t } = useTranslation();
   return (
     <div className={styles.main}>
       <h1>{t("questions")}</h1>
-      <div className={styles.dropdownContainer}>
-        <p>{t("SortQuestionsBy")}:</p>
-        <select
-          className={styles.dropdown}
-          onChange={(e) => setSortVal(e.target.value)}
-        >
-          <option value="All">{t("All")}</option>
-          <option value="Answered">{t("Answered")}</option>
-          <option value="Unanswered">{t("Unanswered")}</option>
-        </select>
-      </div>
+      <SortQuestionsBy setSortVal={setSortVal} />
+      <SelectPageNum
+        setQuestionsPerPage={setQuestionsPerPage}
+        questionsPerPage={questionsPerPage}
+      />
       {questions
         .filter(
           (a) =>

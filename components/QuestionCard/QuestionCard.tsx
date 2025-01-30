@@ -27,7 +27,9 @@ const QuestionCard = ({
   region,
 }: QuestionCardPropsType) => {
   const token = cookie.get("jwt-token");
-  const userIdFromToken: string | undefined = decodeToken(token!);
+  const userIdFromToken: string | undefined = token
+    ? decodeToken(token!)
+    : undefined;
   const { t } = useTranslation();
   return (
     <div className={styles.main}>

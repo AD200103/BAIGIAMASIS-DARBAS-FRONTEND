@@ -1,0 +1,16 @@
+.regionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90px;
+  padding: 5px;
+  padding-right: 10px;
+  gap: 5px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  background-color: #323232;
+  scrollbar-color: #888 #696666;
+}
+.regionContainer li:hover {
+  background-color: #797878;
+}
