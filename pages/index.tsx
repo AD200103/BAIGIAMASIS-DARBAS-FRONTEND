@@ -12,7 +12,7 @@ const MainPage = () => {
   const [region, setRegion] = useState("");
   const [pageNum, setPageNum] = useState(0);
   const [loaderVis, setLoaderVis] = useState(false);
-  const [questionPerPage, setQuestionPerPage] = useState(20);
+  const [questionPerPage, setQuestionPerPage] = useState(5);
   const [pageNumArr, setPageNumArr] = useState<null | number[]>(null);
 
   const getQuestions = async () => {
@@ -56,6 +56,8 @@ const MainPage = () => {
           pageNumArr={pageNumArr}
         />
         <select onChange={(e) => setQuestionPerPage(parseInt(e.target.value))}>
+          <option value="5">5</option>
+          <option value="10">10</option>
           <option value="20">20</option>
           <option value="40">40</option>
           <option value="60">60</option>

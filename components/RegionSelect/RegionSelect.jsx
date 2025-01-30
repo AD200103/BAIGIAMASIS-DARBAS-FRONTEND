@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./styles.module.css";
 import { useRouter } from "next/router";
 import LogoRegion from "../LogoRegion/LogoRegion";
@@ -8,9 +8,16 @@ const RegionSelect = () => {
     { region: "Europe/Vilnius", shortCut: "LTU" },
     { region: "Europe/London", shortCut: "UK" },
   ]);
+  const [showReg, setShowReg] = useState(false);
   const [region, setRegion] = useState("" || "LTU");
   const [logoRegion, setLogoRegion] = useState("" || "Europe/Vilnius");
+  const dropdownRef = useRef(null);
 
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowReg(false);
+    }
+  };
   useEffect(() => {
     {
       const country = localStorage.getItem("region");
@@ -22,16 +29,23 @@ const RegionSelect = () => {
       }
       setLogoRegion(country);
     }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [logoRegion]);
 
   return (
-    <div className={styles.main}>
-      <ul className={styles.dropdownContainer}>
-        <li>
+    <div ref={dropdownRef} className={styles.main}>
+      <ul
+        tabIndex={"0"}
+        className={`${styles.dropdownContainer} ${showReg && styles.showReg}`}
+      >
+        <li onClick={() => setShowReg(!showReg)} className={styles.logoRegion}>
           {region}
           <LogoRegion region={logoRegion} />
         </li>
-        <div tabIndex={"0"} className={styles.countryListContainer}>
+        <div className={styles.regionContainer}>
           {counties.map((country) => (
             <li
               key={country.shortCut}

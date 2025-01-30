@@ -1,14 +1,13 @@
 .dropdownContainer {
   display: flex;
   flex-direction: column;
-  height: fit-content;
+  height: 45px;
+  overflow: hidden;
   width: 150px;
   background-color: rgb(137, 137, 137);
-  top: 35px;
-  right: 15px;
-  position: absolute;
   background-color: #696666;
 }
+
 .dropdownContainer li {
   list-style: none;
   display: flex;
@@ -20,44 +19,34 @@
   border-radius: 5px;
   cursor: pointer;
 }
-.dropdownContainer li:first-child {
+
+.dropdownContainer .logoRegion {
   border-radius: 0;
-}
-
-.dropdownContainer li:hover {
-  background-color: #b51010;
+  position: sticky;
+  background-color: #484747;
+  color: white;
   cursor: pointer;
+  top: 0;
 }
-
-.countryListContainer {
-  position: absolute;
+.dropdownContainer .logoRegion:hover {
+  background-color: #575757;
+}
+.regionContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: baseline;
-  width: 100%;
-  padding-top: 45px;
-  top: 0px;
-  height: 30px;
-  overflow: hidden;
-  opacity: 0;
-  background-color: #696666;
-  cursor: pointer;
-}
-
-.countryListContainer li:first-child {
-  border-radius: 5px;
-}
-
-.countryListContainer:focus {
-  height: 70px;
-  padding-top: 5px;
-  gap: 5px;
+  height: 90px;
   padding: 5px;
-  top: 45px;
+  gap: 5px;
   overflow-y: scroll;
   scrollbar-width: thin;
+  background-color: #323232;
   scrollbar-color: #888 #696666;
-  opacity: 1;
-  cursor: default;
+}
+.regionContainer li:hover {
+  background-color: #797878;
+}
+.showReg {
+  height: 120px;
+  margin-top: 75px;
 }
