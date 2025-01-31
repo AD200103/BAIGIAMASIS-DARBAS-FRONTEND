@@ -55,6 +55,7 @@ i18n.use(initReactI18next).init({
         singUsrnExists: "Username already exists!",
         singUsrnEmailExists: "Email and username already exists!",
         singEmailExists: "Email already exists!",
+        QuestionsPerPage: "Questions per page",
       },
     },
     lt: {
@@ -109,6 +110,7 @@ i18n.use(initReactI18next).init({
         singUsrnExists: "Vartotojo vardas užimtas!",
         singUsrnEmailExists: "El.Paštas ir vatotojo vardas užimti!",
         singEmailExists: "El.Paštas jau egzistuoja!",
+        QuestionsPerPage: "Klausimai puslapyje",
       },
     },
   },

@@ -21,11 +21,13 @@ const Questions = ({
   return (
     <div className={styles.main}>
       <h1>{t("questions")}</h1>
-      <SortQuestionsBy setSortVal={setSortVal} />
-      <SelectPageNum
-        setQuestionsPerPage={setQuestionsPerPage}
-        questionsPerPage={questionsPerPage}
-      />
+      <div className={styles.sorting}>
+        <SortQuestionsBy setSortVal={setSortVal} />
+        <SelectPageNum
+          setQuestionsPerPage={setQuestionsPerPage}
+          questionsPerPage={questionsPerPage}
+        />
+      </div>
       {questions
         .filter(
           (a) =>

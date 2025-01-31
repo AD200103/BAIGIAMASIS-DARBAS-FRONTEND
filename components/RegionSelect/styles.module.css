@@ -1,11 +1,11 @@
 .dropdownContainer {
   display: flex;
   flex-direction: column;
-  height: 45px;
+  height: 55px;
   overflow: hidden;
   width: 150px;
   background-color: rgb(137, 137, 137);
-  background-color: #696666;
+  background-color: #878484;
 }
 
 .dropdownContainer li {
@@ -13,7 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px;
+  padding: 10px;
   width: 100%;
   background-color: #888;
   border-radius: 5px;
@@ -23,7 +23,7 @@
 .dropdownContainer .logoRegion {
   border-radius: 0;
   position: sticky;
-  background-color: #484747;
+  background-color: #7b7a7a;
   color: white;
   cursor: pointer;
   top: 0;
@@ -49,7 +49,7 @@
 }
 .showReg {
   height: 120px;
-  margin-top: 75px;
+  margin-top: 65px;
 }
 @media screen and (max-width: 768px) {
   .dropdownContainer {

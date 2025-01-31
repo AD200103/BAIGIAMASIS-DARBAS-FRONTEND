@@ -12,7 +12,7 @@ const SelectPageNum = ({
   const { t } = useTranslation();
   return (
     <div className={styles.dropdownNumContainer}>
-      <p>{t("SortQuestionsBy")}:</p>
+      <p>{t("QuestionsPerPage")}:</p>
       <select
         className={styles.main}
         onChange={(e) => {

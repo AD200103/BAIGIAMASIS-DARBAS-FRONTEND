@@ -3,11 +3,22 @@
   height: 20px;
   border: 2px rgb(104, 33, 104) solid;
   padding: 5px;
+  cursor: pointer;
 }
 .dropdownContainer {
   display: flex;
-  gap: 20px;
+  gap: 5px;
   align-items: center;
   margin-top: 40px;
   margin-bottom: 40px;
+}
+.dropdown:hover {
+  background-color: rgb(158, 69, 158, 0.4);
+}
+@media screen and (max-width: 768px) {
+  .dropdownContainer {
+    margin: 0;
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
 }

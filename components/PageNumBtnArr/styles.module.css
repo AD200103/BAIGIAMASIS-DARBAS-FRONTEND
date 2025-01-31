@@ -1,14 +1,35 @@
 .main {
   margin: auto;
-  justify-content: center;
   display: flex;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  gap: 10px;
   position: absolute;
   bottom: 110px;
   width: fit-content;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.pageNumberContainer {
+  width: 250px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+.pageNumberArray {
+  justify-content: center;
+  width: fit-content;
+  display: flex;
+  gap: 15px;
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(var(--translateX));
+}
+.containerAtEnds {
+  justify-content: flex-end;
+}
+.containerAtStart {
+  justify-content: flex-start;
 }
 
 .main button {
@@ -19,4 +40,10 @@
 .main p {
   color: rgb(4, 4, 4, 0.6);
   cursor: default;
+}
+
+@media screen and (max-width: 768px) {
+  .pageNumberContainer {
+    width: 140px;
+  }
 }

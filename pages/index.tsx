@@ -58,11 +58,13 @@ const MainPage = () => {
             questionsPerPage={questionsPerPage}
           />
         )}
-        <PageNumBtnArr
-          pageNum={pageNum}
-          setPageNum={setPageNum}
-          pageNumArr={pageNumArr}
-        />
+        {pageNumArr && (
+          <PageNumBtnArr
+            pageNum={pageNum}
+            setPageNum={setPageNum}
+            pageNumArr={pageNumArr}
+          />
+        )}
       </PageTemplate>
     </>
   );
