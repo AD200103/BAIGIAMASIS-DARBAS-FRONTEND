@@ -10,28 +10,12 @@
   left: 50%;
   transform: translateX(-50%);
 }
-
 .pageNumberContainer {
-  width: 250px;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-}
-.pageNumberArray {
-  justify-content: center;
   width: fit-content;
-  display: flex;
   gap: 15px;
-  transition: transform 0.5s ease-in-out;
-  transform: translateX(var(--translateX));
+  display: flex;
+  justify-content: center;
 }
-.containerAtEnds {
-  justify-content: flex-end;
-}
-.containerAtStart {
-  justify-content: flex-start;
-}
-
 .main button {
   all: unset;
   cursor: pointer;

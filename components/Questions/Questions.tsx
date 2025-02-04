@@ -9,12 +9,18 @@ type QuestionsPropsType = {
   questions: QuestionType[];
   setQuestionsPerPage: React.Dispatch<React.SetStateAction<number>>;
   questionsPerPage: number;
+  pageNum: number;
+  setPageNum: React.Dispatch<React.SetStateAction<number>>;
+  pageNumArr: number[];
 };
 const Questions = ({
   questions,
   region,
   setQuestionsPerPage,
   questionsPerPage,
+  pageNum,
+  setPageNum,
+  pageNumArr,
 }: QuestionsPropsType & { region: string }) => {
   const [sortVal, setSortVal] = useState("All");
   const { t } = useTranslation();
@@ -26,6 +32,9 @@ const Questions = ({
         <SelectPageNum
           setQuestionsPerPage={setQuestionsPerPage}
           questionsPerPage={questionsPerPage}
+          pageNum={pageNum}
+          setPageNum={setPageNum}
+          pageNumArr={pageNumArr}
         />
       </div>
       {questions

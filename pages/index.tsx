@@ -56,6 +56,9 @@ const MainPage = () => {
             region={region}
             setQuestionsPerPage={setQuestionsPerPage}
             questionsPerPage={questionsPerPage}
+            pageNum={pageNum}
+            setPageNum={setPageNum}
+            pageNumArr={pageNumArr! && pageNumArr}
           />
         )}
         {pageNumArr && (

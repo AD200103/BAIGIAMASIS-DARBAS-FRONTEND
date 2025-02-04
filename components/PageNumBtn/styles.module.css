@@ -1,5 +1,5 @@
 .main {
-  width: calc(190px / 5);
+  width: 40px;
   height: 25px;
   display: flex;
   align-items: center;
