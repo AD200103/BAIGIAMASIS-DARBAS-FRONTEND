@@ -16,7 +16,7 @@ const MainPage = () => {
   const [questionsPerPage, setQuestionsPerPage] = useState(2);
   const [pageNumArr, setPageNumArr] = useState<null | number[]>(null);
   const [sliceStart, setSliceStart] = useState(0);
-  const [sliceEnd, setSliceEnd] = useState(3);
+  const [sliceEnd, setSliceEnd] = useState(5);
 
   const getQuestions = async () => {
     try {

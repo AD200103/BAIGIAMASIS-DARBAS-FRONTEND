@@ -20,7 +20,6 @@ const PageNumBtnArr = ({
   sliceStart,
   setSliceStart,
 }: PageNumBtnArrProps) => {
-  console.log({ sliceStart, sliceEnd });
   return (
     <div className={styles.main}>
       {pageNum > 0 ? (
@@ -48,6 +47,8 @@ const PageNumBtnArr = ({
                 pageNumArr={pageNumArr}
                 setSliceEnd={setSliceEnd}
                 setSliceStart={setSliceStart}
+                sliceEnd={sliceEnd}
+                sliceStart={sliceStart}
               />
             ))
             .slice(sliceStart, sliceEnd)}

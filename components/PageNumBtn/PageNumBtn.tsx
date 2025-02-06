@@ -7,6 +7,8 @@ type PageNumBtnPropsType = {
   pageNumArr: number[];
   setSliceEnd: React.Dispatch<React.SetStateAction<number>>;
   setSliceStart: React.Dispatch<React.SetStateAction<number>>;
+  sliceEnd: number;
+  sliceStart: number;
 };
 const PageNumBtn = ({
   setPageNum,
@@ -15,7 +17,25 @@ const PageNumBtn = ({
   setSliceEnd,
   setSliceStart,
   pageNumArr,
+  sliceEnd,
+  sliceStart,
 }: PageNumBtnPropsType) => {
+  console.log({ sliceEnd, sliceStart });
+
+  //--------------------------------------------
+  // useEffect(() => {
+  //   const pageNumber = index + 1;
+  //   const checkScreenWidth = () => {
+  //     if (window.matchMedia("(max-width: 768px)").matches) {
+  //     } else {
+  //     }
+  //   };
+  //   checkScreenWidth();
+  //   window.addEventListener("resize", checkScreenWidth);
+  //   return () => window.removeEventListener("resize", checkScreenWidth);
+  // }, []);
+  //--------------------------------------------
+
   return (
     <div
       className={`${styles.main} ${pageNum == index && styles.btnActive}`}
