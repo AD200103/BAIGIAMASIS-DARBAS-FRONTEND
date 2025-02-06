@@ -5,18 +5,39 @@ type PageNumBtnPropsType = {
   pageNum: number;
   index: number;
   pageNumArr: number[];
+  setSliceEnd: React.Dispatch<React.SetStateAction<number>>;
+  setSliceStart: React.Dispatch<React.SetStateAction<number>>;
 };
 const PageNumBtn = ({
   setPageNum,
   pageNum,
   index,
-}: // pageNumArr,
-PageNumBtnPropsType) => {
+  setSliceEnd,
+  setSliceStart,
+  pageNumArr,
+}: PageNumBtnPropsType) => {
   return (
     <div
-      className={`${styles.main} ${pageNum == index && styles.btnActive} 
-      `}
+      className={`${styles.main} ${pageNum == index && styles.btnActive}`}
       onClick={() => {
+        const pageNumber = index + 1;
+        if (pageNumArr.length >= 5) {
+          if (pageNumber <= 2) {
+            setSliceStart(0);
+            setSliceEnd(5);
+          }
+          if (pageNumber > 2 && pageNumber < pageNumArr.length - 1) {
+            setSliceStart(pageNumber - 3);
+            setSliceEnd(pageNumber + 2);
+          }
+          if (pageNumber > pageNumArr.length - 1) {
+            setSliceStart(pageNumArr.length - 5);
+            setSliceEnd(pageNumArr.length);
+          }
+        } else {
+          setSliceStart(0);
+          setSliceEnd(pageNumArr.length);
+        }
         setPageNum(index);
       }}
     >
@@ -25,16 +46,3 @@ PageNumBtnPropsType) => {
   );
 };
 export default PageNumBtn;
-// ${
-//   // pageNum !== 0 &&
-//   // pageNum !== 1 &&
-//   // pageNum !== pageNumArr.length - 1 &&
-//   // pageNum !== pageNumArr.length - 2 &&
-//   // pageNum !== index &&
-//   // pageNum !== index - 1 &&
-//   // pageNum !== index + 1 &&
-//   // pageNum !== index - 2 &&
-//   // pageNum !== index + 2
-//   //   ? styles.btnDissapear
-//   //   : styles.main
-// }

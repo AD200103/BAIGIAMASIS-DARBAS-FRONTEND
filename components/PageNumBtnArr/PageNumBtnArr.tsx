@@ -6,12 +6,21 @@ type PageNumBtnArrProps = {
   pageNum: number;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
   pageNumArr: null | number[];
+  sliceEnd: number;
+  setSliceEnd: React.Dispatch<React.SetStateAction<number>>;
+  sliceStart: number;
+  setSliceStart: React.Dispatch<React.SetStateAction<number>>;
 };
 const PageNumBtnArr = ({
   pageNum,
   setPageNum,
   pageNumArr,
+  sliceEnd,
+  setSliceEnd,
+  sliceStart,
+  setSliceStart,
 }: PageNumBtnArrProps) => {
+  console.log({ sliceStart, sliceEnd });
   return (
     <div className={styles.main}>
       {pageNum > 0 ? (
@@ -29,15 +38,19 @@ const PageNumBtnArr = ({
       )}
       <div tabIndex={0} className={styles.pageNumberContainer}>
         {pageNumArr &&
-          pageNumArr.map((num, index) => (
-            <PageNumBtn
-              key={index}
-              setPageNum={setPageNum}
-              pageNum={pageNum}
-              index={index}
-              pageNumArr={pageNumArr}
-            />
-          ))}
+          pageNumArr
+            .map((num, index) => (
+              <PageNumBtn
+                key={index}
+                setPageNum={setPageNum}
+                pageNum={pageNum}
+                index={index}
+                pageNumArr={pageNumArr}
+                setSliceEnd={setSliceEnd}
+                setSliceStart={setSliceStart}
+              />
+            ))
+            .slice(sliceStart, sliceEnd)}
       </div>
       {pageNumArr &&
         (pageNum < pageNumArr?.length - 1 ? (

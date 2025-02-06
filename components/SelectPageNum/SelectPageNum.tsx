@@ -7,6 +7,8 @@ type SelectPageNumPropType = {
   pageNum: number;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
   pageNumArr: number[];
+  setSliceStart: React.Dispatch<React.SetStateAction<number>>;
+  setSliceEnd: React.Dispatch<React.SetStateAction<number>>;
 };
 const SelectPageNum = ({
   setQuestionsPerPage,
@@ -14,9 +16,11 @@ const SelectPageNum = ({
   pageNum,
   setPageNum,
   pageNumArr,
+  setSliceStart,
+  setSliceEnd,
 }: SelectPageNumPropType) => {
   const { t } = useTranslation();
-  console.log(pageNum);
+  console.log(pageNumArr);
   return (
     <div className={styles.dropdownNumContainer}>
       <p>{t("QuestionsPerPage")}:</p>
@@ -25,7 +29,8 @@ const SelectPageNum = ({
         onChange={(e) => {
           sessionStorage.setItem("questionPerPage", e.target.value);
           setQuestionsPerPage(parseInt(e.target.value));
-
+          setSliceStart(0);
+          setSliceEnd(5);
           const ratio = pageNumArr.length / parseInt(e.target.value);
           if (pageNum >= Math.ceil(ratio)) {
             if (ratio >= 1) {

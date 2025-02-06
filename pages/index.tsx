@@ -15,13 +15,15 @@ const MainPage = () => {
   const [loaderVis, setLoaderVis] = useState(false);
   const [questionsPerPage, setQuestionsPerPage] = useState(2);
   const [pageNumArr, setPageNumArr] = useState<null | number[]>(null);
+  const [sliceStart, setSliceStart] = useState(0);
+  const [sliceEnd, setSliceEnd] = useState(3);
 
   const getQuestions = async () => {
-    setLoaderVis(true);
-    const questionPerPage = parseInt(
-      sessionStorage.getItem("questionPerPage") || "2"
-    );
     try {
+      setLoaderVis(true);
+      const questionPerPage = parseInt(
+        sessionStorage.getItem("questionPerPage") || "2"
+      );
       const response = await gettingQuestions(pageNum, questionPerPage);
       if (response.status == 200) {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -45,7 +47,6 @@ const MainPage = () => {
     );
     getQuestions();
   }, [pageNum, questionsPerPage]);
-
   return (
     <>
       <PageTemplate>
@@ -59,6 +60,8 @@ const MainPage = () => {
             pageNum={pageNum}
             setPageNum={setPageNum}
             pageNumArr={pageNumArr! && pageNumArr}
+            setSliceStart={setSliceStart}
+            setSliceEnd={setSliceEnd}
           />
         )}
         {pageNumArr && (
@@ -66,6 +69,10 @@ const MainPage = () => {
             pageNum={pageNum}
             setPageNum={setPageNum}
             pageNumArr={pageNumArr}
+            sliceStart={sliceStart}
+            setSliceStart={setSliceStart}
+            sliceEnd={sliceEnd}
+            setSliceEnd={setSliceEnd}
           />
         )}
       </PageTemplate>
