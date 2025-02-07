@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 type PageNumBtnPropsType = {
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -17,24 +18,35 @@ const PageNumBtn = ({
   setSliceEnd,
   setSliceStart,
   pageNumArr,
-  sliceEnd,
-  sliceStart,
 }: PageNumBtnPropsType) => {
-  console.log({ sliceEnd, sliceStart });
+  //--------------------------------------------
+  const [sliceInTheActiveStart, setSliceInTheActiveStart] = useState(3);
+  const [sliceInTheActiveEnd, setSliceInTheActiveEnd] = useState(2);
+  const [arrEndNum, setArrEndNum] = useState(5);
 
+  useEffect(() => {
+    const checkScreenWidth = () => {
+      if (window.innerWidth <= 768) {
+        setSliceInTheActiveStart(2);
+        setSliceInTheActiveEnd(1);
+        setArrEndNum(3);
+      } else {
+        setSliceInTheActiveStart(3);
+        setSliceInTheActiveEnd(2);
+        setArrEndNum(5);
+      }
+    };
+    checkScreenWidth();
+    window.addEventListener("resize", checkScreenWidth);
+    return () => window.removeEventListener("resize", checkScreenWidth);
+  }, [
+    window.innerWidth,
+    arrEndNum,
+    sliceInTheActiveStart,
+    sliceInTheActiveEnd,
+  ]);
   //--------------------------------------------
-  // useEffect(() => {
-  //   const pageNumber = index + 1;
-  //   const checkScreenWidth = () => {
-  //     if (window.matchMedia("(max-width: 768px)").matches) {
-  //     } else {
-  //     }
-  //   };
-  //   checkScreenWidth();
-  //   window.addEventListener("resize", checkScreenWidth);
-  //   return () => window.removeEventListener("resize", checkScreenWidth);
-  // }, []);
-  //--------------------------------------------
+  console.log(arrEndNum);
 
   return (
     <div
@@ -44,14 +56,14 @@ const PageNumBtn = ({
         if (pageNumArr.length >= 5) {
           if (pageNumber <= 2) {
             setSliceStart(0);
-            setSliceEnd(5);
+            setSliceEnd(arrEndNum);
           }
           if (pageNumber > 2 && pageNumber < pageNumArr.length - 1) {
-            setSliceStart(pageNumber - 3);
-            setSliceEnd(pageNumber + 2);
+            setSliceStart(pageNumber - sliceInTheActiveStart);
+            setSliceEnd(pageNumber + sliceInTheActiveEnd);
           }
           if (pageNumber > pageNumArr.length - 1) {
-            setSliceStart(pageNumArr.length - 5);
+            setSliceStart(pageNumArr.length - arrEndNum);
             setSliceEnd(pageNumArr.length);
           }
         } else {

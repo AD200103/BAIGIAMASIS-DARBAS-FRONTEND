@@ -20,7 +20,6 @@ const SelectPageNum = ({
   setSliceEnd,
 }: SelectPageNumPropType) => {
   const { t } = useTranslation();
-  console.log(pageNumArr);
   return (
     <div className={styles.dropdownNumContainer}>
       <p>{t("QuestionsPerPage")}:</p>
