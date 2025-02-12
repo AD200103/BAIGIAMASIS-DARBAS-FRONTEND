@@ -31,6 +31,12 @@ const SelectPageNum = ({
           setSliceStart(0);
           setSliceEnd(5);
           const ratio = pageNumArr.length / parseInt(e.target.value);
+          console.log({
+            ratio: ratio,
+            ratioCeiled: Math.ceil(ratio),
+            ratioRounded: Math.round(ratio),
+            pageNum: pageNum,
+          });
           if (pageNum >= Math.ceil(ratio)) {
             if (ratio >= 1) {
               setPageNum(Math.ceil(ratio));

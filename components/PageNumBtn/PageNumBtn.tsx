@@ -20,56 +20,78 @@ const PageNumBtn = ({
   pageNumArr,
 }: PageNumBtnPropsType) => {
   //--------------------------------------------
-  const [sliceInTheActiveStart, setSliceInTheActiveStart] = useState(3);
-  const [sliceInTheActiveEnd, setSliceInTheActiveEnd] = useState(2);
-  const [arrEndNum, setArrEndNum] = useState(5);
+  const [prevWidth, setPrevWidth] = useState(window.innerWidth);
+  const [widthChangeDetection, setWidthChangeDetection] = useState(
+    window.innerWidth
+  );
+
+  const checkScreenWidth = () => {
+    const pageNumber = parseInt(localStorage.getItem("pageNumber") || "1");
+    if (window.innerWidth > 768) {
+      if (pageNumArr.length >= 5) {
+        if (pageNumber <= 2) {
+          setSliceStart(0);
+          setSliceEnd(5);
+        }
+        if (pageNumber > 2 && pageNumber < pageNumArr.length - 1) {
+          setSliceStart(pageNumber - 3);
+          setSliceEnd(pageNumber + 2);
+        }
+        if (pageNumber >= pageNumArr.length - 1) {
+          setSliceStart(pageNumArr.length - 5);
+          setSliceEnd(pageNumArr.length);
+        }
+      } else {
+        setSliceStart(0);
+        setSliceEnd(pageNumArr.length);
+      }
+    }
+    if (window.innerWidth <= 768) {
+      if (pageNumArr.length >= 5) {
+        if (pageNumber <= 2) {
+          setSliceStart(0);
+          setSliceEnd(3);
+        }
+        if (pageNumber > 2 && pageNumber < pageNumArr.length - 1) {
+          setSliceStart(pageNumber - 2);
+          setSliceEnd(pageNumber + 1);
+        }
+        if (pageNumber >= pageNumArr.length - 1) {
+          setSliceStart(pageNumArr.length - 3);
+          setSliceEnd(pageNumArr.length);
+        }
+      } else {
+        setSliceStart(0);
+        setSliceEnd(pageNumArr.length);
+      }
+    }
+  };
 
   useEffect(() => {
-    const checkScreenWidth = () => {
-      if (window.innerWidth <= 768) {
-        setSliceInTheActiveStart(2);
-        setSliceInTheActiveEnd(1);
-        setArrEndNum(3);
-      } else {
-        setSliceInTheActiveStart(3);
-        setSliceInTheActiveEnd(2);
-        setArrEndNum(5);
-      }
+    const checkingScreenWidth = () => {
+      setPrevWidth(widthChangeDetection);
+      setWidthChangeDetection(window.innerWidth);
     };
-    checkScreenWidth();
-    window.addEventListener("resize", checkScreenWidth);
-    return () => window.removeEventListener("resize", checkScreenWidth);
-  }, [
-    window.innerWidth,
-    arrEndNum,
-    sliceInTheActiveStart,
-    sliceInTheActiveEnd,
-  ]);
+    window.addEventListener("resize", checkingScreenWidth);
+    return () => window.removeEventListener("resize", checkingScreenWidth);
+  }, [widthChangeDetection]);
+
+  useEffect(() => {
+    if (
+      (prevWidth > 768 && widthChangeDetection <= 768) ||
+      (prevWidth <= 768 && widthChangeDetection > 768)
+    ) {
+      checkScreenWidth();
+    }
+  }, [widthChangeDetection, prevWidth]);
   //--------------------------------------------
-  console.log(arrEndNum);
 
   return (
     <div
       className={`${styles.main} ${pageNum == index && styles.btnActive}`}
       onClick={() => {
-        const pageNumber = index + 1;
-        if (pageNumArr.length >= 5) {
-          if (pageNumber <= 2) {
-            setSliceStart(0);
-            setSliceEnd(arrEndNum);
-          }
-          if (pageNumber > 2 && pageNumber < pageNumArr.length - 1) {
-            setSliceStart(pageNumber - sliceInTheActiveStart);
-            setSliceEnd(pageNumber + sliceInTheActiveEnd);
-          }
-          if (pageNumber > pageNumArr.length - 1) {
-            setSliceStart(pageNumArr.length - arrEndNum);
-            setSliceEnd(pageNumArr.length);
-          }
-        } else {
-          setSliceStart(0);
-          setSliceEnd(pageNumArr.length);
-        }
+        localStorage.setItem("pageNumber", (index + 1).toString());
+        checkScreenWidth();
         setPageNum(index);
       }}
     >
