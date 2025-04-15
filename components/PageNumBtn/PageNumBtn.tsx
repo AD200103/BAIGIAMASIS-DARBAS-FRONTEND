@@ -47,7 +47,7 @@ const PageNumBtn = ({
       }
     }
     if (window.innerWidth <= 768) {
-      if (pageNumArr.length >= 5) {
+      if (pageNumArr.length >= 3) {
         if (pageNumber <= 2) {
           setSliceStart(0);
           setSliceEnd(3);

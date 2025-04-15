@@ -22,19 +22,6 @@ const PageNumBtnArr = ({
 }: PageNumBtnArrProps) => {
   return (
     <div className={styles.main}>
-      {pageNum > 0 ? (
-        <button
-          onClick={() => {
-            {
-              setPageNum(pageNum - 1);
-            }
-          }}
-        >
-          Previous
-        </button>
-      ) : (
-        <p>Previous</p>
-      )}
       <div tabIndex={0} className={styles.pageNumberContainer}>
         {pageNumArr &&
           pageNumArr
@@ -53,18 +40,6 @@ const PageNumBtnArr = ({
             ))
             .slice(sliceStart, sliceEnd)}
       </div>
-      {pageNumArr &&
-        (pageNum < pageNumArr?.length - 1 ? (
-          <button
-            onClick={() => {
-              setPageNum(pageNum + 1);
-            }}
-          >
-            Next
-          </button>
-        ) : (
-          <p>Next</p>
-        ))}
     </div>
   );
 };

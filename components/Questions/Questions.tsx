@@ -1,12 +1,13 @@
 import styles from "./styles.module.css";
 import QuestionCard from "../QuestionCard/QuestionCard";
 import { QuestionType } from "@/types";
-import React, { useState } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import SelectPageNum from "../SelectPageNum/SelectPageNum";
 import SortQuestionsBy from "../SortQuestionsBy/SortQuestionBy";
 type QuestionsPropsType = {
   questions: QuestionType[];
+  setQuestions: React.Dispatch<React.SetStateAction<QuestionType[] | null>>;
   setQuestionsPerPage: React.Dispatch<React.SetStateAction<number>>;
   questionsPerPage: number;
   pageNum: number;
@@ -14,9 +15,14 @@ type QuestionsPropsType = {
   pageNumArr: number[];
   setSliceStart: React.Dispatch<React.SetStateAction<number>>;
   setSliceEnd: React.Dispatch<React.SetStateAction<number>>;
+  setPageNumArr: React.Dispatch<React.SetStateAction<number[] | null>>;
+  setSortVal: React.Dispatch<React.SetStateAction<string>>;
 };
 const Questions = ({
+  setSortVal,
+  setPageNumArr,
   questions,
+  setQuestions,
   region,
   setQuestionsPerPage,
   questionsPerPage,
@@ -26,13 +32,17 @@ const Questions = ({
   setSliceStart,
   setSliceEnd,
 }: QuestionsPropsType & { region: string }) => {
-  const [sortVal, setSortVal] = useState("All");
   const { t } = useTranslation();
   return (
     <div className={styles.main}>
       <h1>{t("questions")}</h1>
       <div className={styles.sorting}>
-        <SortQuestionsBy setSortVal={setSortVal} />
+        <SortQuestionsBy
+          setSortVal={setSortVal}
+          setQuestions={setQuestions}
+          pageNum={pageNum}
+          setPageNumArr={setPageNumArr}
+        />
         <SelectPageNum
           setQuestionsPerPage={setQuestionsPerPage}
           questionsPerPage={questionsPerPage}
@@ -43,16 +53,9 @@ const Questions = ({
           setSliceEnd={setSliceEnd}
         />
       </div>
-      {questions
-        .filter(
-          (a) =>
-            (sortVal == "All" && a.answers >= 0) ||
-            (sortVal == "Answered" && a.answers !== 0) ||
-            (sortVal == "Unanswered" && a.answers == 0)
-        )
-        .map((q) => (
-          <QuestionCard key={q.id} {...q} region={region} />
-        ))}
+      {questions.map((q) => (
+        <QuestionCard key={q.id} {...q} region={region} />
+      ))}
     </div>
   );
 };

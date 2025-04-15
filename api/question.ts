@@ -20,10 +20,11 @@ export const addQuestion = async (body: object, token: string) => {
 };
 export const gettingQuestions = async (
   page: number,
-  questionNumberPerPage: number
+  questionNumberPerPage: number,
+  sortVal: string
 ) => {
   const response = await axios.get(
-    `${process.env.BASE_URL}/questions?p=${page}&q=${questionNumberPerPage}`
+    `${process.env.BASE_URL}/questions?p=${page}&q=${questionNumberPerPage}&sortVal=${sortVal}`
   );
   return response;
 };

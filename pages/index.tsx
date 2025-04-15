@@ -17,6 +17,7 @@ const MainPage = () => {
   const [pageNumArr, setPageNumArr] = useState<null | number[]>(null);
   const [sliceStart, setSliceStart] = useState(0);
   const [sliceEnd, setSliceEnd] = useState(5);
+  const [sortVal, setSortVal] = useState("All");
 
   const getQuestions = async () => {
     try {
@@ -24,7 +25,11 @@ const MainPage = () => {
       const questionPerPage = parseInt(
         sessionStorage.getItem("questionPerPage") || "2"
       );
-      const response = await gettingQuestions(pageNum, questionPerPage);
+      const response = await gettingQuestions(
+        pageNum,
+        questionPerPage,
+        sortVal
+      );
       if (response.status == 200) {
         window.scrollTo({ top: 0, behavior: "smooth" });
         setLoaderVis(false);
@@ -54,14 +59,17 @@ const MainPage = () => {
         {questions && (
           <Questions
             questions={questions}
+            setQuestions={setQuestions}
             region={region}
             setQuestionsPerPage={setQuestionsPerPage}
             questionsPerPage={questionsPerPage}
             pageNum={pageNum}
+            setSortVal={setSortVal}
             setPageNum={setPageNum}
             pageNumArr={pageNumArr! && pageNumArr}
             setSliceStart={setSliceStart}
             setSliceEnd={setSliceEnd}
+            setPageNumArr={setPageNumArr}
           />
         )}
         {pageNumArr && (
