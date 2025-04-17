@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./styles.module.css";
 import PageNumBtn from "../PageNumBtn/PageNumBtn";
-import React from "react";
+import React, { useEffect } from "react";
 
 type PageNumBtnArrProps = {
   pageNum: number;
@@ -20,6 +21,9 @@ const PageNumBtnArr = ({
   sliceStart,
   setSliceStart,
 }: PageNumBtnArrProps) => {
+  useEffect(() => {
+    setPageNum(parseInt(localStorage.getItem("pageNumber") || "1") - 1);
+  }, []);
   return (
     <div className={styles.main}>
       <div tabIndex={0} className={styles.pageNumberContainer}>

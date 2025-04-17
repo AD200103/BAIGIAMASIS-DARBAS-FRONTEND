@@ -45,8 +45,14 @@ const SelectPageNum = ({
           localStorage.setItem("pgNumArrLngth", pageNumArr.length.toString());
           setCurrentPageVal(parseInt(e.target.value));
           setQuestionsPerPage(parseInt(e.target.value));
-          setSliceStart(0);
-          setSliceEnd(5);
+          if (window.innerWidth <= 798) {
+            setSliceStart(0);
+            setSliceEnd(3);
+          }
+          if (window.innerWidth > 798) {
+            setSliceStart(0);
+            setSliceEnd(5);
+          }
         }}
       >
         <option>{questionsPerPage}</option>
