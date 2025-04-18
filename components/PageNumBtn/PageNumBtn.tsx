@@ -25,32 +25,27 @@ const PageNumBtn = ({
     window.innerWidth
   );
 
-  const checkScreenWidth = () => {
-    const pageNumber = parseInt(localStorage.getItem("pageNumber") || "1");
-    callPageNumArrChang({ pageNumber, pageNumArr, setSliceStart, setSliceEnd });
-  };
   useEffect(() => {
     const checkingScreenWidth = () => {
       setPrevWidth(widthChangeDetection);
       setWidthChangeDetection(window.innerWidth);
     };
     window.addEventListener("resize", checkingScreenWidth);
-
     if (
       (prevWidth > 768 && widthChangeDetection <= 768) ||
-      (prevWidth <= 768 && widthChangeDetection > 768) ||
-      window.innerWidth < 768
+      (prevWidth <= 768 && widthChangeDetection > 768)
     ) {
-      checkScreenWidth();
+      callPageNumArrChang({ pageNumArr, setSliceStart, setSliceEnd });
     }
     return () => window.removeEventListener("resize", checkingScreenWidth);
-  }, [widthChangeDetection, prevWidth, pageNumArr]);
+  }, [widthChangeDetection, prevWidth]);
+
   return (
     <div
       className={`${styles.main} ${pageNum == index && styles.btnActive}`}
       onClick={() => {
         localStorage.setItem("pageNumber", (index + 1).toString());
-        checkScreenWidth();
+        callPageNumArrChang({ pageNumArr, setSliceStart, setSliceEnd });
         setPageNum(index);
       }}
     >

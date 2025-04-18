@@ -9,6 +9,7 @@
   left: 0px;
   transition-duration: 2000ms;
   width: 100%;
+  z-index: 10000;
 }
 .showModal {
   transform: translateY(1000px);

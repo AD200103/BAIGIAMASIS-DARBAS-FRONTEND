@@ -7,6 +7,7 @@
   justify-content: space-between;
   border-bottom: 2px rgb(59, 7, 73) solid;
   position: relative;
+  z-index: 9999;
 }
 .burgerBtn {
   all: unset;

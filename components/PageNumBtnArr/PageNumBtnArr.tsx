@@ -2,11 +2,12 @@
 import styles from "./styles.module.css";
 import PageNumBtn from "../PageNumBtn/PageNumBtn";
 import React, { useEffect } from "react";
+import { callPageNumArrChang } from "@/utils/pageNumberArrLngthChange";
 
 type PageNumBtnArrProps = {
   pageNum: number;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
-  pageNumArr: null | number[];
+  pageNumArr: number[];
   sliceEnd: number;
   setSliceEnd: React.Dispatch<React.SetStateAction<number>>;
   sliceStart: number;
@@ -23,7 +24,8 @@ const PageNumBtnArr = ({
 }: PageNumBtnArrProps) => {
   useEffect(() => {
     setPageNum(parseInt(localStorage.getItem("pageNumber") || "1") - 1);
-  }, []);
+    callPageNumArrChang({ pageNumArr, setSliceStart, setSliceEnd });
+  }, [pageNumArr]);
   return (
     <div className={styles.main}>
       <div tabIndex={0} className={styles.pageNumberContainer}>

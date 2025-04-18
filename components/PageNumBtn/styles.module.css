@@ -9,7 +9,8 @@
   cursor: pointer;
   border: 1px black solid;
 }
-.main:active {
+.main:active,
+.main:hover {
   background-color: black;
   color: white;
 }

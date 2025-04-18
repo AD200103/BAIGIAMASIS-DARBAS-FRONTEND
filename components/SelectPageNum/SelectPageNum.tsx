@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { useTranslation } from "react-i18next";
+import { callPageNumArrChang } from "@/utils/pageNumberArrLngthChange";
 type SelectPageNumPropType = {
   setQuestionsPerPage: React.Dispatch<React.SetStateAction<number>>;
   questionsPerPage: number;
@@ -45,6 +46,8 @@ const SelectPageNum = ({
           localStorage.setItem("pgNumArrLngth", pageNumArr.length.toString());
           setCurrentPageVal(parseInt(e.target.value));
           setQuestionsPerPage(parseInt(e.target.value));
+          callPageNumArrChang({ pageNumArr, setSliceStart, setSliceEnd });
+
           if (window.innerWidth <= 798) {
             setSliceStart(0);
             setSliceEnd(3);

@@ -1,6 +1,5 @@
 import React from "react";
 type funcProps = {
-  pageNumber: number;
   pageNumArr: number[];
   setSliceStart: React.Dispatch<React.SetStateAction<number>>;
   setSliceEnd: React.Dispatch<React.SetStateAction<number>>;
@@ -10,7 +9,6 @@ type funcProps = {
 };
 type callFuncProps = Omit<funcProps, "num1" | "num2" | "num3">;
 export const pageNumberArrLengthChange = ({
-  pageNumber,
   pageNumArr,
   setSliceStart,
   setSliceEnd,
@@ -18,6 +16,7 @@ export const pageNumberArrLengthChange = ({
   num2,
   num3,
 }: funcProps) => {
+  const pageNumber = parseInt(localStorage.getItem("pageNumber") || "1");
   if (pageNumArr.length >= num1) {
     if (pageNumber <= 2) {
       setSliceStart(0);
@@ -38,14 +37,12 @@ export const pageNumberArrLengthChange = ({
 };
 
 export const callPageNumArrChang = ({
-  pageNumber,
   pageNumArr,
   setSliceStart,
   setSliceEnd,
 }: callFuncProps) => {
   if (window.innerWidth > 768) {
     pageNumberArrLengthChange({
-      pageNumber,
       pageNumArr,
       setSliceStart,
       setSliceEnd,
@@ -56,7 +53,6 @@ export const callPageNumArrChang = ({
   }
   if (window.innerWidth <= 768) {
     pageNumberArrLengthChange({
-      pageNumber,
       pageNumArr,
       setSliceStart,
       setSliceEnd,

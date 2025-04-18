@@ -9,11 +9,11 @@
   padding: 20px;
   top: 98px;
   border-top: black 2px solid;
-  background-color: rgb(13, 13, 13, 0.9);
+  background-color: rgb(13, 13, 13, 1);
   transition-duration: 2000ms;
   gap: 20px;
-  z-index: 1;
 }
+
 .burgerModal a,
 .login {
   text-decoration: none;
