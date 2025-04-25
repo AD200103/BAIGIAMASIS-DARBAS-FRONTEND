@@ -6,9 +6,14 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { signingIn } from "@/api/user";
 import { inputValidation } from "@/utils/inputValidation";
-import { DataType } from "@/types";
 import { useTranslation } from "react-i18next";
+import signErrFunc from "@/utils/signInAPIfunc";
 import Loader from "../Loader/Loader";
+import {
+  getInputArrProps,
+  getInputFields,
+  getInputErrMsgs,
+} from "../../utils/signInFormArrs";
 
 const SigninForm = () => {
   const [name, setName] = useState("");
@@ -23,9 +28,41 @@ const SigninForm = () => {
   const [redEmailAlert, setRedEmailAlert] = useState(false);
   const [redPasAlert, setRedPasAlert] = useState(false);
   const [signUp, setSignUp] = useState("");
-
   const [loaderVis, setLoaderVis] = useState(false);
   const router = useRouter();
+
+  const inputArrProps = getInputArrProps({
+    name,
+    email,
+    password,
+    redNameAlert,
+    redEmailAlert,
+    redPasAlert,
+    namePlacholder,
+    emailPlaceholder,
+    passwordPlacholder,
+    setName,
+    setEmail,
+    setPassword,
+  });
+
+  const inputFields = getInputFields({
+    name,
+    email,
+    password,
+    t,
+    setNamePLaceholder,
+    setEmailPLaceholder,
+    setPassPLaceholder,
+    setRedNameAlert,
+    setRedEmailAlert,
+    setRedPasAlert,
+    setName,
+    setEmail,
+    setPassword,
+  });
+
+  const inputErrMsg = getInputErrMsgs(t);
 
   useEffect(() => {
     setNamePLaceholder(t("Name"));
@@ -37,35 +74,17 @@ const SigninForm = () => {
   const signIn = async () => {
     try {
       setLoaderVis(true);
-      if (!name || name.trim() == "") {
-        setLoaderVis(false);
-        inputValidation(
-          t("signNameReq"),
-          t("Name"),
-          setNamePLaceholder,
-          setRedNameAlert,
-          setName
-        );
-      }
-      if (!email || email.trim() == "") {
-        setLoaderVis(false);
-        inputValidation(
-          t("signEmailReq"),
-          t("Email"),
-          setEmailPLaceholder,
-          setRedEmailAlert,
-          setEmail
-        );
-      }
-      if (!password || password.trim() == "") {
-        setLoaderVis(false);
-        inputValidation(
-          t("signPassReq"),
-          t("Password"),
-          setPassPLaceholder,
-          setRedPasAlert,
-          setPassword
-        );
+      for (let i = 0; i <= inputFields.length - 1; i++) {
+        if (!inputFields[i].inputVal || inputFields[i].inputVal.trim() == "") {
+          setLoaderVis(false);
+          inputValidation(
+            inputFields[i].required,
+            inputFields[i].input,
+            inputFields[i].setPlaceHolder,
+            inputFields[i].setRedAlert,
+            inputFields[i].setInput
+          );
+        }
       }
       if (name.trim() == "" || email.trim() == "" || password.trim() == "") {
         setLoaderVis(false);
@@ -85,61 +104,33 @@ const SigninForm = () => {
       }
     } catch (err: unknown) {
       const error = err as AxiosError;
-      setLoaderVis(false);
       if (error.status == 403) {
-        const data = error.response!.data as DataType;
-        const msg = data.message;
-        if (msg == "Username already exists!") {
-          setErrorMsg(t("singUsrnExists"));
-          setRedNameAlert(true);
-        }
-        if (msg == "Email and username already exists!") {
-          setErrorMsg(t("singUsrnEmailExists"));
-          setRedNameAlert(true);
-          setRedEmailAlert(true);
-        }
-        if (msg == "Email already exists!") {
-          setErrorMsg(t("singEmailExists"));
-          setRedEmailAlert(true);
-        }
-        setTimeout(() => {
-          setErrorMsg("");
-          setRedEmailAlert(false);
-          setRedNameAlert(false);
-        }, 2000);
+        signErrFunc({
+          setLoaderVis,
+          error,
+          setErrorMsg,
+          setRedNameAlert,
+          setRedEmailAlert,
+          inputErrMsg,
+        });
       }
     }
   };
-
   return (
     <div className={styles.signinForm}>
       {loaderVis && <Loader />}
       <h1>{t("SignUp")}</h1>
-      <input
-        className={`${styles.input} ${redNameAlert && styles.redAlert}`}
-        value={name}
-        maxLength={20}
-        type="text"
-        placeholder={namePlacholder}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        className={`${styles.input} ${redEmailAlert && styles.redAlert}`}
-        value={email}
-        maxLength={60}
-        type="text"
-        placeholder={emailPlaceholder}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        className={`${styles.input} ${redPasAlert && styles.redAlert}`}
-        value={password}
-        maxLength={20}
-        type="password"
-        placeholder={passwordPlacholder}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
+      {inputArrProps.map((i) => (
+        <input
+          key={i.key}
+          className={`${styles.input} ${i.redAlert ? styles.redAlert : ""}`}
+          value={i.value}
+          maxLength={i.maxLength}
+          type={i.type}
+          placeholder={i.placeholder}
+          onChange={(e) => i.onChangeFunction(e.target.value)}
+        />
+      ))}
       <button onClick={signIn}>{signUp}</button>
       <p className={styles.errMsg}>{errorMsg}</p>
     </div>
