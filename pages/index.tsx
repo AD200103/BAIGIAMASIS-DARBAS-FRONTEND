@@ -70,6 +70,7 @@ const MainPage = () => {
             setSliceStart={setSliceStart}
             setSliceEnd={setSliceEnd}
             setPageNumArr={setPageNumArr}
+            setLoaderVis={setLoaderVis}
           />
         )}
         {pageNumArr && (

@@ -44,7 +44,7 @@ const PageNumBtn = ({
     <div
       className={`${styles.main} ${pageNum == index && styles.btnActive}`}
       onClick={() => {
-        localStorage.setItem("pageNumber", (index + 1).toString());
+        sessionStorage.setItem("pageNumber", (index + 1).toString());
         callPageNumArrChang({ pageNumArr, setSliceStart, setSliceEnd });
         setPageNum(index);
       }}

@@ -81,7 +81,7 @@ const SigninForm = () => {
       if (response.status == 200) {
         cookie.set("jwt-token", response.data.token);
         router.push("/");
-        localStorage.setItem("pageNumber", "1");
+        sessionStorage.setItem("pageNumber", "1");
       }
     } catch (err: unknown) {
       const error = err as AxiosError;

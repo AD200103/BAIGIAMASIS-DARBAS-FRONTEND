@@ -16,7 +16,7 @@ export const pageNumberArrLengthChange = ({
   num2,
   num3,
 }: funcProps) => {
-  const pageNumber = parseInt(localStorage.getItem("pageNumber") || "1");
+  const pageNumber = parseInt(sessionStorage.getItem("pageNumber") || "1");
   if (pageNumArr.length >= num1) {
     if (pageNumber <= 2) {
       setSliceStart(0);

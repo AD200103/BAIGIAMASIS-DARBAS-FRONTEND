@@ -49,7 +49,7 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
         setQuestion("");
         setTitle("");
         router.push("/");
-        localStorage.setItem("pageNumber", "1");
+        sessionStorage.setItem("pageNumber", "1");
       }
     } catch (err: unknown) {
       const error = err as AxiosError;

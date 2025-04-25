@@ -9,15 +9,18 @@ type SortQuestionByPropsType = {
   pageNum: number;
   setPageNumArr: React.Dispatch<React.SetStateAction<number[] | null>>;
   setSortVal: React.Dispatch<React.SetStateAction<string>>;
+  setLoaderVis: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const SortQuestionsBy = ({
   setSortVal,
   setQuestions,
   pageNum,
   setPageNumArr,
+  setLoaderVis,
 }: SortQuestionByPropsType) => {
   const getQuestions = async (sortVal: string) => {
     try {
+      setLoaderVis(true);
       const questionPerPage = parseInt(
         sessionStorage.getItem("questionPerPage") || "2"
       );
@@ -27,6 +30,7 @@ const SortQuestionsBy = ({
         sortVal
       );
       if (response.status == 200) {
+        setLoaderVis(false);
         window.scrollTo({ top: 0, behavior: "smooth" });
         setQuestions(response.data.questions);
         setPageNumArr(formArr(response, questionPerPage));

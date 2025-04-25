@@ -9,9 +9,6 @@ import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { i18n } = useTranslation();
-
-  const date = new Date();
-  const dateFormed = Math.floor(date.getTime() / 1000);
   const router = useRouter();
 
   useEffect(() => {
@@ -21,7 +18,6 @@ export default function App({ Component, pageProps }: AppProps) {
       lang = "en";
     }
     i18n.changeLanguage(lang);
-    console.log(dateFormed);
   }, []);
 
   return (

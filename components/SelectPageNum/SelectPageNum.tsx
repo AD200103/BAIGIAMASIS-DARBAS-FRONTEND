@@ -25,15 +25,15 @@ const SelectPageNum = ({
   const [currentPageVal, setCurrentPageVal] = useState(0);
 
   useEffect(() => {
-    if (parseInt(localStorage.getItem("pageNumber")!) > pageNumArr.length) {
-      localStorage.setItem("pageNumber", pageNumArr.length.toString());
+    if (parseInt(sessionStorage.getItem("pageNumber")!) > pageNumArr.length) {
+      sessionStorage.setItem("pageNumber", pageNumArr.length.toString());
       setPageNum(pageNumArr.length - 1);
       return;
     }
   }, [currentPageVal, pageNumArr.length]);
 
   useEffect(() => {
-    localStorage.setItem("pgNumArrLngth", pageNumArr.length.toString());
+    sessionStorage.setItem("pgNumArrLngth", pageNumArr.length.toString());
   }, [pageNumArr]);
 
   return (
@@ -43,7 +43,7 @@ const SelectPageNum = ({
         className={styles.main}
         onChange={(e) => {
           sessionStorage.setItem("questionPerPage", e.target.value);
-          localStorage.setItem("pgNumArrLngth", pageNumArr.length.toString());
+          sessionStorage.setItem("pgNumArrLngth", pageNumArr.length.toString());
           setCurrentPageVal(parseInt(e.target.value));
           setQuestionsPerPage(parseInt(e.target.value));
           callPageNumArrChang({ pageNumArr, setSliceStart, setSliceEnd });

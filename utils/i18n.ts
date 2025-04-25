@@ -96,7 +96,7 @@ i18n.use(initReactI18next).init({
         password: "slaptažodis",
         passwordReq: "slaptažodis privalomas!",
         emailReq: "el.paštas privalomas!",
-        loginForFullExp: "Prisijunkite pilnam funckionalumui!",
+        loginForFullExp: "Prisijunkite pilnam funkcionalumui!",
         loginToAnswer: "Prisijunkite norėdami atsakyti į klausimą!",
         loginToRate: "Prisijunkite norėdami vertinti atsakymus!",
         loginErrMsg: "Netesingas el.paštas ar slaptažodis!",

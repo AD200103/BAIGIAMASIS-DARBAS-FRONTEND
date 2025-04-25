@@ -23,7 +23,7 @@ const PageNumBtnArr = ({
   setSliceStart,
 }: PageNumBtnArrProps) => {
   useEffect(() => {
-    setPageNum(parseInt(localStorage.getItem("pageNumber") || "1") - 1);
+    setPageNum(parseInt(sessionStorage.getItem("pageNumber") || "1") - 1);
     callPageNumArrChang({ pageNumArr, setSliceStart, setSliceEnd });
   }, [pageNumArr]);
   return (

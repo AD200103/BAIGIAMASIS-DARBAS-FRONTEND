@@ -17,6 +17,7 @@ type QuestionsPropsType = {
   setSliceEnd: React.Dispatch<React.SetStateAction<number>>;
   setPageNumArr: React.Dispatch<React.SetStateAction<number[] | null>>;
   setSortVal: React.Dispatch<React.SetStateAction<string>>;
+  setLoaderVis: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const Questions = ({
   setSortVal,
@@ -31,6 +32,7 @@ const Questions = ({
   pageNumArr,
   setSliceStart,
   setSliceEnd,
+  setLoaderVis,
 }: QuestionsPropsType & { region: string }) => {
   const { t } = useTranslation();
   return (
@@ -42,6 +44,7 @@ const Questions = ({
           setQuestions={setQuestions}
           pageNum={pageNum}
           setPageNumArr={setPageNumArr}
+          setLoaderVis={setLoaderVis}
         />
         <SelectPageNum
           setQuestionsPerPage={setQuestionsPerPage}
