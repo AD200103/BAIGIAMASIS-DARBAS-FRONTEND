@@ -2,6 +2,7 @@ import {
   InputValidityPropsType,
   inputValidationPropsType,
   valuePropsType,
+  LoginValuePropsType,
 } from "@/types";
 export const values = ({
   question,
@@ -37,7 +38,38 @@ export const values = ({
   ];
 };
 
-const inputValidation = ({
+export const loginValues = ({
+  email,
+  t,
+  setEmailPLaceholder,
+  setRedEmailAlert,
+  setEmail,
+  password,
+  setPassPLaceholder,
+  setRedPasAlert,
+  setPassword,
+}: LoginValuePropsType) => {
+  return [
+    {
+      value: email,
+      valueReq: t("emailReq"),
+      valuePlaceHold: t("email"),
+      setValPlace: setEmailPLaceholder,
+      setAlert: setRedEmailAlert,
+      setValue: setEmail,
+    },
+    {
+      value: password,
+      valueReq: t("passwordReq"),
+      valuePlaceHold: t("password"),
+      setValPlace: setPassPLaceholder,
+      setAlert: setRedPasAlert,
+      setValue: setPassword,
+    },
+  ];
+};
+
+export const inputValidation = ({
   property,
   propertyTwo,
   setPlaceHolder,

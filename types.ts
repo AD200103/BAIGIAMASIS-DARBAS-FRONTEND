@@ -103,3 +103,14 @@ export type GetInputFieldsType = {
   setEmail: Dispatch<SetStateAction<string>>;
   setPassword: Dispatch<SetStateAction<string>>;
 };
+export type LoginValuePropsType = {
+  email: string;
+  t: (key: string) => string;
+  setEmailPLaceholder: Dispatch<SetStateAction<string>>;
+  setRedEmailAlert: Dispatch<SetStateAction<boolean>>;
+  setEmail: Dispatch<SetStateAction<string>>;
+  password: string;
+  setPassPLaceholder: Dispatch<SetStateAction<string>>;
+  setRedPasAlert: Dispatch<SetStateAction<boolean>>;
+  setPassword: Dispatch<SetStateAction<string>>;
+};

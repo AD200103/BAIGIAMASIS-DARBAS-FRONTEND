@@ -1,0 +1,16 @@
+.signInProps {
+  width: 100%;
+  border-top: 1px gray solid;
+  display: flex;
+  padding-top: 10px;
+  justify-content: space-between;
+}
+.signInText {
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: rgb(38, 20, 235);
+}
+.signInText:hover {
+  color: rgb(100, 44, 232);
+}

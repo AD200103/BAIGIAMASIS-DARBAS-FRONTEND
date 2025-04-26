@@ -1,0 +1,14 @@
+.input {
+  all: unset;
+  border: rgb(184, 182, 182) 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+  margin-top: -5px;
+  color: black;
+}
+.redAlert {
+  border-color: rgb(186, 2, 2);
+}
+.redAlert::placeholder {
+  color: rgb(186, 2, 2);
+}

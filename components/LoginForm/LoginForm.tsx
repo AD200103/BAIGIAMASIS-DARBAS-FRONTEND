@@ -6,9 +6,11 @@ import { useRouter } from "next/router";
 import { logingIn } from "@/api/user";
 import LogoComponent from "../LogoComponent/LogoComponent";
 import { AxiosError } from "axios";
-import { inputValidation } from "@/utils/inputValidation";
+import { inputValidity, loginValues } from "@/utils/inputValidation";
 import { useTranslation } from "react-i18next";
+import LoginFormInputs from "../LoginFormInput/LoginFormInput";
 import Loader from "../Loader/Loader";
+import SignInRouteBtn from "../SignInRouteBtn/SignInRouteBtn";
 type LoginFormPropsType = {
   message: string;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -31,32 +33,24 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
     setSignIn(t("SignIn"));
   }, [signIn]);
 
+  const values = loginValues({
+    email,
+    t,
+    setEmailPLaceholder,
+    setRedEmailAlert,
+    setEmail,
+    password,
+    setPassPLaceholder,
+    setRedPasAlert,
+    setPassword,
+  });
+
   const router = useRouter();
   const login = async () => {
     try {
       setLoaderVis(true);
-      if (!email || email.trim() == "") {
-        setLoaderVis(false);
-        inputValidation(
-          t("emailReq"),
-          t("email"),
-          setEmailPLaceholder,
-          setRedEmailAlert,
-          setEmail
-        );
-      }
-      if (!password || password.trim() == "") {
-        setLoaderVis(false);
-        inputValidation(
-          t("passwordReq"),
-          t("password"),
-          setPassPLaceholder,
-          setRedPasAlert,
-          setPassword
-        );
-      }
+      inputValidity(values, setLoaderVis);
       if (email.trim() == "" || password.trim() == "") {
-        setLoaderVis(false);
         return;
       }
       const body = {
@@ -88,36 +82,19 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
       </button>
       <LogoComponent />
       <p className={styles.msg}>{message}</p>
-      <input
-        className={`${styles.input} ${redEmailAlert && styles.redAlert}`}
-        value={email}
-        maxLength={60}
-        type="text"
-        placeholder={emailPlaceholder}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        className={`${styles.input} ${redPasAlert && styles.redAlert}`}
-        maxLength={30}
-        value={password}
-        type="password"
-        placeholder={passwordPlacholder}
-        onChange={(e) => setPassword(e.target.value)}
+      <LoginFormInputs
+        email={email}
+        redEmailAlert={redEmailAlert}
+        emailPlaceholder={emailPlaceholder}
+        setEmail={setEmail}
+        redPasAlert={redPasAlert}
+        password={password}
+        passwordPlacholder={passwordPlacholder}
+        setPassword={setPassword}
       />
       <p className={styles.errMsg}>{errMessage}</p>
       <button onClick={login}>{t("Login")}</button>
-      <div className={styles.signInProps}>
-        <p>{t("NotMember")}</p>
-        <p
-          className={styles.signInText}
-          onClick={() => {
-            setLoaderVis(true);
-            router.push("/signin");
-          }}
-        >
-          {signIn}
-        </p>
-      </div>
+      <SignInRouteBtn setLoaderVis={setLoaderVis} signIn={signIn} />
     </div>
   );
 };

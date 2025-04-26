@@ -8,7 +8,7 @@ type funcProps = {
   num3: number;
 };
 type callFuncProps = Omit<funcProps, "num1" | "num2" | "num3">;
-export const pageNumberArrLengthChange = ({
+const pageNumberArrLengthChange = ({
   pageNumArr,
   setSliceStart,
   setSliceEnd,
