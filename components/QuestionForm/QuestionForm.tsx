@@ -4,11 +4,12 @@ import { SetStateAction, useEffect, useState } from "react";
 import cookie from "js-cookie";
 import { AxiosError } from "axios";
 import { addQuestion } from "@/api/question";
-import { inputValidation } from "@/utils/inputValidation";
 import { useRouter } from "next/router";
 import Loader from "../Loader/Loader";
 import { useTranslation } from "react-i18next";
-
+import QuestionTxtArea from "../QuestionTxtArea/QuestionTxtArea";
+import { inputValidity, values } from "@/utils/inputValidation";
+import QuestionTitle from "../QuestionTitle/QuestionTitle";
 type QuestionFormPropsType = {
   setShowModal: React.Dispatch<SetStateAction<boolean>>;
 };
@@ -33,17 +34,31 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
     setTitleReq(t("setTitleReq"));
     setAddQ(t("AddQuestion"));
   }, [addQ]);
-
+  const valuesForErrorCase = values({
+    question,
+    questionReq,
+    questionPlaceholder,
+    setQuestPLaceholder,
+    setRedQuestAlert,
+    setQuestion,
+    title,
+    titleReq,
+    titlePlacholder,
+    setTitlePLaceholder,
+    setRedTitleAlert,
+    setTitle,
+  });
   const addAQuestion = async () => {
     try {
-      const body = {
-        question_text: question,
-        title: title,
-      };
       const token = cookie.get("jwt-token") as string;
       if (token) {
         setLoaderVis(true);
       }
+      inputValidity(valuesForErrorCase, setLoaderVis);
+      const body = {
+        question_text: question,
+        title: title,
+      };
       const response = await addQuestion(body, token);
       if (response.status == 201) {
         setQuestion("");
@@ -57,27 +72,6 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
         setLoaderVis(false);
         setShowModal(true);
       }
-      if (error.status == 500) {
-        setLoaderVis(false);
-        if (!question || question.trim() == "") {
-          inputValidation(
-            questionReq,
-            questionPlaceholder,
-            setQuestPLaceholder,
-            setRedQuestAlert,
-            setQuestion
-          );
-        }
-        if (!title || title.trim() == "") {
-          inputValidation(
-            titleReq,
-            titlePlacholder,
-            setTitlePLaceholder,
-            setRedTitleAlert,
-            setTitle
-          );
-        }
-      }
     }
   };
   return (
@@ -85,23 +79,18 @@ const QuestionForm = ({ setShowModal }: QuestionFormPropsType) => {
       {loaderVis && <Loader />}
       <div className={styles.questionForm}>
         <div className={styles.titleAndQuestion}>
-          <input
-            className={`${styles.input} ${redTitleAlert && styles.redAlert}`}
-            value={title}
-            maxLength={40}
-            type="text"
-            placeholder={titlePlacholder}
-            onChange={(e) => setTitle(e.target.value)}
+          <QuestionTitle
+            redTitleAlert={redTitleAlert}
+            title={title}
+            titlePlacholder={titlePlacholder}
+            setTitle={setTitle}
           />
-          <textarea
-            className={`${styles.textareaInput} ${
-              redQuestionAlert && styles.redAlert
-            }`}
-            maxLength={1000}
-            value={question}
-            placeholder={questionPlaceholder}
-            onChange={(e) => setQuestion(e.target.value)}
-          ></textarea>
+          <QuestionTxtArea
+            setQuestion={setQuestion}
+            question={question}
+            redQuestionAlert={redQuestionAlert}
+            questionPlaceholder={questionPlaceholder}
+          />
         </div>
         <p>{question.length}/1000</p>
         <button className={styles.addQuestionBtn} onClick={addAQuestion}>

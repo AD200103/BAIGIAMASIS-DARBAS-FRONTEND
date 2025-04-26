@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { GetInputArrPropsType, GetInputFieldsType } from "@/types";
 export const getInputArrProps = ({
   name,
   setName,
@@ -12,20 +12,7 @@ export const getInputArrProps = ({
   setPassword,
   redPasAlert,
   passwordPlacholder,
-}: {
-  name: string;
-  setName: (val: string) => void;
-  redNameAlert: boolean;
-  namePlacholder: string;
-  email: string;
-  setEmail: (val: string) => void;
-  redEmailAlert: boolean;
-  emailPlaceholder: string;
-  password: string;
-  setPassword: (val: string) => void;
-  redPasAlert: boolean;
-  passwordPlacholder: string;
-}) => {
+}: GetInputArrPropsType) => {
   return [
     {
       key: 1,
@@ -71,21 +58,7 @@ export const getInputFields = ({
   setName,
   setEmail,
   setPassword,
-}: {
-  name: string;
-  email: string;
-  password: string;
-  t: (key: string) => string;
-  setNamePLaceholder: Dispatch<SetStateAction<string>>;
-  setEmailPLaceholder: Dispatch<SetStateAction<string>>;
-  setPassPLaceholder: Dispatch<SetStateAction<string>>;
-  setRedNameAlert: Dispatch<SetStateAction<boolean>>;
-  setRedEmailAlert: Dispatch<SetStateAction<boolean>>;
-  setRedPasAlert: Dispatch<SetStateAction<boolean>>;
-  setName: Dispatch<SetStateAction<string>>;
-  setEmail: Dispatch<SetStateAction<string>>;
-  setPassword: Dispatch<SetStateAction<string>>;
-}) => {
+}: GetInputFieldsType) => {
   return [
     {
       inputVal: name,

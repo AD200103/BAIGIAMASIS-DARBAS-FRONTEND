@@ -1,0 +1,12 @@
+.textareaInput {
+  all: unset;
+  padding: 20px;
+  height: 215px;
+  word-break: break-all;
+}
+.redAlert {
+  border-color: rgb(186, 2, 2);
+}
+.redAlert::placeholder {
+  color: rgb(186, 2, 2);
+}

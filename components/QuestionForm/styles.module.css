@@ -36,15 +36,6 @@
 .addQuestionBtn:active {
   scale: 1;
 }
-.input {
-  all: unset;
-  border-bottom: rgb(126, 126, 126) solid 1px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 10px;
-  word-break: break-all;
-  word-wrap: break-word;
-}
 .textareaInput {
   all: unset;
   padding: 20px;
@@ -54,10 +45,4 @@
 .main .questionForm button {
   text-align: center;
   width: 100px;
-}
-.redAlert {
-  border-color: rgb(186, 2, 2);
-}
-.redAlert::placeholder {
-  color: rgb(186, 2, 2);
 }

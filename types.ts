@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type QuestionType = {
   id: string;
   question_text: string;
@@ -42,4 +44,62 @@ export type DataType = {
 };
 export type BodyType = {
   pressed: string;
+};
+export type InputValidityPropsType = {
+  value: string;
+  valueReq: string;
+  valuePlaceHold: string;
+  setValPlace: React.Dispatch<React.SetStateAction<string>>;
+  setAlert: React.Dispatch<React.SetStateAction<boolean>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
+};
+export type inputValidationPropsType = {
+  property: string;
+  propertyTwo: string;
+  setPlaceHolder: React.Dispatch<React.SetStateAction<string>>;
+  setRedAlert: React.Dispatch<React.SetStateAction<boolean>>;
+  setProperty: React.Dispatch<React.SetStateAction<string>>;
+};
+export type valuePropsType = {
+  question: string;
+  questionReq: string;
+  questionPlaceholder: string;
+  setQuestPLaceholder: Dispatch<SetStateAction<string>>;
+  setRedQuestAlert: Dispatch<SetStateAction<boolean>>;
+  setQuestion: Dispatch<SetStateAction<string>>;
+  title: string;
+  titleReq: string;
+  titlePlacholder: string;
+  setTitlePLaceholder: Dispatch<SetStateAction<string>>;
+  setRedTitleAlert: Dispatch<SetStateAction<boolean>>;
+  setTitle: Dispatch<SetStateAction<string>>;
+};
+export type GetInputArrPropsType = {
+  name: string;
+  setName: (val: string) => void;
+  redNameAlert: boolean;
+  namePlacholder: string;
+  email: string;
+  setEmail: (val: string) => void;
+  redEmailAlert: boolean;
+  emailPlaceholder: string;
+  password: string;
+  setPassword: (val: string) => void;
+  redPasAlert: boolean;
+  passwordPlacholder: string;
+};
+export type GetInputFieldsType = {
+  name: string;
+  email: string;
+  password: string;
+  t: (key: string) => string;
+  setNamePLaceholder: Dispatch<SetStateAction<string>>;
+  setEmailPLaceholder: Dispatch<SetStateAction<string>>;
+  setPassPLaceholder: Dispatch<SetStateAction<string>>;
+  setRedNameAlert: Dispatch<SetStateAction<boolean>>;
+  setRedEmailAlert: Dispatch<SetStateAction<boolean>>;
+  setRedPasAlert: Dispatch<SetStateAction<boolean>>;
+  setName: Dispatch<SetStateAction<string>>;
+  setEmail: Dispatch<SetStateAction<string>>;
+  setPassword: Dispatch<SetStateAction<string>>;
 };
