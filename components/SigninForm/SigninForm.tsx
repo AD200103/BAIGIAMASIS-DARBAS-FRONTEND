@@ -5,15 +5,11 @@ import cookie from "js-cookie";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { signingIn } from "@/api/user";
-import { inputValidation } from "@/utils/inputValidation";
 import { useTranslation } from "react-i18next";
 import signErrFunc from "@/utils/signInAPIfunc";
 import Loader from "../Loader/Loader";
-import {
-  getInputArrProps,
-  getInputFields,
-  getInputErrMsgs,
-} from "../../utils/signInFormArrs";
+import { getInputArrProps, getInputFields } from "../../utils/signInFormArrs";
+import signInRequiredAlerts from "@/utils/signInRequiredAlerts";
 
 const SigninForm = () => {
   const [name, setName] = useState("");
@@ -62,8 +58,6 @@ const SigninForm = () => {
     setPassword,
   });
 
-  const inputErrMsg = getInputErrMsgs(t);
-
   useEffect(() => {
     setNamePLaceholder(t("Name"));
     setEmailPLaceholder(t("Email"));
@@ -72,25 +66,16 @@ const SigninForm = () => {
   }, [signUp]);
 
   const signIn = async () => {
+    setLoaderVis(true);
     try {
-      setLoaderVis(true);
-      for (let i = 0; i <= inputFields.length - 1; i++) {
-        if (!inputFields[i].inputVal || inputFields[i].inputVal.trim() == "") {
-          setLoaderVis(false);
-          inputValidation(
-            inputFields[i].required,
-            inputFields[i].input,
-            inputFields[i].setPlaceHolder,
-            inputFields[i].setRedAlert,
-            inputFields[i].setInput
-          );
-        }
-      }
+      signInRequiredAlerts({
+        inputFields,
+        setLoaderVis,
+      });
       if (name.trim() == "" || email.trim() == "" || password.trim() == "") {
         setLoaderVis(false);
         return;
       }
-
       const body = {
         name: name,
         email: email,
@@ -111,7 +96,7 @@ const SigninForm = () => {
           setErrorMsg,
           setRedNameAlert,
           setRedEmailAlert,
-          inputErrMsg,
+          t,
         });
       }
     }

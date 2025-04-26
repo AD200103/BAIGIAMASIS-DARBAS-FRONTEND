@@ -1,37 +1,52 @@
 import { DataType } from "@/types";
 import { AxiosError } from "axios";
-type inputErrMsgType = {
-  msg: string;
-  errMsg: string;
-  redNameAlertState: boolean;
-  redEmailAlertState: boolean;
-};
+
 type signErrFuncPropsType = {
   setLoaderVis: React.Dispatch<React.SetStateAction<boolean>>;
   error: AxiosError;
   setErrorMsg: React.Dispatch<React.SetStateAction<string>>;
   setRedNameAlert: React.Dispatch<React.SetStateAction<boolean>>;
   setRedEmailAlert: React.Dispatch<React.SetStateAction<boolean>>;
-  inputErrMsg: inputErrMsgType[];
+  t: (val: string) => string;
 };
+const inputErrMsg = [
+  {
+    msg: "Username already exists!",
+    errMsg: "singUsrnExists",
+    redNameAlertState: true,
+    redEmailAlertState: false,
+  },
+  {
+    msg: "Email and username already exists!",
+    errMsg: "singUsrnEmailExists",
+    redNameAlertState: true,
+    redEmailAlertState: true,
+  },
+  {
+    msg: "Email already exists!",
+    errMsg: "singEmailExists",
+    redNameAlertState: false,
+    redEmailAlertState: true,
+  },
+];
 const signErrFunc = ({
   setLoaderVis,
   error,
   setErrorMsg,
   setRedNameAlert,
   setRedEmailAlert,
-  inputErrMsg,
+  t,
 }: signErrFuncPropsType) => {
   setLoaderVis(false);
   const data = error.response!.data as DataType;
   const msg = data.message;
-  for (let i = 0; i <= inputErrMsg.length - 1; i++) {
-    if (msg == inputErrMsg[i].msg) {
-      setErrorMsg(inputErrMsg[i].errMsg);
-      setRedNameAlert(inputErrMsg[i].redNameAlertState);
-      setRedEmailAlert(inputErrMsg[i].redEmailAlertState);
-    }
+  const match = inputErrMsg.find((m) => m.msg == msg);
+  if (match) {
+    setErrorMsg(t(match.errMsg));
+    setRedNameAlert(match.redNameAlertState);
+    setRedEmailAlert(match.redEmailAlertState);
   }
+
   setTimeout(() => {
     setErrorMsg("");
     setRedEmailAlert(false);

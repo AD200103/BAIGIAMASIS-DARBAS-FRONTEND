@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 export default function App({ Component, pageProps }: AppProps) {
   const { i18n } = useTranslation();
   const router = useRouter();
-
   useEffect(() => {
     const reg = sessionStorage.getItem("region");
     let lang = "lt";

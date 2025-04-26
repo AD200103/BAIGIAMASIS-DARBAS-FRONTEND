@@ -29,7 +29,7 @@ export const getInputArrProps = ({
   return [
     {
       key: 1,
-      redAlert: redNameAlert,
+      redAlert: redNameAlert || redNameAlert,
       value: name,
       maxLength: 20,
       type: "text",
@@ -110,29 +110,6 @@ export const getInputFields = ({
       setPlaceHolder: setPassPLaceholder,
       setRedAlert: setRedPasAlert,
       setInput: setPassword,
-    },
-  ];
-};
-
-export const getInputErrMsgs = (t: (key: string) => string) => {
-  return [
-    {
-      msg: "Username already exists!",
-      errMsg: t("singUsrnExists"),
-      redNameAlertState: true,
-      redEmailAlertState: false,
-    },
-    {
-      msg: "Email and username already exists!",
-      errMsg: t("singUsrnEmailExists"),
-      redNameAlertState: true,
-      redEmailAlertState: true,
-    },
-    {
-      msg: "Email already exists!",
-      errMsg: t("singEmailExists"),
-      redNameAlertState: false,
-      redEmailAlertState: true,
     },
   ];
 };
