@@ -26,7 +26,6 @@ export const checkingAuth = async (
     if (error.status == 403) {
       cookie.remove("jwt-token");
       setToken(cookie.get("jwt-token"));
-      setTimeout(() => {}, 60000);
     }
   }
 };

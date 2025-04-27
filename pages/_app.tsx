@@ -16,8 +16,19 @@ export default function App({ Component, pageProps }: AppProps) {
     if (reg == "Europe/London") {
       lang = "en";
     }
+    let timeout = null;
     i18n.changeLanguage(lang);
-  }, []);
+    if (router.pathname !== "/signin") {
+      timeout = setTimeout(() => {
+        window.location.reload();
+      }, 4500);
+    }
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
+  }, [router.pathname]);
 
   return (
     <>

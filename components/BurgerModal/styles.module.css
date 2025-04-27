@@ -12,6 +12,7 @@
   background-color: rgb(13, 13, 13, 1);
   transition-duration: 2000ms;
   gap: 20px;
+  z-index: 1;
 }
 
 .burgerModal a,

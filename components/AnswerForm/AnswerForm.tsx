@@ -7,6 +7,7 @@ import { addAnswer } from "@/api/answer";
 import { inputValidation } from "@/utils/inputValidation";
 import Loader from "../Loader/Loader";
 import { useTranslation } from "react-i18next";
+import AnswerTextField from "../AnswerTextField/AnswerTextField";
 type AnwerFormPropsType = {
   setNewAnswer: React.Dispatch<React.SetStateAction<AnswerType | null>>;
   setMessage: React.Dispatch<React.SetStateAction<string>>;
@@ -34,6 +35,16 @@ const AnswerForm = ({
       if (token) {
         setLoaderVis(true);
       }
+      if (!answerText || answerText.trim() == "") {
+        setLoaderVis(false);
+        inputValidation({
+          property: t("AnswerRequired"),
+          propertyTwo: t("YourAnswer"),
+          setPlaceHolder: setAnsPLaceholder,
+          setRedAlert: setRedAnsAlert,
+          setProperty: setAnswerText,
+        });
+      }
       const response = await addAnswer(token, body, id);
       if (response.status == 201) {
         setLoaderVis(false);
@@ -47,33 +58,18 @@ const AnswerForm = ({
         setMessage(t("loginToAnswer"));
         setShowModal(true);
       }
-      if (error.status == 500) {
-        setLoaderVis(false);
-        if (!answerText || answerText.trim() == "") {
-          inputValidation(
-            t("AnswerRequired"),
-            t("YourAnswer"),
-            setAnsPLaceholder,
-            setRedAnsAlert,
-            setAnswerText
-          );
-        }
-      }
     }
   };
   return (
     <div className={styles.answerForm}>
       {loaderVis && <Loader />}
       <div className={styles.textAndButton}>
-        <textarea
-          className={`${styles.inputTextArea} ${
-            redAnsAlert && styles.redAlert
-          }`}
-          value={answerText}
-          maxLength={900}
-          placeholder={ansPlacholder}
-          onChange={(e) => setAnswerText(e.target.value)}
-        ></textarea>
+        <AnswerTextField
+          redAnsAlert={redAnsAlert}
+          answerText={answerText}
+          ansPlacholder={ansPlacholder}
+          setAnswerText={setAnswerText}
+        />
         <p className={styles.charNumb}>{answerText.length}/900</p>
         <button
           onClick={() => {

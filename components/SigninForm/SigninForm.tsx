@@ -66,14 +66,13 @@ const SigninForm = () => {
   }, [signUp]);
 
   const signIn = async () => {
-    setLoaderVis(true);
     try {
-      signInRequiredAlerts({
-        inputFields,
-        setLoaderVis,
-      });
+      setLoaderVis(true);
       if (name.trim() == "" || email.trim() == "" || password.trim() == "") {
-        setLoaderVis(false);
+        signInRequiredAlerts({
+          inputFields,
+          setLoaderVis,
+        });
         return;
       }
       const body = {

@@ -45,7 +45,7 @@ const Answers = ({
     if (answers) {
       updateAnAnswersNumberToQuestion(answers.length);
     }
-  }, [answers && answers!.length]);
+  }, [answers]);
 
   return (
     <div className={styles.main}>

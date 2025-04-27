@@ -19,13 +19,13 @@ const signInRequiredAlerts = ({
   for (let i = 0; i <= inputFields.length - 1; i++) {
     if (!inputFields[i].inputVal || inputFields[i].inputVal.trim() == "") {
       setLoaderVis(false);
-      inputValidation(
-        inputFields[i].required,
-        inputFields[i].input,
-        inputFields[i].setPlaceHolder,
-        inputFields[i].setRedAlert,
-        inputFields[i].setInput
-      );
+      inputValidation({
+        property: inputFields[i].required,
+        propertyTwo: inputFields[i].input,
+        setPlaceHolder: inputFields[i].setPlaceHolder,
+        setRedAlert: inputFields[i].setRedAlert,
+        setProperty: inputFields[i].setInput,
+      });
     }
   }
 };

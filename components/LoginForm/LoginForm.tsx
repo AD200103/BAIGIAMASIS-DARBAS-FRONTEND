@@ -49,8 +49,8 @@ const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
   const login = async () => {
     try {
       setLoaderVis(true);
-      inputValidity(values, setLoaderVis);
       if (email.trim() == "" || password.trim() == "") {
+        inputValidity(values, setLoaderVis);
         return;
       }
       const body = {

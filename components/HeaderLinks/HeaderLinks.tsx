@@ -22,28 +22,30 @@ const HeaderLinks = ({ setShowLogModal }: HeaderLinksPropsType) => {
     setSignIn(t("SignIn"));
   }, [home, askQuestion, signIn]);
 
+  const linkRoutes = [
+    {
+      link: "/",
+      location: home,
+      id: 1,
+    },
+    { link: "/askquestion", location: askQuestion, id: 2 },
+  ];
+
   const router = useRouter();
   return (
     <nav className={styles.listStyleContainer}>
       <ul className={styles.listStyle}>
-        <Link href="/">
-          <div
-            className={`${styles.linkStyle} ${
-              router.pathname == "/" && styles.linkActiveStyle
-            }`}
-          >
-            <li>{home}</li>
-          </div>
-        </Link>
-        <Link href="/askquestion">
-          <div
-            className={`${styles.linkStyle} ${
-              router.pathname == "/askquestion" && styles.linkActiveStyle
-            }`}
-          >
-            <li>{askQuestion}!</li>
-          </div>
-        </Link>
+        {linkRoutes.map((l) => (
+          <Link key={l.id} href={l.link}>
+            <div
+              className={`${styles.linkStyle} ${
+                router.pathname == l.link && styles.linkActiveStyle
+              }`}
+            >
+              <li>{l.location}</li>
+            </div>
+          </Link>
+        ))}
         <Link href="/signin">
           <li className={styles.signInBtn}>{signIn}</li>
         </Link>
