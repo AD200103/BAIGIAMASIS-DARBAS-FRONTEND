@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import Header from "@/components/Header/Header";
 import { useRouter } from "next/router";
 import cookie from "js-cookie";
+import { decodeToken } from "../utils/jwtTokenDecoded";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { i18n } = useTranslation();
@@ -21,11 +22,14 @@ export default function App({ Component, pageProps }: AppProps) {
     let timeout = null;
     i18n.changeLanguage(lang);
     if (router.pathname !== "/signin" && token) {
-      console.log("Henderson 456845");
+      const currentTime = Math.floor(new Date().getTime() / 1000);
+      const expiresIn = decodeToken(token)!.exp;
+      const timeLeft = expiresIn - currentTime;
+      console.log(timeLeft);
       timeout = setTimeout(() => {
         cookie.remove("jwt-token");
         window.location.reload();
-      }, 4500);
+      }, timeLeft * 1000);
     }
     return () => {
       if (timeout) {

@@ -27,6 +27,7 @@ export type TokenType = {
   id: string;
   email: string;
   name: string;
+  exp: number;
 };
 export type LikeDislikeButtonPropsType = {
   userIdFromToken: string | undefined;

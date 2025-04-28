@@ -5,7 +5,7 @@ export const decodeToken = (token: string) => {
   try {
     if (token) {
       const decoded = jwt.decode(token) as TokenType;
-      return decoded!.id;
+      return decoded;
     }
   } catch (error) {
     console.error(error);

@@ -33,7 +33,7 @@ const AnswerCard = ({
   setAnswers,
 }: AnswerCardPropsType) => {
   const { t } = useTranslation();
-  const userIdFromToken = decodeToken(cookie.get("jwt-token")!);
+  const userIdFromToken = decodeToken(cookie.get("jwt-token")!)?.id || null;
   const [showLogModal, setShowLogModal] = useState(false);
   const [message, setMessage] = useState(t("loginToRate"));
   const [loaderVis, setLoaderVis] = useState(false);

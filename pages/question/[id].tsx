@@ -26,7 +26,8 @@ const MainQuestionPage = () => {
   const router = useRouter();
   const id = router.query.id as string;
   const token = cookie.get("jwt-token");
-  const userIdFromToken: string | undefined = decodeToken(token!);
+  const userIdFromToken: string | undefined =
+    decodeToken(token!)?.id || undefined;
   const [region, setRegion] = useState("");
 
   const getAQuestion = async () => {

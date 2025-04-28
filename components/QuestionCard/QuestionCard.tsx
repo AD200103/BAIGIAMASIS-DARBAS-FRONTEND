@@ -28,7 +28,7 @@ const QuestionCard = ({
 }: QuestionCardPropsType) => {
   const token = cookie.get("jwt-token");
   const userIdFromToken: string | undefined = token
-    ? decodeToken(token!)
+    ? decodeToken(token!)?.id
     : undefined;
   const { t } = useTranslation();
   return (
