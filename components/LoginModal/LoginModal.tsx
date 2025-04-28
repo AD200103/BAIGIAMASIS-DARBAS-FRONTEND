@@ -5,6 +5,8 @@ type LoginModalProps = {
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
   message: string;
+  setTimeInterval?: React.Dispatch<React.SetStateAction<boolean>>;
+  timeInterval?: boolean;
 };
 const LoginModal = ({ showModal, setShowModal, message }: LoginModalProps) => {
   return (

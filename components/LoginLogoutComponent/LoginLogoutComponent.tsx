@@ -2,7 +2,6 @@
 import { logOut } from "@/utils/logout";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { checkingAuth } from "@/utils/jwtTokenDecoded";
 import cookie from "js-cookie";
 import { useTranslation } from "react-i18next";
 
@@ -18,17 +17,11 @@ const LoginLogoutComponent = ({
   setShowBurgerModal,
   showBurgerModal,
 }: LoginLogoutComponentPropsType) => {
-  const [tokenExists, setTokenExists] = useState<string | undefined>(undefined);
   const [login, setLogin] = useState("");
   const [logout, setLogout] = useState("");
   const router = useRouter();
 
-  useEffect(() => {
-    if (tokenExists) {
-      checkingAuth(tokenExists, setTokenExists);
-    }
-    setTokenExists(cookie.get("jwt-token"));
-  }, [tokenExists]);
+  const token = cookie.get("jwt-token") || null;
 
   useEffect(() => {
     setLogout(t("Logout"));
@@ -36,7 +29,7 @@ const LoginLogoutComponent = ({
   }, [login, logout]);
 
   const { t } = useTranslation();
-  return tokenExists ? (
+  return token ? (
     <li
       className={className}
       onClick={() => {

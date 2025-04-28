@@ -6,10 +6,12 @@ import "../utils/i18n";
 import { useTranslation } from "react-i18next";
 import Header from "@/components/Header/Header";
 import { useRouter } from "next/router";
+import cookie from "js-cookie";
 
 export default function App({ Component, pageProps }: AppProps) {
   const { i18n } = useTranslation();
   const router = useRouter();
+  const token = cookie.get("jwt-token") || null;
   useEffect(() => {
     const reg = sessionStorage.getItem("region");
     let lang = "lt";
@@ -18,8 +20,10 @@ export default function App({ Component, pageProps }: AppProps) {
     }
     let timeout = null;
     i18n.changeLanguage(lang);
-    if (router.pathname !== "/signin") {
+    if (router.pathname !== "/signin" && token) {
+      console.log("Henderson 456845");
       timeout = setTimeout(() => {
+        cookie.remove("jwt-token");
         window.location.reload();
       }, 4500);
     }

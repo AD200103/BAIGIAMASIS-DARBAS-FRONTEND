@@ -14,6 +14,8 @@ import SignInRouteBtn from "../SignInRouteBtn/SignInRouteBtn";
 type LoginFormPropsType = {
   message: string;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setTimeInterval?: React.Dispatch<React.SetStateAction<boolean>>;
+  timeInterval?: boolean;
 };
 const LoginForm = ({ message, setShowModal }: LoginFormPropsType) => {
   const { t } = useTranslation();
