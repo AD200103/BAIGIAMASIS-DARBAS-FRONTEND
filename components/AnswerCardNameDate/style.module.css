@@ -1,0 +1,12 @@
+.nameDate {
+  display: flex;
+  gap: 10px;
+  font-size: 0.9rem;
+  align-items: center;
+}
+.youClass {
+  color: rgb(43, 167, 74);
+}
+.userClass {
+  color: rgb(93, 33, 196);
+}

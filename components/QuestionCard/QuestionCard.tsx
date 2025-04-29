@@ -1,8 +1,8 @@
 import Link from "next/link";
 import styles from "./styles.module.css";
-import { dateConvert } from "@/utils/dateAndEmail";
 import { decodeToken } from "@/utils/jwtTokenDecoded";
 import { useTranslation } from "react-i18next";
+import QCardPostedBy from "../QuestionCardPostedBy/QuestionCardPostedBy";
 
 import cookie from "js-cookie";
 type QuestionCardPropsType = {
@@ -37,19 +37,13 @@ const QuestionCard = ({
         <h2>{title}</h2>
       </Link>
       <p>{question_text}</p>
-      <h4>
-        <div className={styles.postedBy}>
-          {t("PostedBy")}
-          {userIdFromToken !== user_id ? (
-            <span className={styles.userClass}>{name}</span>
-          ) : (
-            <span className={styles.yClass}>{t("You")}</span>
-          )}
-        </div>
-        <>
-          {t("time")}: {dateConvert(date, region)}
-        </>
-      </h4>
+      <QCardPostedBy
+        userIdFromToken={userIdFromToken}
+        user_id={user_id}
+        name={name}
+        date={date}
+        region={region}
+      />
       <p>
         {t("Answers")}: {answers}
       </p>

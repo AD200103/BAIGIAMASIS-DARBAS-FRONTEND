@@ -1,8 +1,8 @@
 import styles from "./styles.module.css";
-import { dateConvert } from "@/utils/dateAndEmail";
 import { SetStateAction } from "react";
 import { QuestionType } from "@/types";
 import { useTranslation } from "react-i18next";
+import QuestionDateEmail from "../QuestionDate&Email/QuestionDateEmail";
 type QuestionPanelPropsType = {
   question: QuestionType;
   userIdFromToken: string | undefined;
@@ -28,19 +28,11 @@ const QuestionPanel = ({
           {t("Delete")}
         </p>
       )}
-      <div className={styles.dateEmailBox}>
-        <p>
-          {t("PostedBy")}{" "}
-          {question.user_id == userIdFromToken ? (
-            <span className={styles.youStyle}>{t("You")}</span>
-          ) : (
-            <span className={styles.youUsername}>{question?.name}</span>
-          )}
-        </p>
-        <p>
-          {t("time")}: {dateConvert(question?.date, region)}
-        </p>
-      </div>
+      <QuestionDateEmail
+        question={question}
+        userIdFromToken={userIdFromToken}
+        region={region}
+      />
     </div>
   );
 };

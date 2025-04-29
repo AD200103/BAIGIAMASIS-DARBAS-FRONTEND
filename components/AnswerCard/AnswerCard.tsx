@@ -1,26 +1,14 @@
 import cookie from "js-cookie";
 import styles from "./styles.module.css";
-import { dateConvert } from "@/utils/dateAndEmail";
 import { decodeToken } from "@/utils/jwtTokenDecoded";
-import { AnswerType } from "@/types";
+import { AnswerCardPropsType } from "@/types";
 import { useState } from "react";
 import LikesDislikes from "../LikesDislikes/LikesDislikes";
 import LoginModal from "../LoginModal/LoginModal";
-import { deleteAnswer } from "@/api/answer";
-import { AxiosError } from "axios";
 import { useTranslation } from "react-i18next";
 import Loader from "../Loader/Loader";
-type AnswerCardPropsType = {
-  answer_text: string;
-  date: Date;
-  id: string;
-  name: string;
-  userId: string;
-  usersWhoLikedTheAnswer: string[];
-  usersWhoDislikedTheAnswer: string[];
-  setAnswers: React.Dispatch<React.SetStateAction<AnswerType[] | null>>;
-  region: string;
-};
+import AnsCardDelBtn from "../AnswerCardDelBtn/AnswerCardDelBtn";
+import AnsCardNameDate from "../AnswerCardNameDate/AnswerCardNameDate";
 const AnswerCard = ({
   answer_text,
   date,
@@ -37,26 +25,6 @@ const AnswerCard = ({
   const [showLogModal, setShowLogModal] = useState(false);
   const [message, setMessage] = useState(t("loginToRate"));
   const [loaderVis, setLoaderVis] = useState(false);
-  const deleteAnAnswer = async () => {
-    const token = cookie.get("jwt-token") as string;
-    if (token) {
-      setLoaderVis(true);
-    }
-    try {
-      const response = await deleteAnswer(id, token);
-      if (response.status == 200) {
-        setLoaderVis(false);
-        setAnswers((prev) => prev!.filter((a) => a.id !== id));
-      }
-    } catch (err) {
-      const error = err as AxiosError;
-      if (error.status == 403) {
-        setLoaderVis(false);
-        setMessage(t("LoginToDeleteYourAnswer"));
-        setShowLogModal(true);
-      }
-    }
-  };
 
   return (
     <div className={styles.main}>
@@ -66,16 +34,16 @@ const AnswerCard = ({
         message={message}
       />
       {loaderVis && <Loader />}
-      <div className={styles.ansAndDelBtn}>
-        <p className={styles.ansText}>
-          {t("Answer")} {answer_text}
-        </p>
-        {userIdFromToken == userId && (
-          <p className={styles.delBtn} onClick={deleteAnAnswer}>
-            {t("Delete")}
-          </p>
-        )}
-      </div>
+      <AnsCardDelBtn
+        answer_text={answer_text}
+        userIdFromToken={userIdFromToken}
+        userId={userId}
+        setLoaderVis={setLoaderVis}
+        setAnswers={setAnswers}
+        setMessage={setMessage}
+        setShowLogModal={setShowLogModal}
+        id={id}
+      />
       <div className={styles.likesNameDate}>
         <LikesDislikes
           id={id}
@@ -85,19 +53,13 @@ const AnswerCard = ({
           userId={userId}
           setShowLogModal={setShowLogModal}
         />
-        <div className={styles.nameDate}>
-          <h4>
-            {t("AnsweredBy")}{" "}
-            {userIdFromToken == userId ? (
-              <span className={styles.youClass}>{t("You")}</span>
-            ) : (
-              <span className={styles.userClass}>{name}</span>
-            )}
-          </h4>
-          <h4>
-            {t("time")}: {dateConvert(date, region)}
-          </h4>
-        </div>
+        <AnsCardNameDate
+          userIdFromToken={userIdFromToken}
+          date={date}
+          region={region}
+          userId={userId}
+          name={name}
+        />
       </div>
     </div>
   );

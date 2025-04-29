@@ -5,52 +5,10 @@
   display: flex;
   flex-direction: column;
 }
-.likes button {
-  all: unset;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-}
-.likes button img {
-  width: 100%;
-  height: 100%;
-}
-.nameDate {
-  display: flex;
-  gap: 10px;
-  font-size: 0.9rem;
-  align-items: center;
-}
 .likesNameDate {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.ansAndDelBtn {
-  display: flex;
-  justify-content: space-between;
-}
-.youClass {
-  color: rgb(43, 167, 74);
-}
-.userClass {
-  color: rgb(93, 33, 196);
-}
-.ansText {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  word-break: break-all;
-}
-.delBtn {
-  color: rgb(184, 6, 6);
-  cursor: pointer;
-  height: fit-content;
-}
-.delBtn:hover {
-  text-decoration: underline;
-}
-.ansAndDelBtn {
-  display: flex;
 }
 
 @media screen and (max-width: 768px) {

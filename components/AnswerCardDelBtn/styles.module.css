@@ -1,0 +1,17 @@
+.ansAndDelBtn {
+  display: flex;
+  justify-content: space-between;
+}
+.ansText {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  word-break: break-all;
+}
+.delBtn {
+  color: rgb(184, 6, 6);
+  cursor: pointer;
+  height: fit-content;
+}
+.delBtn:hover {
+  text-decoration: underline;
+}

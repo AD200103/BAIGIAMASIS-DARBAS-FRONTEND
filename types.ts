@@ -121,3 +121,24 @@ export type SignInCheckEmailType = {
   setErrorMsg: Dispatch<SetStateAction<string>>;
   setRedEmailAlert: Dispatch<SetStateAction<boolean>>;
 };
+export type AnswerCardPropsType = {
+  answer_text: string;
+  date: Date;
+  id: string;
+  name: string;
+  userId: string;
+  usersWhoLikedTheAnswer: string[];
+  usersWhoDislikedTheAnswer: string[];
+  setAnswers: React.Dispatch<React.SetStateAction<AnswerType[] | null>>;
+  region: string;
+};
+export type AnsCardDelBtnType = {
+  answer_text: string;
+  userIdFromToken: string | null;
+  userId: string;
+  setLoaderVis: Dispatch<SetStateAction<boolean>>;
+  setAnswers: Dispatch<SetStateAction<AnswerType[] | null>>;
+  setMessage: Dispatch<SetStateAction<string>>;
+  setShowLogModal: Dispatch<SetStateAction<boolean>>;
+  id: string;
+};
