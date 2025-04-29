@@ -7,7 +7,7 @@ import SelectPageNum from "../SelectPageNum/SelectPageNum";
 import SortQuestionsBy from "../SortQuestionsBy/SortQuestionBy";
 type QuestionsPropsType = {
   questions: QuestionType[];
-  setQuestions: React.Dispatch<React.SetStateAction<QuestionType[] | null>>;
+  setQuestions: React.Dispatch<React.SetStateAction<QuestionType[] | []>>;
   setQuestionsPerPage: React.Dispatch<React.SetStateAction<number>>;
   questionsPerPage: number;
   pageNum: number;

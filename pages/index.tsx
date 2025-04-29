@@ -9,7 +9,7 @@ import PageNumBtnArr from "@/components/PageNumBtnArr/PageNumBtnArr";
 import { formArr } from "@/utils/formArray";
 
 const MainPage = () => {
-  const [questions, setQuestions] = useState<null | QuestionType[]>(null);
+  const [questions, setQuestions] = useState<[] | QuestionType[]>([]);
   const [region, setRegion] = useState("");
   const [pageNum, setPageNum] = useState(0);
   const [loaderVis, setLoaderVis] = useState(false);
@@ -32,6 +32,7 @@ const MainPage = () => {
         sortVal
       );
       if (response.status == 200) {
+        console.log(response.data.questions);
         window.scrollTo({ top: 0, behavior: "smooth" });
         setLoaderVis(false);
         setQuestions(response.data.questions);
@@ -56,14 +57,13 @@ const MainPage = () => {
   useEffect(() => {
     if (isReady) {
       getQuestions();
-      console.log("henderson");
     }
   }, [pageNum, questionsPerPage, sortVal, isReady]);
   return (
     <>
       <PageTemplate>
         {loaderVis && <Loader />}
-        {questions && (
+        {questions.length > 0 && (
           <Questions
             questions={questions}
             setQuestions={setQuestions}

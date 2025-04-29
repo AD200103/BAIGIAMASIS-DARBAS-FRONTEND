@@ -5,7 +5,7 @@ import { gettingQuestions } from "@/api/question";
 import { QuestionType } from "@/types";
 import { formArr } from "@/utils/formArray";
 type SortQuestionByPropsType = {
-  setQuestions: React.Dispatch<React.SetStateAction<QuestionType[] | null>>;
+  setQuestions: React.Dispatch<React.SetStateAction<QuestionType[] | []>>;
   pageNum: number;
   setPageNumArr: React.Dispatch<React.SetStateAction<number[] | null>>;
   setSortVal: React.Dispatch<React.SetStateAction<string>>;

@@ -129,7 +129,7 @@ export type AnswerCardPropsType = {
   userId: string;
   usersWhoLikedTheAnswer: string[];
   usersWhoDislikedTheAnswer: string[];
-  setAnswers: React.Dispatch<React.SetStateAction<AnswerType[] | null>>;
+  setAnswers: React.Dispatch<React.SetStateAction<AnswerType[] | []>>;
   region: string;
 };
 export type AnsCardDelBtnType = {

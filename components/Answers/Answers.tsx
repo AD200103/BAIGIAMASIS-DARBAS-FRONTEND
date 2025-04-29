@@ -18,15 +18,18 @@ const Answers = ({
 }: AnswersPropsType) => {
   const router = useRouter();
   const id = router.query.id as string;
-  const [answers, setAnswers] = useState<AnswerType[] | null>(null);
-
+  const [answers, setAnswers] = useState<AnswerType[] | []>([]);
+  const [loaderVis, setLoaderVis] = useState(false);
   const getAllAnswers = async () => {
     try {
+      setLoaderVis(true);
       const response = await getAnswers(id);
       if (response.status == 200) {
         setAnswers(response.data.answers);
+        setLoaderVis(false);
       }
     } catch (err) {
+      setLoaderVis(false);
       console.log(err);
     }
   };
@@ -49,7 +52,8 @@ const Answers = ({
 
   return (
     <div className={styles.main}>
-      {answers ? (
+      {loaderVis && <Loader />}
+      {answers.length > 0 &&
         answers
           .sort(
             (a, b) =>
@@ -62,10 +66,7 @@ const Answers = ({
               setAnswers={setAnswers}
               region={region}
             />
-          ))
-      ) : (
-        <Loader />
-      )}
+          ))}
     </div>
   );
 };
