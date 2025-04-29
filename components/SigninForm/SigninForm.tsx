@@ -10,6 +10,7 @@ import signErrFunc from "@/utils/signInAPIfunc";
 import Loader from "../Loader/Loader";
 import { getInputArrProps, getInputFields } from "../../utils/signInFormArrs";
 import signInRequiredAlerts from "@/utils/signInRequiredAlerts";
+import { checkEmailSignIn } from "@/utils/inputValidation";
 
 const SigninForm = () => {
   const [name, setName] = useState("");
@@ -64,7 +65,7 @@ const SigninForm = () => {
     setPassPLaceholder(t("Password"));
     setSignUp(t("SignUp"));
   }, [signUp]);
-
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const signIn = async () => {
     try {
       setLoaderVis(true);
@@ -73,6 +74,10 @@ const SigninForm = () => {
           inputFields,
           setLoaderVis,
         });
+        return;
+      }
+      if (emailRegex.test(email) == false) {
+        checkEmailSignIn({ t, setLoaderVis, setErrorMsg, setRedEmailAlert });
         return;
       }
       const body = {

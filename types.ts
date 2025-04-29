@@ -115,3 +115,9 @@ export type LoginValuePropsType = {
   setRedPasAlert: Dispatch<SetStateAction<boolean>>;
   setPassword: Dispatch<SetStateAction<string>>;
 };
+export type SignInCheckEmailType = {
+  t: (val: string) => string;
+  setLoaderVis: Dispatch<SetStateAction<boolean>>;
+  setErrorMsg: Dispatch<SetStateAction<string>>;
+  setRedEmailAlert: Dispatch<SetStateAction<boolean>>;
+};

@@ -3,6 +3,7 @@ import {
   inputValidationPropsType,
   valuePropsType,
   LoginValuePropsType,
+  SignInCheckEmailType,
 } from "@/types";
 export const values = ({
   question,
@@ -83,6 +84,21 @@ export const inputValidation = ({
   setTimeout(() => {
     setRedAlert(false);
     setPlaceHolder(`${propertyTwo}`);
+  }, 2000);
+  return;
+};
+export const checkEmailSignIn = ({
+  t,
+  setLoaderVis,
+  setErrorMsg,
+  setRedEmailAlert,
+}: SignInCheckEmailType) => {
+  setLoaderVis(false);
+  setErrorMsg(t("EnterValidEmail"));
+  setRedEmailAlert(true);
+  setTimeout(() => {
+    setErrorMsg("");
+    setRedEmailAlert(false);
   }, 2000);
   return;
 };
