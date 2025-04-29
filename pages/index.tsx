@@ -18,6 +18,7 @@ const MainPage = () => {
   const [sliceStart, setSliceStart] = useState(0);
   const [sliceEnd, setSliceEnd] = useState(5);
   const [sortVal, setSortVal] = useState("All");
+  const [isReady, setIsReady] = useState(false);
 
   const getQuestions = async () => {
     try {
@@ -43,15 +44,20 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    setRegion(sessionStorage.getItem("region") || "Europe/Vilnius");
+    const reg = sessionStorage.getItem("region") || "Europe/Vilnius";
+    const sort = sessionStorage.getItem("SortBy") || "All";
+    const qpp = parseInt(sessionStorage.getItem("questionPerPage") || "2");
+    setRegion(reg);
+    setSortVal(sort);
+    setQuestionsPerPage(qpp);
+    setIsReady(true);
   }, []);
 
   useEffect(() => {
-    setQuestionsPerPage(
-      parseInt(sessionStorage.getItem("questionPerPage") || "2")
-    );
-    getQuestions();
-  }, [pageNum, questionsPerPage]);
+    if (isReady) {
+      getQuestions();
+    }
+  }, [pageNum, questionsPerPage, sortVal, isReady]);
   return (
     <>
       <PageTemplate>

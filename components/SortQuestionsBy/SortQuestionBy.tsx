@@ -49,8 +49,10 @@ const SortQuestionsBy = ({
         onChange={(e) => {
           getQuestions(e.target.value);
           setSortVal(e.target.value);
+          sessionStorage.setItem("SortBy", e.target.value);
         }}
       >
+        <option> {t(sessionStorage.getItem("SortBy") || "All")}</option>
         <option value="All">{t("All")}</option>
         <option value="Answered">{t("Answered")}</option>
         <option value="Unanswered">{t("Unanswered")}</option>
