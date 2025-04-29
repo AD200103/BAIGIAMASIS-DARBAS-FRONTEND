@@ -50,6 +50,7 @@ const SortQuestionsBy = ({
           getQuestions(e.target.value);
           setSortVal(e.target.value);
           sessionStorage.setItem("SortBy", e.target.value);
+          sessionStorage.setItem("pageNumber", "1");
         }}
       >
         <option> {t(sessionStorage.getItem("SortBy") || "All")}</option>

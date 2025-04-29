@@ -56,6 +56,7 @@ const MainPage = () => {
   useEffect(() => {
     if (isReady) {
       getQuestions();
+      console.log("henderson");
     }
   }, [pageNum, questionsPerPage, sortVal, isReady]);
   return (
