@@ -32,12 +32,6 @@ const MainPage = () => {
         sortVal
       );
       if (response.status == 200) {
-        console.log({
-          pageNum: pageNum,
-          questionPerPage: questionPerPage,
-          sortVal: sortVal,
-        });
-        console.log({ questions: response.data.questions });
         window.scrollTo({ top: 0, behavior: "smooth" });
         setLoaderVis(false);
         setQuestions(response.data.questions);
