@@ -32,7 +32,12 @@ const MainPage = () => {
         sortVal
       );
       if (response.status == 200) {
-        console.log(response.data.questions);
+        console.log({
+          pageNum: pageNum,
+          questionPerPage: questionPerPage,
+          sortVal: sortVal,
+        });
+        console.log({ questions: response.data.questions });
         window.scrollTo({ top: 0, behavior: "smooth" });
         setLoaderVis(false);
         setQuestions(response.data.questions);
@@ -66,7 +71,6 @@ const MainPage = () => {
         {questions.length > 0 && (
           <Questions
             questions={questions}
-            setQuestions={setQuestions}
             region={region}
             setQuestionsPerPage={setQuestionsPerPage}
             questionsPerPage={questionsPerPage}
@@ -76,8 +80,6 @@ const MainPage = () => {
             pageNumArr={pageNumArr! && pageNumArr}
             setSliceStart={setSliceStart}
             setSliceEnd={setSliceEnd}
-            setPageNumArr={setPageNumArr}
-            setLoaderVis={setLoaderVis}
           />
         )}
         {pageNumArr && (

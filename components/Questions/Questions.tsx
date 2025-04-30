@@ -7,7 +7,6 @@ import SelectPageNum from "../SelectPageNum/SelectPageNum";
 import SortQuestionsBy from "../SortQuestionsBy/SortQuestionBy";
 type QuestionsPropsType = {
   questions: QuestionType[];
-  setQuestions: React.Dispatch<React.SetStateAction<QuestionType[] | []>>;
   setQuestionsPerPage: React.Dispatch<React.SetStateAction<number>>;
   questionsPerPage: number;
   pageNum: number;
@@ -15,15 +14,11 @@ type QuestionsPropsType = {
   pageNumArr: number[];
   setSliceStart: React.Dispatch<React.SetStateAction<number>>;
   setSliceEnd: React.Dispatch<React.SetStateAction<number>>;
-  setPageNumArr: React.Dispatch<React.SetStateAction<number[] | null>>;
   setSortVal: React.Dispatch<React.SetStateAction<string>>;
-  setLoaderVis: React.Dispatch<React.SetStateAction<boolean>>;
 };
 const Questions = ({
   setSortVal,
-  setPageNumArr,
   questions,
-  setQuestions,
   region,
   setQuestionsPerPage,
   questionsPerPage,
@@ -32,20 +27,13 @@ const Questions = ({
   pageNumArr,
   setSliceStart,
   setSliceEnd,
-  setLoaderVis,
 }: QuestionsPropsType & { region: string }) => {
   const { t } = useTranslation();
   return (
     <div className={styles.main}>
       <h1>{t("questions")}</h1>
       <div className={styles.sorting}>
-        <SortQuestionsBy
-          setSortVal={setSortVal}
-          setQuestions={setQuestions}
-          pageNum={pageNum}
-          setPageNumArr={setPageNumArr}
-          setLoaderVis={setLoaderVis}
-        />
+        <SortQuestionsBy setSortVal={setSortVal} setPageNum={setPageNum} />
         <SelectPageNum
           setQuestionsPerPage={setQuestionsPerPage}
           questionsPerPage={questionsPerPage}
