@@ -137,7 +137,7 @@ export type AnsCardDelBtnType = {
   userIdFromToken: string | null;
   userId: string;
   setLoaderVis: Dispatch<SetStateAction<boolean>>;
-  setAnswers: Dispatch<SetStateAction<AnswerType[] | null>>;
+  setAnswers: Dispatch<SetStateAction<AnswerType[] | []>>;
   setMessage: Dispatch<SetStateAction<string>>;
   setShowLogModal: Dispatch<SetStateAction<boolean>>;
   id: string;
