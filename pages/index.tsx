@@ -52,7 +52,6 @@ const MainPage = () => {
     setQuestionsPerPage(qpp);
     setIsReady(true);
   }, []);
-
   useEffect(() => {
     if (isReady) {
       getQuestions();

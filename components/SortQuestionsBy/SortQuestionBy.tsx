@@ -10,6 +10,7 @@ const SortQuestionsBy = ({
   setPageNum,
 }: SortQuestionByPropsType) => {
   const { t } = useTranslation();
+
   return (
     <div className={styles.dropdownContainer}>
       <p>{t("SortQuestionsBy")}:</p>
@@ -23,9 +24,11 @@ const SortQuestionsBy = ({
         }}
       >
         <option> {t(sessionStorage.getItem("SortBy") || "All")}</option>
-        <option value="All">{t("All")}</option>
-        <option value="Answered">{t("Answered")}</option>
-        <option value="Unanswered">{t("Unanswered")}</option>
+        {["All", "Answered", "Unanswered"].map((o) => (
+          <option key={o} value={o}>
+            {t(o)}
+          </option>
+        ))}
       </select>
     </div>
   );

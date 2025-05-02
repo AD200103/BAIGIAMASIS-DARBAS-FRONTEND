@@ -7,7 +7,6 @@ import setSliceRange from "@/utils/setSliceRange";
 type SelectPageNumPropType = {
   setQuestionsPerPage: React.Dispatch<React.SetStateAction<number>>;
   questionsPerPage: number;
-  pageNum: number;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
   pageNumArr: number[];
   setSliceStart: React.Dispatch<React.SetStateAction<number>>;
@@ -22,21 +21,17 @@ const SelectPageNum = ({
   setSliceEnd,
 }: SelectPageNumPropType) => {
   const { t } = useTranslation();
-
   const [currentPageVal, setCurrentPageVal] = useState(0);
-
   useEffect(() => {
     if (parseInt(sessionStorage.getItem("pageNumber")!) > pageNumArr.length) {
       sessionStorage.setItem("pageNumber", pageNumArr.length.toString());
       setPageNum(pageNumArr.length - 1);
       return;
     }
-  }, [currentPageVal, pageNumArr.length]);
-
+  }, [currentPageVal, pageNumArr]);
   useEffect(() => {
     sessionStorage.setItem("pgNumArrLngth", pageNumArr.length.toString());
   }, [pageNumArr]);
-
   return (
     <div className={styles.dropdownNumContainer}>
       <p>{t("QuestionsPerPage")}:</p>
@@ -47,18 +42,17 @@ const SelectPageNum = ({
           sessionStorage.setItem("pgNumArrLngth", pageNumArr.length.toString());
           setCurrentPageVal(parseInt(e.target.value));
           setQuestionsPerPage(parseInt(e.target.value));
-          callPageNumArrChang({ pageNumArr, setSliceStart, setSliceEnd });
           setSliceRange({ setSliceStart, setSliceEnd });
+          callPageNumArrChang({ pageNumArr, setSliceStart, setSliceEnd });
+          setPageNum(0);
         }}
       >
         <option>{questionsPerPage}</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="40">40</option>
-        <option value="60">60</option>
+        {[2, 3, 5, 10, 20, 40, 60].map((n) => (
+          <option key={n} value={n.toString()}>
+            {n}
+          </option>
+        ))}
       </select>
     </div>
   );

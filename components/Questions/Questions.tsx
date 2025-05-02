@@ -22,7 +22,6 @@ const Questions = ({
   region,
   setQuestionsPerPage,
   questionsPerPage,
-  pageNum,
   setPageNum,
   pageNumArr,
   setSliceStart,
@@ -37,7 +36,6 @@ const Questions = ({
         <SelectPageNum
           setQuestionsPerPage={setQuestionsPerPage}
           questionsPerPage={questionsPerPage}
-          pageNum={pageNum}
           setPageNum={setPageNum}
           pageNumArr={pageNumArr}
           setSliceStart={setSliceStart}
